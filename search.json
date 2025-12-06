@@ -86,14 +86,14 @@
     ]
   },
   {
-    "objectID": "chapters__/chapter13/another.html",
-    "href": "chapters__/chapter13/another.html",
-    "title": "(ch13) another.ipynb",
+    "objectID": "chapters__/chapter11/data.html",
+    "href": "chapters__/chapter11/data.html",
+    "title": "(ch1) data.ipynb",
     "section": "",
     "text": "This page has only text and data\n\n\nCode\nimport polars as pl\n\n\n\n\nCode\npl.DataFrame([1,2,3])\n\n\n\nshape: (3, 1)\n\n\n\ncolumn_0\n\n\ni64\n\n\n\n\n1\n\n\n2\n\n\n3",
     "crumbs": [
-      "(ch13) introduction",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>(ch13) another.ipynb</span>"
+      "(ch1) introduction",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>(ch1) data.ipynb</span>"
     ]
   },
   {
@@ -104,7 +104,7 @@
     "text": "Some words …",
     "crumbs": [
       "appendix",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>(main) glossary.qmd</span>"
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>(main) glossary.qmd</span>"
     ]
   }
 ]
