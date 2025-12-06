@@ -4,7 +4,17 @@
     "href": "index.html",
     "title": "quarto-book-builder",
     "section": "",
-    "text": "(main) index.qmd\nsetup instructions\n\nsetup github pages https://quarto.org/docs/publishing/github-pages.html\n\nReally just workflow / repo hygiene:\nKeep branches.yaml on main as the list of chapter branches only\nDon’t put main or chapters in there.\nOnly put user chapter branches you want included in the book:\nchapter1 chapter2 lng-europe shipping-atlantic\nEnforce “no merges into chapters” via GitHub settings / policy\nMark chapters as a protected branch.\nOnly allow maintainer pushes; don’t accept PRs into chapters from user branches.\nCulturally: “You never open a PR back to chapters; you PR into main only if we ever want to promote something to infra/template.”\nWhen a new chapter is created:\nAuthor does:\ngit switch chapters git switch -c my-new-chapter # edit docs/, commit, push git push -u origin my-new-chapter\nYou add my-new-chapter to branches.yaml on main.\nNow uv run book-full-build on main will see it, build it, and mount its docs under a new part: in the big book.\ngit checkout –orphan gh-pages git status git rm -rf –dry-run . git rm -rf . docs echo “quarto-gh-pages-builder” &gt; index.html git add . git commit -am “initial gh-page” git push",
+    "text": "(main) index.qmd\nsetup instructions\nReally just workflow / repo hygiene:\nKeep branches.yaml on main as the list of chapter branches only\nDon’t put main or chapters in there.\nOnly put user chapter branches you want included in the book:\nchapter1 chapter2 lng-europe shipping-atlantic\nEnforce “no merges into chapters” via GitHub settings / policy\nMark chapters as a protected branch.\nOnly allow maintainer pushes; don’t accept PRs into chapters from user branches.\nCulturally: “You never open a PR back to chapters; you PR into main only if we ever want to promote something to infra/template.”\nWhen a new chapter is created:\nAuthor does:\ngit switch chapters git switch -c my-new-chapter # edit docs/, commit, push git push -u origin my-new-chapter\nYou add my-new-chapter to branches.yaml on main.\nNow uv run book-full-build on main will see it, build it, and mount its docs under a new part: in the big book.\ngit checkout –orphan gh-pages git status git rm -rf –dry-run . git rm -rf . docs echo “quarto-gh-pages-builder” &gt; index.html git add . git commit -am “initial gh-page” git push",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>(main) index.qmd</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#vscode",
+    "href": "index.html#vscode",
+    "title": "quarto-book-builder",
+    "section": "vscode",
+    "text": "vscode\nuv venv\nuv sync",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>(main) index.qmd</span>"
     ]
@@ -76,14 +86,14 @@
     ]
   },
   {
-    "objectID": "chapters__/chapter13/data.html",
-    "href": "chapters__/chapter13/data.html",
-    "title": "(ch1) data.ipynb",
+    "objectID": "chapters__/chapter13/another.html",
+    "href": "chapters__/chapter13/another.html",
+    "title": "(ch13) another.ipynb",
     "section": "",
     "text": "This page has only text and data\n\n\nCode\nimport polars as pl\n\n\n\n\nCode\npl.DataFrame([1,2,3])\n\n\n\nshape: (3, 1)\n\n\n\ncolumn_0\n\n\ni64\n\n\n\n\n1\n\n\n2\n\n\n3",
     "crumbs": [
-      "(ch1) introduction",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>(ch1) data.ipynb</span>"
+      "(ch13) introduction",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>(ch13) another.ipynb</span>"
     ]
   }
 ]

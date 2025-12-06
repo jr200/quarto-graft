@@ -366,7 +366,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">(ch1) introduction</span></a>
+ <span class="menu-text">(ch13) introduction</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -374,32 +374,22 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters__/chapter13/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">(ch1) index.qmd</span></a>
+  <a href="./chapters__/chapter13/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">(ch13) index.qmd</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters__/chapter13/section1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">(ch1) sec1</span></a>
+  <a href="./chapters__/chapter13/section2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">(ch13) sec2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters__/chapter13/section1_sub.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">(ch1) sec1 - sub</span></a>
+  <a href="./chapters__/chapter13/section2_sub.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">(ch13) sec2 - sub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters__/chapter13/section2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">(ch1) sec2</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters__/chapter13/section2_sub.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">(ch1) sec2 - sub</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./chapters__/chapter13/data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">(ch1) data.ipynb</span></a>
+  <a href="./chapters__/chapter13/another.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">(ch13) another.ipynb</span></a>
   </div>
 </li>
       </ul>
@@ -414,7 +404,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#main-index.qmd" id="toc-main-index.qmd" class="nav-link active" data-scroll-target="#main-index.qmd">(main) index.qmd</a></li>
+  <li><a href="#main-index.qmd" id="toc-main-index.qmd" class="nav-link active" data-scroll-target="#main-index.qmd">(main) index.qmd</a>
+  <ul class="collapse">
+  <li><a href="#vscode" id="toc-vscode" class="nav-link" data-scroll-target="#vscode">vscode</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -468,8 +461,13 @@ ul.task-list li input[type="checkbox"] {
 <p>You add my-new-chapter to branches.yaml on main.</p>
 <p>Now uv run book-full-build on main will see it, build it, and mount its docs under a new part: in the big book.</p>
 <p>git checkout –orphan gh-pages git status git rm -rf –dry-run . git rm -rf . docs echo “quarto-gh-pages-builder” &gt; index.html git add . git commit -am “initial gh-page” git push</p>
+<section id="vscode" class="level2">
+<h2 class="anchored" data-anchor-id="vscode">vscode</h2>
+<pre><code>uv venv
+uv sync</code></pre>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
