@@ -1,0 +1,147 @@
+# Trunk Setup
+
+The **trunk** is your main branch that defines the overall Quarto site structure.
+
+## Installation
+
+```bash
+pip install quarto-graft
+```
+
+## Create a New Trunk
+
+Initialize a new project from a template:
+
+```bash
+quarto-graft trunk init my-project
+cd my-project
+```
+
+This creates:
+
+```
+my-project/
+├── _quarto.yaml          # Site config with collar markers
+├── grafts.yaml           # Graft configuration
+├── grafts.lock           # Build manifest (auto-generated)
+├── .gitignore
+├── .grafts-cache/        # Internal build cache (gitignored)
+└── docs/                 # Website content
+    ├── index.qmd
+    ├── favicon.svg
+    └── grafts__/         # Auto-generated graft content
+```
+
+## Understanding the Trunk Template
+
+The trunk template defines your site's structure. Key file: `_quarto.yaml`
+
+```yaml
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "My Project"
+  sidebar:
+    contents:
+      - docs/index.qmd
+      - section: My Grafts
+        contents:
+          - _GRAFT_COLLAR: main      # Collar attachment point
+      - section: Notes
+        contents:
+          - _GRAFT_COLLAR: notes     # Another collar
+```
+
+**Collars** (`_GRAFT_COLLAR`) are attachment points where grafts connect. When you create a graft, you specify which collar it attaches to.
+
+## First Build
+
+```bash
+quarto-graft build          # Build all grafts
+quarto preview              # Preview the site
+```
+
+On first build, no grafts exist yet, so collars will be empty.
+
+## Customizing Your Trunk
+
+### Using Custom Templates
+
+You can create custom trunk templates for your organization:
+
+```bash
+# Create from custom template directory
+quarto-graft trunk init my-project --template /path/to/template
+
+# Template structure
+my-trunk-template/
+├── _quarto.yaml          # Jinja2 template
+├── docs/
+│   └── index.qmd         # Jinja2 template
+└── grafts.yaml           # Jinja2 template
+```
+
+Templates use Jinja2 variables:
+- `{{ project_name }}` - Project name
+- `{{ project_slug }}` - URL-safe slug
+- Custom variables you define
+
+### Defining Collars
+
+Edit `_quarto.yaml` to add/remove collars:
+
+```yaml
+website:
+  sidebar:
+    contents:
+      - section: Articles
+        contents:
+          - _GRAFT_COLLAR: articles
+      - section: Tutorials
+        contents:
+          - _GRAFT_COLLAR: tutorials
+      - section: Reference
+        contents:
+          - _GRAFT_COLLAR: reference
+```
+
+Grafts will attach to these named sections.
+
+## Publishing to GitHub Pages
+
+1. Initialize git and push to GitHub:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial trunk"
+   git remote add origin <your-repo-url>
+   git push -u origin main
+   ```
+
+2. Create `gh-pages` branch:
+   ```bash
+   git checkout --orphan gh-pages
+   git rm -rf .
+   git commit --allow-empty -m "Initial gh-pages"
+   git push -u origin gh-pages
+   git checkout main
+   ```
+
+3. Configure GitHub Pages:
+   - Settings → Pages → Source: `gh-pages` branch
+   - Settings → Actions → Permissions: Enable read/write
+
+4. Build and publish:
+   ```bash
+   quarto-graft build
+   quarto publish gh-pages
+   ```
+
+## How It Works
+
+1. **Grafts attach to collars**: Each graft specifies a collar in `grafts.yaml`
+2. **Build process**: `quarto-graft build` renders each graft in its worktree
+3. **Auto-navigation**: Built content is injected after the matching collar marker
+4. **Atomic updates**: The trunk's `_quarto.yaml` is updated automatically

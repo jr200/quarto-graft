@@ -1,0 +1,270 @@
+# CLI Reference
+
+Complete reference for the `quarto-graft` command-line tool.
+
+## Installation
+
+```bash
+pip install quarto-graft
+```
+
+## Command Structure
+
+```bash
+quarto-graft [COMMAND] [SUBCOMMAND] [OPTIONS]
+```
+
+---
+
+## Trunk Commands
+
+### `trunk init`
+
+Initialize a new trunk project from a template.
+
+```bash
+quarto-graft trunk init PROJECT_NAME [OPTIONS]
+```
+
+**Arguments:**
+- `PROJECT_NAME` - Name of the new project
+
+**Options:**
+- `--template, -t TEXT` - Template name or path (default: "default")
+- `--help` - Show help message
+
+**Examples:**
+```bash
+# Create from default template
+quarto-graft trunk init my-project
+
+# Create from custom template
+quarto-graft trunk init my-project --template /path/to/template
+
+# Create from built-in template
+quarto-graft trunk init my-project --template minimal
+```
+
+---
+
+## Graft Commands
+
+### `graft create`
+
+Create a new graft branch from a template.
+
+```bash
+quarto-graft graft create [NAME] [OPTIONS]
+```
+
+**Arguments:**
+- `NAME` - Name of the graft (optional, will prompt if not provided)
+
+**Options:**
+- `--template, -t TEXT` - Graft template name or path
+- `--collar, -c TEXT` - Attachment point (collar) in trunk
+- `--branch-name TEXT` - Custom git branch name (default: `graft/{NAME}`)
+- `--push/--no-push` - Push to remote (default: `--push`)
+- `--help` - Show help message
+
+**Examples:**
+```bash
+# Interactive mode (prompts for all options)
+quarto-graft graft create
+
+# Specify name and collar
+quarto-graft graft create my-tutorial --collar tutorials
+
+# Use custom template
+quarto-graft graft create analysis --template python-notebook --collar research
+
+# Don't push to remote
+quarto-graft graft create draft --collar notes --no-push
+```
+
+**Interactive Prompts:**
+- Graft name (if not provided)
+- Template selection (shows available templates)
+- Collar selection (shows available collars from `_quarto.yaml`)
+- Branch name confirmation
+
+### `graft list`
+
+List all grafts from `grafts.yaml`.
+
+```bash
+quarto-graft graft list
+```
+
+**Output:**
+```
+Grafts:
+  tutorial1 (graft/tutorial1) → collar: main
+  notes (graft/notes) → collar: notes
+  analysis (graft/data-analysis) → collar: research
+```
+
+### `graft destroy`
+
+Completely destroy a graft (removes from grafts.yaml, deletes local and remote branches).
+
+```bash
+quarto-graft graft destroy [BRANCH] [OPTIONS]
+```
+
+**Arguments:**
+- `BRANCH` - Git branch name to destroy (optional, will prompt if not provided)
+
+**Options:**
+- `--keep-remote` - Do not delete the remote branch on origin
+- `--help` - Show help message
+
+**Examples:**
+```bash
+# Interactive selection
+quarto-graft graft destroy
+
+# Destroy specific graft
+quarto-graft graft destroy graft/old-tutorial
+
+# Keep remote branch
+quarto-graft graft destroy graft/old-tutorial --keep-remote
+```
+
+**Warning:** This is destructive and irreversible!
+
+---
+
+## Build Commands
+
+### `build`
+
+Build all grafts and update trunk navigation.
+
+```bash
+quarto-graft build [OPTIONS]
+```
+
+**Options:**
+- `--branch, -b TEXT` - Build only specific branch
+- `--help` - Show help message
+
+**Examples:**
+```bash
+# Build all grafts
+quarto-graft build
+
+# Build specific graft
+quarto-graft build --branch graft/my-tutorial
+```
+
+**What it does:**
+1. Fetches latest commits from all graft branches
+2. Renders each graft in its worktree
+3. Copies outputs to `docs/grafts__/`
+4. Updates `grafts.lock` manifest
+5. Updates trunk `_quarto.yaml` navigation
+
+---
+
+## Utility Commands
+
+### `collars list`
+
+List all available collar attachment points from `_quarto.yaml`.
+
+```bash
+quarto-graft collars list
+```
+
+**Output:**
+```
+Available collars:
+  - main
+  - tutorials
+  - articles
+  - notes
+```
+
+### `templates list`
+
+List available templates.
+
+```bash
+quarto-graft templates list [OPTIONS]
+```
+
+**Options:**
+- `--type TEXT` - Filter by type: `trunk` or `graft`
+
+**Examples:**
+```bash
+# List all templates
+quarto-graft templates list
+
+# List only trunk templates
+quarto-graft templates list --type trunk
+
+# List only graft templates
+quarto-graft templates list --type graft
+```
+
+---
+
+## Configuration Files
+
+### `grafts.yaml`
+
+Main configuration file listing all grafts:
+
+```yaml
+branches:
+  - name: tutorial1
+    branch: graft/tutorial1
+    collar: main
+    local_path: tutorial1  # optional, defaults to name
+
+  - name: my-notes
+    branch: graft/personal-notes
+    collar: notes
+```
+
+**Required fields:**
+- `name` - Display name
+- `branch` - Git branch name
+- `collar` - Attachment point
+
+**Optional fields:**
+- `local_path` - Worktree directory (defaults to `name`)
+
+### `grafts.lock`
+
+Auto-generated build manifest (don't edit manually):
+
+```yaml
+graft/tutorial1:
+  last_good: abc123def456...
+  last_checked: "2025-01-15T10:30:00"
+  title: "My Tutorial"
+  branch_key: graft-tutorial1
+  exported:
+    - index.qmd
+    - chapter1.qmd
+```
+
+---
+
+## Environment Variables
+
+- `QUARTO_GRAFT_TEMPLATES_DIR` - Custom templates directory
+- `QUARTO_GRAFT_NO_COLOR` - Disable colored output
+
+---
+
+## Exit Codes
+
+- `0` - Success
+- `1` - General error
+- `2` - Invalid arguments
+- `3` - Git operation failed
+- `4` - Build failed

@@ -1,0 +1,152 @@
+# Playbook
+
+Quarto Graft separates concerns: contributors work in isolated graft branches, while the trunk maintainer orchestrates the unified site.
+
+This page explains the roles and workflows in a quarto-graft project.
+
+## Roles
+
+### Content Creator (Graft Author)
+
+**Responsibility**: Create and maintain content in an isolated graft branch.
+
+**Workflow**:
+1. Request a graft from the trunk maintainer (or create one yourself if you have access)
+2. Check out your graft branch: `git checkout graft/my-graft`
+3. Edit content in `docs/`
+4. Preview locally: `quarto preview docs`
+5. Commit and push: `git add . && git commit -m "Update content" && git push`
+
+**Key Points**:
+- You **never merge** back to main — the trunk pulls your rendered content
+- Your graft has its own dependencies (Python packages, R libraries, etc.)
+- Execute notebooks before committing (trunk doesn't run code)
+- Preview your graft standalone or wait for trunk maintainer to build the full site
+
+**Example Session**:
+```bash
+git checkout graft/my-tutorial
+vim docs/chapter1.qmd
+quarto preview docs           # Preview your graft
+git add docs/chapter1.qmd
+git commit -m "Add chapter 1"
+git push
+```
+
+### Trunk Maintainer
+
+**Responsibility**: Manage the overall site structure, collars, builds, and graft lifecycle.
+
+**Owns**:
+- The `main` branch and `_quarto.yaml` (collar definitions)
+- `grafts.yaml` configuration
+- Build and publish pipeline
+- Graft lifecycle management
+
+**Common Tasks**:
+
+Create a new graft for a contributor:
+```bash
+quarto-graft graft create contributor-name --collar articles
+```
+
+Build all grafts and update navigation:
+```bash
+quarto-graft build
+```
+
+List and manage grafts:
+```bash
+quarto-graft graft list
+quarto-graft graft destroy old-graft
+```
+
+Define new collars in `_quarto.yaml`:
+```yaml
+sidebar:
+  contents:
+    - section: New Section
+      contents:
+        - _GRAFT_COLLAR: new-collar
+```
+
+### Template Author
+
+**Responsibility**: Design and contribute reusable templates for trunks and grafts.
+
+**Template Types**:
+
+**Trunk Templates**: Define site structure, styling, collars
+- Located in `src/quarto_graft/trunk-templates/`
+- Include `_quarto.yaml`, `docs/`, `grafts.yaml`
+- Use Jinja2 for customization
+
+**Graft Templates**: Provide starter content for different use cases
+- Located in `src/quarto_graft/graft-templates/`
+- Examples: `python-notebook`, `r-analysis`, `documentation`
+- Include language-specific dependencies
+
+**How to Contribute**:
+1. Create a template directory with required structure
+2. Test it: `quarto-graft trunk init test --template ./my-template`
+3. Submit PR with template in appropriate directory
+4. Maintainers review and merge
+
+**Template Best Practices**:
+- Include clear README with template purpose
+- Provide working example content
+- Document required dependencies
+- Use Jinja2 variables for customization (`{{ project_name }}`, etc.)
+
+## Workflows
+
+### Adding a New Collar
+
+Trunk maintainer edits `_quarto.yaml`:
+
+```yaml
+sidebar:
+  contents:
+    - section: Case Studies
+      contents:
+        - _GRAFT_COLLAR: case-studies
+```
+
+Authors can now create grafts that attach to `case-studies`:
+
+```bash
+quarto-graft graft create my-case-study --collar case-studies
+```
+
+### Retiring a Graft
+
+1. Content creator archives their work (optional)
+2. Trunk maintainer destroys the graft:
+   ```bash
+   quarto-graft graft destroy old-graft
+   ```
+3. Rebuild to update navigation:
+   ```bash
+   quarto-graft build
+   ```
+
+### Custom Organization Templates
+
+Organizations can create standard templates:
+
+```bash
+# Organization's template repo
+my-org-templates/
+├── trunk-templates/
+│   └── corporate/
+│       ├── _quarto.yaml     # Corporate branding
+│       ├── docs/
+│       └── grafts.yaml
+└── graft-templates/
+    ├── research-paper/
+    └── product-docs/
+
+# Use organizational templates
+quarto-graft trunk init project --template my-org-templates/trunk-templates/corporate
+quarto-graft graft create study --template my-org-templates/graft-templates/research-paper
+```

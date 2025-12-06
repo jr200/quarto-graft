@@ -1,0 +1,22 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "{{ graft_name }}"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Overview
+  sidebar:
+    style: floating
+    contents:
+      - index.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+
+execute:
+  freeze: auto

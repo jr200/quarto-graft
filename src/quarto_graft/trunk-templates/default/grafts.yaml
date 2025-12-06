@@ -1,0 +1,31 @@
+# Template sources - locations to search for graft/trunk templates
+# Sources are searched in order; built-in templates are always available as fallback
+templates:
+  # Local paths (relative to project root or absolute)
+  # - path: ./custom-templates
+  # - path: /absolute/path/to/templates
+
+  # Remote URLs (HTTP/HTTPS archives)
+  # - url: https://example.com/templates.tar.gz
+  # - url: https://example.com/templates.zip
+
+  # GitHub repositories (archive URLs)
+  # - url: https://github.com/user/repo/archive/refs/heads/main.zip
+  # - url: https://github.com/user/repo/archive/refs/tags/v1.0.zip
+
+  # GitHub repositories (git clone with optional ref/tag/branch)
+  # - github: user/repo
+  # - github: user/repo
+  #   ref: main
+  # - github: user/repo
+  #   ref: v1.0.0
+
+branches: []
+# Example branch entry (uncomment and modify to add grafts):
+# - name: demo1
+#   branch: graft/demo1
+#   collar: main
+#   local_path: demo1  # optional, defaults to name
+#
+# Available collars are defined in _quarto.yaml as _GRAFT_COLLAR markers.
+# Common collars: main, notes, bugs

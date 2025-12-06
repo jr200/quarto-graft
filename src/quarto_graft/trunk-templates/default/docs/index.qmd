@@ -1,0 +1,3 @@
+# {{ project_name }}
+
+Created with quarto-graft.

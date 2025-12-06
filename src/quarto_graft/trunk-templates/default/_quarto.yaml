@@ -1,0 +1,74 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+  - docs/favicon.svg
+
+filters:
+- marimo-team/marimo
+
+
+website:
+  title: "{{ project_name }}"
+  description: "Skeleton docs for branch-based Quarto builds."
+  favicon: docs/favicon.svg
+  repo-url: https://github.com/jr200/quarto-graft
+  repo-actions: [source, issue]
+  navbar:
+    title: "{{ project_name }}"
+    logo: docs/favicon.svg
+    logo-alt: "{{ project_name }} logo"
+    left:
+    - href: docs/index.qmd
+      text: Overview
+    right:
+    - text: GitHub
+      icon: github
+      href: https://github.com/jr200/quarto-graft
+
+
+  sidebar:
+    style: floating
+    background: light
+    contents:
+    - docs/index.qmd
+    - section: My Grafts
+      contents:
+      - _GRAFT_COLLAR: main
+    - section: Notes
+      contents:
+      - _GRAFT_COLLAR: notes
+    - section: Bugs
+      contents:
+      - _GRAFT_COLLAR: bugs
+    - docs/appendix/glossary.qmd
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    grid:
+      sidebar-width: 240px
+      body-width: 1200px
+      margin-width: 260px
+    toc: true
+    code-copy: true
+    # code-overflow: wrap
+    # code-tools: true
+    code-fold: true
+    code-summary: "Show the code"
+
+    link-external-newwindow: true
+    page-footer:
+      left: "[quarto-graft](https://github.com/jr200/quarto-graft)"
+      right: "Last build: {{< meta site_build >}}"
+    number-sections: false
+
+highlight-style: a11y
+
+execute:
+  enabled: false
+
+metadata:
+  site_build: "pending"

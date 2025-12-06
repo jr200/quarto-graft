@@ -1,0 +1,6 @@
+# Glossary
+
+- **Graft**: A git branch containing Quarto content that will be mounted into the trunk site.
+- **Trunk**: The main branch that controls `grafts.yaml`, runs builds, and publishes.
+- **Worktree Cache**: Internal build optimization using git worktrees under `.grafts-cache/`. Users work directly on graft branches.
+- **Export**: The rendered output from a graft branch under `docs/grafts__/`.

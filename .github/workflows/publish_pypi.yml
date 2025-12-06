@@ -1,0 +1,64 @@
+name: publish-pypi
+
+on:
+  repository_dispatch:
+    types:
+      - dispatch-publish-pypi
+
+  workflow_dispatch:
+    inputs:
+      checkout-ref:
+        description: "checkout ref"
+        required: false
+        type: string
+        default: "refs/heads/master"
+      build-args:
+        description: "build-args"
+        required: false
+        type: string
+        default: -v
+      publish-args:
+        description: "publish-args"
+        required: false
+        type: string
+        default: -vvv
+
+
+jobs:
+  configure:
+    uses: jr200/github-action-templates/.github/workflows/preconfigure.yml@main
+    with:
+      event_name: ${{ toJson(github.event_name) }}
+      event: ${{ toJson(github.event) }}
+
+  main:
+    needs: configure
+    uses: jr200/github-action-templates/.github/workflows/publish_pypi.yml@main
+    with:
+      checkout-ref: ${{ fromJson(needs.configure.outputs.context).checkout-ref }}
+      build-args: ${{ fromJson(needs.configure.outputs.context).build-args }}
+      publish-args: ${{ fromJson(needs.configure.outputs.context).publish-args }}
+    secrets:
+      pypi_api_token: ${{ secrets.PYPI_API_TOKEN }}
+
+
+  spawn-workflow:
+    needs: main
+    runs-on: ubuntu-latest
+    steps:
+      - id: prepare_payload
+        run: |
+          cat <<EOF > old_payload.json
+          ${{ toJson(github.event.client_payload) }}
+          EOF
+          
+          cat old_payload.json | jq '. + {"pypi_run_id": "${{ github.run_id }}"}' > new_payload.json
+          echo "payload=$(cat new_payload.json | jq -c '.')" >> $GITHUB_OUTPUT
+
+      - name: dispatch-next-workflow
+        uses: peter-evans/repository-dispatch@v3
+        if: github.event_name != 'workflow_dispatch'
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: dispatch-publish-release
+          client-payload: ${{ steps.prepare_payload.outputs.payload }}

@@ -46,4 +46,12 @@ venv.bak/
 .DS_Store?
 ._*
 Thumbs.db
+.grafts-cache/
 .history/
+
+# Quarto specific
+_site/
+.quarto
+/.quarto/
+**/*.quarto_ipynb
+grafts__/

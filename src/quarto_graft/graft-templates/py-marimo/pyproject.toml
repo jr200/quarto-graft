@@ -1,0 +1,16 @@
+[project]
+name = "{{ project_slug }}"
+version = "0.1.0"
+description = "{{ graft_name }} graft starter"
+readme = "README.md"
+authors = [{ name = "quarto-graft" }]
+requires-python = ">=3.11"
+dependencies = [
+    "polars>=1.35.2",
+    "quarto-cli>=1.8.26",
+    "marimo>=0.8.17",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.14,<0.10.0"]
+build-backend = "uv_build"

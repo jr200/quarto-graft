@@ -1,0 +1,14 @@
+.history
+__pycache__/
+
+*.swp
+*.bak
+*.log
+
+# Quarto documentation
+.quarto/   
+docs/_site/
+docs/.quarto/
+docs/_freeze/
+docs/_styles-quartodoc.css
+docs/grafts__/

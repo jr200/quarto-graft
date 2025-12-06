@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "**/*.ipynb"
+    - "**/*.md"
+    - "**/*.qmd"
+
+website:
+  title: "{{ graft_name }}"
+  navbar:
+    left:
+      - text: "Overview"
+        href: index.qmd
+      - text: "Jupyter Notebook"
+        href: notebook.ipynb
+  sidebar:
+    style: floating
+    contents:
+      - href: index.qmd
+      - href: notebook.ipynb
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+
+execute:
+  enabled: false
