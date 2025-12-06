@@ -1,0 +1,175 @@
+# Graft Setup
+
+**Grafts** are isolated git branches where individual authors work on content.
+
+## Create a New Graft
+
+From your trunk directory:
+
+```bash
+quarto-graft graft create my-first-graft
+```
+
+This will:
+1. Prompt you to select a **collar** (attachment point)
+2. Create an orphan git branch `graft/my-first-graft`
+3. Initialize the branch from a template
+4. Update `grafts.yaml` with the new entry
+5. Push the branch to remote (by default)
+
+Example interaction:
+
+```
+? Enter graft branch name: my-first-graft
+? Select template: default
+? Select attachment point (collar): main
+? Use default branch name 'graft/my-first-graft'? Yes
+✓ New orphan graft branch created
+Collar: main
+Branch: graft/my-first-graft
+```
+
+### Understanding the Graft Structure
+
+Each graft branch is a self-contained Quarto project:
+
+```
+graft/my-first-graft (branch)
+├── docs/
+│   ├── index.qmd         # Your content
+│   ├── _quarto.yaml      # Graft-specific config
+├── .gitignore
+├── pyproject.toml        # Optional: graft dependencies
+└── README.md
+```
+
+## Specifying a Collar
+
+When you create a graft, you must specify which **collar** it attaches to. Collars are defined in the trunk's `_quarto.yaml`:
+
+```yaml
+# In trunk's _quarto.yaml
+sidebar:
+  contents:
+    - section: Articles
+      contents:
+        - _GRAFT_COLLAR: articles
+    - section: Tutorials
+      contents:
+        - _GRAFT_COLLAR: tutorials
+```
+
+Your graft in `grafts.yaml`:
+
+```yaml
+branches:
+  - name: my-tutorial
+    branch: graft/my-tutorial
+    collar: tutorials        # Attaches to "Tutorials" section
+```
+
+## Working in a Graft
+
+Check out your graft branch and work on it directly:
+
+```bash
+# Switch to your graft branch
+git checkout graft/my-first-graft
+
+# Edit your content
+vim docs/index.qmd
+
+# Preview locally
+quarto preview docs
+
+# Commit and push
+git add .
+git commit -m "Add tutorial content"
+git push
+```
+
+### Important Notes
+
+- **Isolated branches**: Each graft is a separate git branch with its own history
+- **Own dependencies**: Each graft can have its own `pyproject.toml`, `requirements.txt`, or R packages
+- **Execute before commit**: The trunk doesn't execute code, only renders outputs
+- **Commit outputs**: Jupyter notebook outputs must be saved to show on the trunk site
+- **Independent preview**: You can preview grafts standalone without the trunk
+- **No merge conflicts**: Grafts never merge back to main — the trunk pulls rendered content
+
+## Using Custom Graft Templates
+
+Create grafts from custom templates:
+
+```bash
+# Use a specific template
+quarto-graft graft create my-graft --template python-notebook
+
+# Use a template from a directory
+quarto-graft graft create my-graft --template /path/to/template
+```
+
+Example graft template:
+
+```
+my-graft-template/
+├── docs/
+│   ├── index.qmd
+│   ├── _quarto.yaml
+├── pyproject.toml
+└── README.md
+```
+
+Templates support Jinja2 variables:
+- `{{ graft_name }}` - Graft display name
+- `{{ graft_branch }}` - Git branch name
+- `{{ graft_slug }}` - URL-safe identifier
+
+## Building from the Trunk
+
+After pushing graft changes, build from the trunk:
+
+```bash
+cd /path/to/trunk
+quarto-graft build         # Builds all grafts
+quarto preview             # Preview the full site
+```
+
+The trunk will:
+1. Fetch your latest graft commits
+2. Render your graft's content
+3. Copy outputs to `grafts__/my-first-graft/`
+4. Update navigation to include your graft under the specified collar
+
+## Managing Grafts
+
+### List All Grafts
+
+```bash
+quarto-graft graft list
+```
+
+### Remove a Graft
+
+```bash
+# Destroy branch completely (removes from grafts.yaml, deletes local + remote)
+quarto-graft graft destroy my-first-graft
+
+# Keep remote branch
+quarto-graft graft destroy my-first-graft --keep-remote
+```
+
+## Troubleshooting
+
+**Build failures**: If your graft fails to build, the trunk will:
+- Use the last successful build (if available)
+- Display a warning banner on your graft's pages
+- Log the error details
+
+**Broken outputs**: Remember to execute and save notebook outputs before committing:
+
+```bash
+quarto render docs --execute
+git add docs/
+git commit -m "Update outputs"
+```

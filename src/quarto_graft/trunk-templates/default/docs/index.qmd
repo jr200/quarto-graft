@@ -1,0 +1,20 @@
+# {{ project_name }}
+
+Welcome to your Quarto Graft trunk! This page has three **graft collars** (insertion points where you can attach content from separate graft documents):
+
+- `main` - "My Grafts" section
+- `notes` - Notes
+- `bugs` - Bugs
+
+## Get Started
+
+Create your first graft and add it to one of the collars above by referencing its collar name.
+
+```
+quarto-graft graft create
+```
+
+Happy writing!
+
+
+_Created with quarto-graft._

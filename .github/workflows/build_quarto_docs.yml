@@ -1,0 +1,48 @@
+name: build-quarto-docs
+
+on:
+  repository_dispatch:
+    types:
+      - dispatch-build-quarto-docs
+
+  workflow_dispatch:
+    inputs:
+      unused-variable:
+        description: unused-variable
+        required: false
+        type: string
+        default: dummy
+      
+
+jobs:
+  configure:
+    uses: jr200/github-action-templates/.github/workflows/preconfigure.yml@main
+    with:
+      event_name: ${{ toJson(github.event_name) }}
+      event: ${{ toJson(github.event) }}
+
+  main:
+    needs: configure
+    uses: jr200/github-action-templates/.github/workflows/build_quarto_docs.yml@main
+
+  spawn-workflow:
+    needs: main
+    runs-on: ubuntu-latest
+    steps:
+      - id: prepare_payload
+        run: |
+          cat <<EOF > old_payload.json
+          ${{ toJson(github.event.client_payload) }}
+          EOF
+          
+          cat old_payload.json | jq '. + {"quarto_run_id": "${{ github.run_id }}"}' > new_payload.json
+          echo "payload=$(cat new_payload.json | jq -c '.')" >> $GITHUB_OUTPUT
+
+      - name: dispatch-next-workflow
+        uses: peter-evans/repository-dispatch@v3
+        if: github.event_name != 'workflow_dispatch'
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: dispatch-publish-uv-pypi
+          client-payload: ${{ steps.prepare_payload.outputs.payload }}
+

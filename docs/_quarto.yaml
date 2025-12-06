@@ -1,0 +1,85 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+  - favicon.svg
+
+website:
+  title: "Quarto Graft"
+  description: "Skeleton docs for branch-based Quarto builds."
+  favicon: favicon.svg
+  repo-url: https://github.com/jr200/quarto-graft
+  repo-actions: [source, issue]
+  navbar:
+    title: "Quarto Graft"
+    logo: /favicon.svg
+    logo-alt: "Quarto Graft logo"
+    left:
+    - href: index.qmd
+      text: Overview
+    - href: api-reference.qmd
+      text: API Reference
+    right:
+    - text: GitHub
+      icon: github
+      href: https://github.com/jr200/quarto-graft
+
+
+  sidebar:
+    style: floating
+    background: light
+    contents:
+    - section: index.qmd
+      contents:
+      - playbook.qmd
+
+      - section: Getting Started
+        contents:
+        - setup-trunk.qmd
+        - setup-graft.qmd
+
+      - api-reference.qmd
+
+      - section: Grafts from branches
+        contents:
+        - _AUTOGEN_GRAFTS: '...hidden-node...'
+        - section: jupyter-demo
+          contents:
+          - grafts__/jupyter-demo/index.qmd
+          - grafts__/jupyter-demo/notebook.ipynb
+          _autogen_branch: graft/jupyter-demo
+        - section: markdown-demo
+          contents:
+          - grafts__/markdown-demo/index.qmd
+          _autogen_branch: graft/markdown-demo
+      - contributing.qmd
+      - appendix/glossary.qmd
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    grid:
+      sidebar-width: 240px
+      body-width: 1200px
+      margin-width: 260px
+    toc: true
+    code-copy: true
+    code-overflow: wrap
+    link-external-newwindow: true
+    page-footer:
+      left: "[quarto-graft](https://github.com/jr200/quarto-graft)"
+      right: "Last build: {{< meta site_build >}}"
+    number-sections: false
+
+highlight-style: a11y
+
+execute:
+  enabled: false
+
+filters:
+- site-build.lua
+
+metadata:
+  site_build: "pending"

@@ -1,0 +1,7 @@
+extend-exclude = [
+  "src/quarto_graft/graft-templates/**/*.ipynb",
+  "src/quarto_graft/graft-templates/**/*.py"
+]
+
+[lint]
+per-file-ignores = { "graft-templates/**/pyproject.toml" = ["ALL"] }

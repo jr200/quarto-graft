@@ -1,0 +1,60 @@
+name: build-uv-python-wheel-pure
+
+on:
+  repository_dispatch:
+    types:
+      - dispatch-build-uv-python-wheel-pure
+
+  workflow_dispatch:
+    inputs:
+      checkout-ref:
+        description: "checkout ref"
+        required: false
+        type: string
+        default: "refs/heads/master"
+      artifact_glob:
+        description: artifact-glob
+        required: false
+        type: string
+        default: ""
+      artifact_name:
+        description: artifact-name
+        required: false
+        type: string
+        default: "pywheel"
+
+jobs:
+  configure:
+    uses: jr200/github-action-templates/.github/workflows/preconfigure.yml@main
+    with:
+      event_name: ${{ toJson(github.event_name) }}
+      event: ${{ toJson(github.event) }}
+
+  main:
+    needs: configure
+    uses: jr200/github-action-templates/.github/workflows/build_uv_python_wheel_pure.yml@main
+    with:
+      checkout-ref: ${{ fromJson(needs.configure.outputs.context).checkout-ref }}
+      artifact_glob: ${{ fromJson(needs.configure.outputs.context).artifact_glob }}
+      artifact_name: ${{ fromJson(needs.configure.outputs.context).artifact_name }}
+
+  spawn-workflow:
+    needs: main
+    runs-on: ubuntu-latest
+    steps:
+      - id: prepare_payload
+        run: |
+          cat <<EOF > old_payload.json
+          ${{ toJson(github.event.client_payload) }}
+          EOF
+          
+          cat old_payload.json | jq '. + {"pywheel_run_id": "${{ github.run_id }}"}' > new_payload.json
+          echo "payload=$(cat new_payload.json | jq -c '.')" >> $GITHUB_OUTPUT
+
+      - name: dispatch-next-workflow
+        uses: peter-evans/repository-dispatch@v3
+        if: github.event_name != 'workflow_dispatch'
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: dispatch-build-sphinx-docs
+          client-payload: ${{ steps.prepare_payload.outputs.payload }}

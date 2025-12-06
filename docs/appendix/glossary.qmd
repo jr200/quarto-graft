@@ -1,0 +1,57 @@
+# Glossary
+
+## Core Concepts
+
+**Trunk**
+: The main git branch (`main`) that defines the overall Quarto site structure, styling, and navigation. The trunk contains `_quarto.yaml` at the project root with collar definitions and orchestrates the build process.
+
+**Graft**
+: An isolated git branch (typically named `graft/<name>`) containing independent Quarto content. Each graft is a self-contained project that attaches to a specific collar in the trunk.
+
+**Collar**
+: A named attachment point in the trunk's `_quarto.yaml` where grafts connect. Defined with `_GRAFT_COLLAR: <name>` markers. Examples: `main`, `tutorials`, `articles`, `notes`.
+
+**Worktree Cache**
+: Internal build optimization using git worktrees under `.grafts-cache/`. The build system uses worktrees to efficiently render multiple graft branches without affecting the user's working directory. Users work directly on graft branches and don't interact with this cache.
+
+## Configuration Files
+
+**grafts.yaml**
+: Configuration file in the trunk that lists all grafts and their attachment points:
+```yaml
+branches:
+  - name: my-tutorial
+    branch: graft/my-tutorial
+    collar: tutorials
+    local_path: my-tutorial  # optional
+```
+
+**grafts.lock**
+: Auto-generated manifest tracking the build state of each graft (last successful commit SHA, exported files, titles). Similar to a lockfile in package managers.
+
+## Build Artifacts
+
+**Export**
+: The rendered output from a graft, copied to `docs/grafts__/<graft-name>/` during the build process. The trunk assembles exports from all grafts into the final site.
+
+**Branch Key**
+: A filesystem-safe identifier derived from a graft's branch name (e.g., `graft/my-demo` → `graft-my-demo`). Used for directory names under `grafts__/`.
+
+## Templates
+
+**Trunk Template**
+: A Jinja2-based template directory defining the initial structure of a trunk (main site). Includes `_quarto.yaml`, `docs/`, and `grafts.yaml` with collar definitions.
+
+**Graft Template**
+: A Jinja2-based template directory defining the initial structure of a graft branch. Includes starter content, `_quarto.yaml`, and optional dependency files.
+
+## Build Process Terms
+
+**Last-Good Build**
+: When a graft build fails, the trunk falls back to the last successful build (if available), displaying a warning banner. Prevents broken code from blocking the entire site.
+
+**Autogen Marker**
+: The `_autogen_branch` metadata added to auto-generated navigation entries, allowing the system to track and update graft content without manual intervention.
+
+**Orphan Branch**
+: A git branch with no parent commits, used for grafts to ensure complete isolation from the trunk's history.

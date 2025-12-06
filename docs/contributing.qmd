@@ -1,0 +1,235 @@
+# Contributing
+
+Thank you for your interest in contributing to Quarto Graft! This project welcomes contributions of code, templates, documentation, and ideas.
+
+## Types of Contributions
+
+### Code Contributions
+
+**Areas to contribute:**
+- CLI improvements and new commands
+- Template rendering engine
+- Build system optimizations
+- Error handling and user experience
+- Test coverage
+
+**Process:**
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/my-feature`
+3. Make your changes with tests
+4. Run tests: `pytest`
+5. Submit a pull request
+
+**Development setup:**
+```bash
+git clone https://github.com/jr200/quarto-graft
+cd quarto-graft
+pip install -e ".[dev]"
+pytest
+```
+
+### Template Contributions
+
+Templates are reusable starter projects for trunks and grafts.
+
+#### Trunk Templates
+
+Define the initial structure and styling of a Quarto site.
+
+**Location:** `src/quarto_graft/trunk-templates/`
+
+**Required structure:**
+```
+my-trunk-template/
+├── _quarto.yaml          # Jinja2 template with collars
+├── docs/
+│   ├── index.qmd         # Jinja2 template
+│   └── appendix/
+│       └── glossary.qmd
+└── grafts.yaml           # Initial config
+```
+
+**Available Jinja2 variables:**
+- `{{ project_name }}` - User-provided project name
+- `{{ project_slug }}` - URL-safe version of project name
+- `{{ package_name }}` - Python package name
+
+**Example collar definition:**
+```yaml
+# In _quarto.yaml template
+sidebar:
+  contents:
+    - section: {{ project_name }}
+      contents:
+        - _GRAFT_COLLAR: main
+    - section: Documentation
+      contents:
+        - _GRAFT_COLLAR: docs
+```
+
+#### Graft Templates
+
+Provide starter content for different types of contributions.
+
+**Location:** `src/quarto_graft/graft-templates/`
+
+**Required structure:**
+```
+my-graft-template/
+├── docs/
+│   ├── index.qmd         # Jinja2 template
+│   └── _quarto.yaml      # Graft-specific config
+├── README.md
+└── pyproject.toml        # Optional dependencies
+```
+
+**Available Jinja2 variables:**
+- `{{ graft_name }}` - Display name of the graft
+- `{{ graft_branch }}` - Git branch name
+- `{{ graft_slug }}` - URL-safe identifier
+- `{{ graft_local_path }}` - Local worktree path
+
+**Example graft `_quarto.yaml`:**
+```yaml
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "{{ graft_name }}"
+  sidebar:
+    contents:
+      - docs/index.qmd
+```
+
+### Templates We'd Like to See
+
+**Trunk templates:**
+- Minimal (single-page site)
+- Documentation portal (corporate style)
+- Book template (chapter-based)
+- Research publication template
+- Course/tutorial site template
+
+**Graft templates:**
+- Python + Jupyter + Pandas
+- R + Quarto + ggplot2
+- Julia + Pluto notebooks
+- Observable + D3.js
+- Documentation (API reference)
+- Research paper template
+- Tutorial/workshop template
+
+### Template Best Practices
+
+✅ **Do:**
+- Include a README explaining the template purpose
+- Provide working example content
+- Use clear variable names in Jinja2 templates
+- Document required dependencies
+- Test the template before submitting
+- Use consistent styling and structure
+
+❌ **Don't:**
+- Hardcode project-specific names
+- Include large binary files
+- Use deprecated Quarto features
+- Require proprietary software
+- Include secrets or credentials
+
+### Template Submission Process
+
+1. **Create your template** in the appropriate directory:
+   - `src/quarto_graft/trunk-templates/my-template/`
+   - `src/quarto_graft/graft-templates/my-template/`
+
+2. **Test it thoroughly:**
+   ```bash
+   # For trunk templates
+   quarto-graft trunk init test-project --template my-template
+   cd test-project
+   quarto preview
+
+   # For graft templates
+   quarto-graft graft create test-graft --template my-template
+   git checkout graft/test-graft
+   quarto preview docs
+   ```
+
+3. **Document it** with a README in the template directory:
+   ```markdown
+   # My Template
+
+   ## Description
+   Brief description of what this template provides.
+
+   ## Use Case
+   Who should use this template and when.
+
+   ## Requirements
+   - Quarto >= 1.4
+   - Python >= 3.10 (if applicable)
+
+   ## Features
+   - Feature 1
+   - Feature 2
+
+   ## Example
+   `quarto-graft trunk init my-proj --template my-template`
+   ```
+
+4. **Submit a pull request:**
+   - Title: "Add [trunk|graft] template: [template-name]"
+   - Description: Explain the use case and features
+   - Include screenshots if applicable
+
+### Documentation Contributions
+
+Help improve the docs in `docs/`:
+- Fix typos and clarify explanations
+- Add examples and use cases
+- Improve CLI command documentation
+- Create tutorials and guides
+
+**Build docs locally:**
+```bash
+cd docs
+quarto preview
+```
+
+### Reporting Issues
+
+**Bug reports:**
+- Use GitHub Issues
+- Include version: `quarto-graft --version`
+- Provide minimal reproducible example
+- Include error messages and logs
+
+**Feature requests:**
+- Describe the use case
+- Explain current workarounds
+- Suggest implementation approach
+
+## Code Style
+
+- Follow PEP 8 for Python code
+- Use type hints
+- Write docstrings for public functions
+- Keep functions focused and testable
+
+## Testing
+
+Run the test suite:
+```bash
+pytest                    # All tests
+pytest tests/test_cli.py  # Specific file
+pytest -v                 # Verbose output
+```
+
+## Questions?
+
+- Open a GitHub Discussion
+- Check existing issues and PRs
+- Review the documentation
+
+Thank you for contributing! 🎉

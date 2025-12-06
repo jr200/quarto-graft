@@ -1,0 +1,28 @@
+name: begin-release-flow
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  spawn-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - name: dispatch-next-workflow
+        uses: peter-evans/repository-dispatch@v3
+        if: github.event_name != 'workflow_dispatch'
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: dispatch-build-uv-python-wheel-pure
+          client-payload: |-
+            {
+              "ref": "${{ github.ref }}",
+              "tag": "${{ env.TAG }}",
+              "checkout-ref": "${{ env.TAG }}",
+              "artifact_name": "pywheel",
+              "artifact_glob": "dist/*.whl",
+              "build-args": "-v",
+              "publish-args": "-vvv"
+            }

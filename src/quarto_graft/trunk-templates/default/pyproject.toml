@@ -1,0 +1,10 @@
+[project]
+name = "{{ project_name | replace(' ', '-') }}"
+version = "0.0.0"
+description = "Quarto trunk site for {{ project_name }}"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "quarto-cli>=1.8.26",
+    "quarto-graft",
+]

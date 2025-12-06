@@ -1,0 +1,29 @@
+---
+title: Marimo App
+filters:
+- marimo-team/marimo
+---
+
+This is a demo page showing the marimo ui slider.
+
+```python {.marimo}
+slider = mo.ui.slider(start=1, stop=10, step=1, include_input=True)
+slider
+
+mo.md(
+    f"""
+    The `marimo.ui` module has a library of pre-built elements.
+
+    For example, here's a `slider`: {slider}
+    """
+)
+```
+
+```python {.marimo}
+mo.md(f"and here's its value: **{slider.value}**.")
+```
+
+
+```python {.marimo}
+import marimo as mo
+```

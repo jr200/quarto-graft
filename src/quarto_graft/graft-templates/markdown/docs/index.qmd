@@ -1,0 +1,24 @@
+# Welcome to {{ graft_name }}
+
+This is a lightweight Markdown documentation site built with [Quarto](https://quarto.org). It's designed for teams who need clean, readable documentation without heavy tooling—just write prose and add code fences when needed.
+
+## Quick Start
+
+1. **Edit this page** - Replace this content with your project overview
+2. **Add documentation** - Create `.qmd` or `.md` files in the `docs/` folder
+3. **Update navigation** - Edit `_quarto.yaml` to organize your sidebar
+4. **Build and preview** - Run `make` to generate `_site/`, or use `quarto preview` for live reloading
+
+## Features
+
+- Clean Markdown syntax with optional code highlighting
+- Automatic sidebar navigation
+- Cross-references and citations support
+- Easy deployment to GitHub Pages, Netlify, or other static hosts
+
+## Learn More
+
+- [Quarto Markdown Basics](https://quarto.org/docs/authoring/markdown-basics.html)
+- [Organizing Content](https://quarto.org/docs/websites/)
+
+Happy writing!

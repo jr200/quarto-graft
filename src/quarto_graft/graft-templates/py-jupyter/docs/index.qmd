@@ -1,0 +1,39 @@
+# Overview
+
+Welcome to the **{{ graft_name }}** graft. This template combines a uv-managed Python package with Quarto documentation and Jupyter notebooks.
+
+## What's included
+
+- **Python package**: uv-managed project at `src/{{ package_name }}/`
+- **Documentation**: Quarto site with navbar and sidebar navigation
+- **Pre-rendered notebooks**: Jupyter notebooks demonstrating package usage
+- **Example code**: Simple helpers including `greet` and `show_dataframe`
+
+## Quick start
+
+Install dependencies and render the documentation:
+
+```bash
+uv sync
+uv run quarto render --no-execute
+```
+
+Preview the site:
+
+```bash
+make preview
+# or manually: open _site/index.html
+```
+
+## Using the package
+
+Import and use the package in your Python code:
+
+```python
+from {{ package_name }} import greet, show_dataframe
+greet("Quarto")
+
+show_dataframe()
+```
+
+For a complete example, see `notebook.ipynb`.
