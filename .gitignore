@@ -18,6 +18,8 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+.ruff_cache/
+.mypy_cache/
 
 # Environments
 .env
@@ -29,12 +31,8 @@ env.bak/
 venv.bak/
 .pytest_cache
 
-# uv lock file (library project - don't commit)
-uv.lock
-
 # IDE specific files
 .idea/
-.vscode/
 *.swp
 *.swo
 
@@ -44,12 +42,12 @@ uv.lock
 /examples
 
 # Quarto documentation
-docs/_site/                    
-docs/.quarto/                  
-.quarto/                       
-docs/_freeze/                  
-docs/.jupyter_cache/           
-docs/**/.jupyter_cache/        
+docs/_site/
+docs/.quarto/
+.quarto/   
+docs/_freeze/
+docs/.jupyter_cache/
+docs/**/.jupyter_cache/
 docs/reference/*.qmd
 docs/legacy
 docs/_styles-quartodoc.css
@@ -59,8 +57,6 @@ docs/_styles-quartodoc.css
 # docs/workflows/*.ipynb
 # docs/advanced/*.ipynb
 
-# Keep tvboptim cache directories (pickle files from @cache decorator)
-# These should be committed for reproducible builds
 # !docs/**/cache/
 
 # OS-specific
@@ -68,4 +64,6 @@ docs/_styles-quartodoc.css
 .DS_Store?
 ._*
 Thumbs.db
-.history
+docs/grafts__
+.grafts/
+.history/

@@ -1,0 +1,4 @@
+/.quarto/
+/_site/
+/grafts__/
+**/*.quarto_ipynb

@@ -1,0 +1,29 @@
+# Playbook
+
+Quarto Graft keeps contributors in small, safe branches while the trunk curates a single site.
+
+This page explains the hats a quarto-graft wears during the development of the website.
+
+## Roles
+
+### Content Creator
+- Work only in their graft branch.
+- Never merge back -- their content is pulled in by the trunk.
+- Typical loop:
+  - `git checkout my-graft-branch`
+  - _...working on the content..._
+  - `make preview`
+  - `git commit` and `git push`
+
+
+
+### Trunk Maintainer
+- Owns the `main` trunk.
+- Controls the inventory `grafts.yaml` and `grafts.lock`.
+- Maintains `docs/_quart.yaml` and site branding.
+- Run trunk builds, publishing pipelines.
+- Owns graft lifecycle: `graft-new`, `graft-list`, `graft-destroy`, `graft-cleanup-orphans`
+
+### Template Contributor
+- Propose and evolve the starter skeletons used for new grafts.
+- Submit changes via PRs to `main`; maintainers promote accepted templates into the `templates/` folder.

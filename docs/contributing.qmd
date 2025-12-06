@@ -1,0 +1,34 @@
+# Contributing
+
+
+## Templates
+
+A template is a ready-to-use graft skeleton (project structure, language/tooling, Quarto settings, navigation, dependency strategy). New graft branches start from whatever template lives on the protected template branch.
+
+### What makes a good template
+- Runs immediately with `make preview`.
+- Includes the basics:
+  - `docs/`
+  - `_quarto.yaml`
+  - `Makefile`
+  - `pyproject.toml` (or equivalent for the stack)
+- Clearly shows:
+  - the primary language/toolchain,
+  - how outputs are rendered,
+  - how notebooks or scripts are handled.
+
+### Templates we'd like to see
+- Python + Jupyter + Polars
+- R + Quarto + ggplot
+- JavaScript + Observable + WASM
+- Book-style chapters vs website-style sections
+- Research reproducibility templates
+- Internal documentation templates
+
+### How template contributions work
+- Open a PR to `main` with your proposed template changes.
+- Maintainers review for structure, safety, and ergonomics.
+- Once accepted, maintainers promote it into the protected template branch.
+- Contributors automatically inherit the updated template when they create new grafts.
+
+> Important: No one opens PRs directly into the protected template branch; it remains maintainer-controlled.

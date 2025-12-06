@@ -1,0 +1,27 @@
+# Overview
+
+Welcome to the {{ graft_name }} graft. This starter shows how to ship a small Python package and surface it in Quarto content (including notebooks).
+
+## What's inside
+
+- uv-managed project with a package at `src/{{ package_name }}/`
+- Quarto site with navbar/sidebar and a demo notebook
+- Simple `greet` helper exported from the package
+
+## Quick start
+
+```bash
+uv sync
+uv run quarto render docs --no-execute
+```
+
+Then open `_site/index.html` or run `make preview`.
+
+## Use the package
+
+```python
+from {{ package_name }} import greet
+greet("Quarto")
+```
+
+See `notebook.ipynb` for a runnable example.

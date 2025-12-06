@@ -1,0 +1,22 @@
+name: Quarto Graft CI
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref (branch/tag/SHA) of the infra repo to build from"
+        required: false
+        default: "main"
+
+jobs:
+  build:
+    name: Run Build
+    uses: "./.github/workflows/quarto-build.yaml"
+    with:
+      # When triggered by push, github.ref_name is typically "main"
+      # When triggered manually, prefer the user-provided input
+      ref: ${{ github.event.inputs.ref || github.ref_name }}

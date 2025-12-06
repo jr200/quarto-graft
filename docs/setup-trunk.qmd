@@ -1,0 +1,58 @@
+# Setup (trunk)
+
+1. Navigate to: https://github.com/jr200/quarto-graft
+2. Click on `Use this template` and `Create a new repository`.
+3. `git clone` your instantiated repo, and you will see:
+4. (optional) If you didn't clone all branches:
+   a. replace the contents of `grafts.yaml` with `branches: []`
+   b. create and push a new orphaned empty git branch called `gh-pages`.
+
+   ```
+   main/
+   ├── .grafts/              # local worktrees
+   ├── docs/                 # main website
+   │   ├── index.qmd
+   │   ├── ...
+   │   └── grafts__/         # (auto-generated graft content)
+   ├── grafts.yaml
+   ├── src/quarto_graft/     # tooling
+   ```
+
+## First Build
+
+```bash
+uv sync
+uv run trunk-build
+uv run quarto render docs --no-execute
+uv run quarto preview docs
+```
+You'll see the assembled site. If you did not clone all repositories the 'Grafts from branches' section will be empty (but that's fine).
+
+## Github Settings
+
+Apply these changes to your github repo settings.
+
+1. Ensure a `gh-pages` branch exists.
+2. Ensure the following are set.
+   - `Settings` -> `Actions` -> `General`
+      - `Actions permissions` -> `Allow all actions and reusable workflows`
+      - `Workflow Permissions` `Read and write permissions`
+   - `Settings` -> `Pages` -> `Build and deployment`
+      - `Source` -> `Deploy from a branch`
+      - `Branch` -> `gh-pages`
+2. Point Pages at `docs/_site`.
+3. Render locally or in CI, then push `_site` to `gh-pages`.
+
+## Publish to Github Pages
+
+This site has github actions configured to work out-of-the-box.
+
+- Make a test commit and push from the main branch. 
+- Check the 'Actions' page for build logs.
+- After some time, your site will be published.
+
+
+## Guardrails
+- Worktrees keep uncommitted work isolated from main.
+- Navigation updates happen automatically after each build.
+- Cleaning graft worktrees is safe-guarded; `make clean-grafts` will refuse to delete dirty worktrees.

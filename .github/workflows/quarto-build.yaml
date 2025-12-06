@@ -1,0 +1,48 @@
+name: quarto_build
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: "Git ref (branch/tag/SHA) of the infra repo to build from"
+        required: false
+        type: string
+        default: "main"
+
+permissions: 
+    contents: write
+    pages: write
+
+jobs:
+  build:
+    name: Build and assemble main document
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v4
+
+      - uses: quarto-dev/quarto-actions/setup@v2.2.0
+
+      - name: Build
+        run: |
+          uv run trunk-build
+
+      - name: Render quartodoc
+        uses: quarto-dev/quarto-actions/render@v2.2.0
+        with:
+          path: docs
+          to: html
+      
+      - name: Publish HTML quartodoc
+        uses: quarto-dev/quarto-actions/publish@v2.2.0
+        with:
+          path: docs
+          target: gh-pages
+          render: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  

@@ -1,0 +1,16 @@
+# API Reference
+
+Project scripts (via `uv run`) you can advertise to contributors and maintainers.
+
+| Command | Purpose | When to use |
+| --- | --- | --- |
+| `uv run trunk-build` | Build every graft listed in `grafts.yaml` and refresh navigation. | Regular builds in CI or before publishing. |
+| `uv run trunk-lock` | Regenerate `grafts.lock` after successful builds. | After trunk-build to persist the manifest. |
+| `uv run graft-new --template <template> <name>` | Create a new graft branch from the template. | Onboard a new section/chapter owner. |
+| `uv run graft-get <name>` | Ensure a worktree exists locally for a graft branch. | When resuming work on an existing graft. |
+| `uv run graft-build --branch <name>` | Build a single graft branch. | Local iteration on one section. |
+| `uv run graft-list` | Show graft branches that can safely be destroyed. | Before removing stale grafts. |
+| `uv run graft-destroy <branch>` | Remove a graft branch locally/remotely and clean config. | When retiring a graft. |
+| `uv run graft-cleanup-orphans` | Remove `.grafts/*` directories no longer registered as worktrees. | Repo hygiene if worktrees drift. |
+
+> Add your own helper scripts here, or link to CI workflows that run these commands.

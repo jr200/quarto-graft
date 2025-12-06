@@ -1,0 +1,70 @@
+# Setup (graft)
+
+
+## Create a new graft
+
+This step can be done by the contributor, or the trunk maintainer.
+
+Clone the repo and create a new graft.
+
+```bash
+git clone ...
+uv run graft-new  --template py-jupyter my-first-graft
+```
+
+This will create a and push a git branch `graft/my-first-graft`, also updating the `grafts.yaml` configuration file. The `grafts.lock` manifest can be updated by running:
+
+```bash
+uv run trunk-build
+```
+
+You can preview the new graft in the hierarchy using.
+
+```bash
+uv run quarto preview docs
+```
+
+Each **graft template** carries its own:
+
+```
+my-first-graft/
+├── docs/
+│   ├── index.qmd
+│   ├── _quarto.yaml
+├── .gitignore
+├── Makefile
+├── README.md
+```
+
+## Add content to the graft
+
+The branch is an entirely isolated quartodoc project and knows nothing about the trunk.
+
+The only contract is the following command must succeed using the python dependencies of the trunk.
+
+```bash
+uv run quarto render docs
+```
+
+Save and push changes to the remote.
+
+```bash
+git commit -am "added new graft called 'my-first-graft'"
+git push
+```
+
+Note: the main trunk does not execute any scripts. This means outputs in notebooks need to be committed to the branch if they should be shown on the main website.
+
+## Retire a graft
+
+To see what can be safely removed, run:
+
+```bash
+uv run graft-list
+```
+
+Then destroy a specific graft branch (local, remote, and config entries) with:
+
+```bash
+uv run graft-destroy graft/my-first-graft
+```

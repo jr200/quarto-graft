@@ -1,0 +1,15 @@
+{
+  "configurations": [
+    {
+      "name": "trunk-build",
+      "type": "debugpy",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "args": ["trunk-build"],
+      "module": "quarto_graft.cli",
+      "justMyCode": false,
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "preLaunchTask": "uv-sync"
+    }
+  ]
+}

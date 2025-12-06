@@ -1,0 +1,11 @@
+# Overview
+
+Welcome to the {{ graft_name }} graft. This is a lightweight Markdown starter for teams that just need prose and simple code fences.
+
+## What to do next
+
+- Replace this page with your own content.
+- Add more `.qmd` or `.md` files under `docs/` and link them via the sidebar.
+- Run `make render` (or `quarto render docs`) to build `_site/`.
+
+Happy writing!
