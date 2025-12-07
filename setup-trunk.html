@@ -472,22 +472,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="setup-trunk" class="level1">
 <h1>Setup (trunk)</h1>
-<p>Clone this repo, you will see:</p>
+<ol type="1">
+<li><p>Navigate to: https://github.com/jr200/quarto-graft</p></li>
+<li><p>Click on <code>Use this template</code> and <code>Create a new repository</code></p>
+<ul>
+<li>You will need to create a new empty <code>gh-pages</code> branch in your new repository.</li>
+</ul></li>
+<li><p><code>git clone</code> your instantiated repo, and you will see:</p>
 <pre><code>main/
+├── .grafts/              # local worktrees
 ├── docs/                 # main website
 │   ├── index.qmd
-│   ├── appendix/
-│   └── grafts__/         # auto-generated graft content
+│   ├── ...
+│   └── grafts__/         # (auto-generated graft content)
 ├── grafts.yaml
-├── .grafts/              # local worktrees
-├── src/quarto_graft/     # tooling</code></pre>
+├── src/quarto_graft/     # tooling</code></pre></li>
+</ol>
 <section id="first-build" class="level2">
 <h2 class="anchored" data-anchor-id="first-build">First Build</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="op">&lt;</span>repo<span class="op">&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run trunk-build</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render docs <span class="at">--no-execute</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run trunk-build</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render docs <span class="at">--no-execute</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You’ll see the assembled site (including all grafts) in one site.</p>
 </section>
 <section id="github-settings" class="level2">
