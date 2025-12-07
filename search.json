@@ -12,39 +12,51 @@
     ]
   },
   {
-    "objectID": "grafts__/chapter1/data.html",
-    "href": "grafts__/chapter1/data.html",
-    "title": "(ch1) data.ipynb",
+    "objectID": "grafts__/mychapter/index.html",
+    "href": "grafts__/mychapter/index.html",
+    "title": "mychapter",
     "section": "",
-    "text": "This page has only text and data\n\nfrom chapter_lib.lib import say_hello, calculate_dataframe\n\n\nsay_hello()\n\n'Hello from chapter-lib!'\n\n\n\ncalculate_dataframe()\n\n\nshape: (3, 1)\n\n\n\ncolumn_0\n\n\ni64\n\n\n\n\n1\n\n\n2\n\n\n3",
+    "text": "Welcome to the mychapter graft. This starter shows how to ship a small Python package and surface it in Quarto content (including notebooks).\n\n\n\nuv-managed project with a package at src/mychapter/\nQuarto site with navbar/sidebar and a demo notebook\nSimple greet helper exported from the package\n\n\n\n\nuv sync\nuv run quarto render docs --no-execute\nThen open _site/index.html or run make preview.\n\n\n\nfrom mychapter import greet\ngreet(\"Quarto\")\nSee notebook.ipynb for a runnable example.",
     "crumbs": [
       "Overview",
-      "(ch1) introduction",
-      "(ch1) data.ipynb"
+      "mychapter",
+      "mychapter"
     ]
   },
   {
-    "objectID": "grafts__/chapter1/section2_sub.html",
-    "href": "grafts__/chapter1/section2_sub.html",
-    "title": "(ch1) sec2 - sub",
+    "objectID": "grafts__/mychapter/index.html#whats-inside",
+    "href": "grafts__/mychapter/index.html#whats-inside",
+    "title": "mychapter",
     "section": "",
-    "text": "(ch1) sec2 - sub\nthis is section 678",
+    "text": "uv-managed project with a package at src/mychapter/\nQuarto site with navbar/sidebar and a demo notebook\nSimple greet helper exported from the package",
     "crumbs": [
       "Overview",
-      "(ch1) introduction",
-      "(ch1) sec2 - sub"
+      "mychapter",
+      "mychapter"
     ]
   },
   {
-    "objectID": "grafts__/chapter1/section1_sub.html",
-    "href": "grafts__/chapter1/section1_sub.html",
-    "title": "(ch1) sec1 - sub",
+    "objectID": "grafts__/mychapter/index.html#quick-start",
+    "href": "grafts__/mychapter/index.html#quick-start",
+    "title": "mychapter",
     "section": "",
-    "text": "(ch1) sec1 - sub\nthis is section 456",
+    "text": "uv sync\nuv run quarto render docs --no-execute\nThen open _site/index.html or run make preview.",
     "crumbs": [
       "Overview",
-      "(ch1) introduction",
-      "(ch1) sec1 - sub"
+      "mychapter",
+      "mychapter"
+    ]
+  },
+  {
+    "objectID": "grafts__/mychapter/index.html#use-the-package",
+    "href": "grafts__/mychapter/index.html#use-the-package",
+    "title": "mychapter",
+    "section": "",
+    "text": "from mychapter import greet\ngreet(\"Quarto\")\nSee notebook.ipynb for a runnable example.",
+    "crumbs": [
+      "Overview",
+      "mychapter",
+      "mychapter"
     ]
   },
   {
@@ -141,39 +153,15 @@
     ]
   },
   {
-    "objectID": "grafts__/chapter1/index.html",
-    "href": "grafts__/chapter1/index.html",
-    "title": "(ch1) index.qmd",
+    "objectID": "grafts__/mychapter/notebook.html",
+    "href": "grafts__/mychapter/notebook.html",
+    "title": "mychapter notebook",
     "section": "",
-    "text": "(ch1) index.qmd\nthis is the index 123",
+    "text": "Quick check that the graft package imports and runs.\n\nfrom mychapter import greet\n\ngreet(\"branch builder\")",
     "crumbs": [
       "Overview",
-      "(ch1) introduction",
-      "(ch1) index.qmd"
-    ]
-  },
-  {
-    "objectID": "grafts__/chapter1/section2.html",
-    "href": "grafts__/chapter1/section2.html",
-    "title": "(ch1) sec2",
-    "section": "",
-    "text": "(ch1) sec2\nthis is section 432",
-    "crumbs": [
-      "Overview",
-      "(ch1) introduction",
-      "(ch1) sec2"
-    ]
-  },
-  {
-    "objectID": "grafts__/chapter1/section1.html",
-    "href": "grafts__/chapter1/section1.html",
-    "title": "(ch1) sec1",
-    "section": "",
-    "text": "(ch1) sec1",
-    "crumbs": [
-      "Overview",
-      "(ch1) introduction",
-      "(ch1) sec1"
+      "mychapter",
+      "mychapter notebook"
     ]
   },
   {
