@@ -12,6 +12,42 @@
     ]
   },
   {
+    "objectID": "grafts__/chapter66/section1.html",
+    "href": "grafts__/chapter66/section1.html",
+    "title": "(ch1) sec1",
+    "section": "",
+    "text": "(ch1) sec1",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) sec1"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter66/section2.html",
+    "href": "grafts__/chapter66/section2.html",
+    "title": "(ch1) sec2",
+    "section": "",
+    "text": "(ch1) sec2",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) sec2"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter66/index.html",
+    "href": "grafts__/chapter66/index.html",
+    "title": "(ch1) index.qmd",
+    "section": "",
+    "text": "(ch1) index.qmd",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) index.qmd"
+    ]
+  },
+  {
     "objectID": "grafts__/chapter11/section1.html",
     "href": "grafts__/chapter11/section1.html",
     "title": "(ch1) sec1",
@@ -180,6 +216,42 @@
   {
     "objectID": "grafts__/chapter11/data.html",
     "href": "grafts__/chapter11/data.html",
+    "title": "(ch1) data.ipynb",
+    "section": "",
+    "text": "This page has only text and data\n\n\nCode\nimport polars as pl\n\n\n\n\nCode\npl.DataFrame([1,2,3])\n\n\n\nshape: (3, 1)\n\n\n\ncolumn_0\n\n\ni64\n\n\n\n\n1\n\n\n2\n\n\n3",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) data.ipynb"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter66/section1_sub.html",
+    "href": "grafts__/chapter66/section1_sub.html",
+    "title": "(ch1) sec1 - sub",
+    "section": "",
+    "text": "(ch1) sec1 - sub",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) sec1 - sub"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter66/section2_sub.html",
+    "href": "grafts__/chapter66/section2_sub.html",
+    "title": "(ch1) sec2 - sub",
+    "section": "",
+    "text": "(ch1) sec2 - sub",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) sec2 - sub"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter66/data.html",
+    "href": "grafts__/chapter66/data.html",
     "title": "(ch1) data.ipynb",
     "section": "",
     "text": "This page has only text and data\n\n\nCode\nimport polars as pl\n\n\n\n\nCode\npl.DataFrame([1,2,3])\n\n\n\nshape: (3, 1)\n\n\n\ncolumn_0\n\n\ni64\n\n\n\n\n1\n\n\n2\n\n\n3",
