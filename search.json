@@ -224,7 +224,7 @@
     "href": "index.html",
     "title": "quarto-graft",
     "section": "",
-    "text": "Compose a single Quarto site from branch-scoped worktrees.\n\nQuarto Graft lets contributors build chapters, sections, or full sub-sites in isolated git branches while the trunk assembles everything into one Quarto website.\n\n\nTraditional versioned collaboration forces everyone into main, leading to merge conflicts, shared heavy dependencies, and a single project shape. Quarto Graft flips that model:\n\nEach contributor owns one branch = one self-contained chapter/section with its own language, environment, and runtime.\nThe trunk never executes contributor code; it only ingests rendered artifacts, keeping main fast and stable.\nBroken branches don’t block the site: last-good fallbacks keep content online with visible warnings.\n\n\n\n\n\nReady-to-publish Quarto scaffold (navbar, sidebar, favicon, footer, search, GitHub links).\nBranch-grafting build system using git worktrees + uv and automatic navigation updates.\nClean contributor workflow: no cross-branch conflicts or shared dependency coupling; full local preview per branch.\nFailure handling: last-good fallbacks and visible broken-branch stubs.\n\n\n\n\n\nMulti-author books and research publications\nQuant/science teams and education platforms\nInternal documentation portals\n…anybody who wants to track and version threads in isolation\n\n\n\n\nQuarto Graft is released under the MIT License. You are free to use, modify, and redistribute it with attribution.",
+    "text": "Compose a single Quarto site from branch-scoped worktrees.\n\nQuarto Graft lets contributors build chapters, sections, or full sub-sites in isolated git branches while the trunk assembles everything into one Quarto website.\n\n\nTraditional versioned collaboration forces everyone into main, leading to merge conflicts, shared heavy dependencies, and a single project shape. Quarto Graft flips that model:\n\nEach contributor owns one branch = one self-contained chapter/section with its own language, environment, and runtime.\nThe trunk never executes contributor code; it only ingests rendered artifacts, keeping main fast and stable.\nBroken branches don’t block the site: last-good fallbacks keep content online with visible warnings.\n\n\n\n\n\nReady-to-publish Quarto scaffold (navbar, sidebar, favicon, footer, search, GitHub links).\nBranch-grafting build system using git worktrees + uv and automatic navigation updates.\nClean contributor workflow: no cross-branch conflicts or shared dependency coupling; full local preview per branch.\nFailure handling: last-good fallbacks and visible broken-branch stubs.\n\n\n\n\n\nMulti-author books and research publications\nQuant/science teams and education platforms\nInternal documentation portals\n…anybody who wants to track and version threads in isolation\n\n\n\n\nquarto-graft is released under the MIT License. You are free to use, modify, and redistribute it with attribution.",
     "crumbs": [
       "Overview",
       "quarto-graft"
@@ -268,7 +268,7 @@
     "href": "index.html#license",
     "title": "quarto-graft",
     "section": "",
-    "text": "Quarto Graft is released under the MIT License. You are free to use, modify, and redistribute it with attribution.",
+    "text": "quarto-graft is released under the MIT License. You are free to use, modify, and redistribute it with attribution.",
     "crumbs": [
       "Overview",
       "quarto-graft"
