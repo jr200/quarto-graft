@@ -12,90 +12,6 @@
     ]
   },
   {
-    "objectID": "grafts__/markdown-template/index.html",
-    "href": "grafts__/markdown-template/index.html",
-    "title": "markdown-template",
-    "section": "",
-    "text": "Warning\n\n\n\nThis branch graft/markdown-template failed to build at its latest known HEAD (branch missing or unreachable).\nYou are seeing content from the last known good commit 2221bef.",
-    "crumbs": [
-      "Overview",
-      "Grafts from branches",
-      "markdown-template",
-      "markdown-template"
-    ]
-  },
-  {
-    "objectID": "grafts__/markdown-template/index.html#what-to-do-next",
-    "href": "grafts__/markdown-template/index.html#what-to-do-next",
-    "title": "markdown-template",
-    "section": "What to do next",
-    "text": "What to do next\n\nReplace this page with your own content.\nAdd more .qmd or .md files under docs/ and link them via the sidebar.\nRun make render (or quarto render docs) to build _site/.\n\nHappy writing!",
-    "crumbs": [
-      "Overview",
-      "Grafts from branches",
-      "markdown-template",
-      "markdown-template"
-    ]
-  },
-  {
-    "objectID": "grafts__/python-template/notebook.html",
-    "href": "grafts__/python-template/notebook.html",
-    "title": "python-template notebook",
-    "section": "",
-    "text": "Quick check that the graft package imports and runs.\n\nfrom python_template import greet, show_dataframe\n\ngreet(\"branch builder\")\n\n'Hello, branch builder! Welcome to python-template.'\n\n\n\nshow_dataframe()\n\n\nshape: (3, 1)\n\n\n\ncolumn_0\n\n\ni64\n\n\n\n\n1\n\n\n2\n\n\n3",
-    "crumbs": [
-      "Overview",
-      "Grafts from branches",
-      "python-template",
-      "python-template notebook"
-    ]
-  },
-  {
-    "objectID": "appendix/glossary.html",
-    "href": "appendix/glossary.html",
-    "title": "Glossary",
-    "section": "",
-    "text": "Glossary\n\nGraft: A git branch containing Quarto content that will be mounted into the trunk site.\nTrunk: The main branch that controls grafts.yaml, runs builds, and publishes.\nWorktree: A checked-out view of a branch living under .grafts/&lt;name&gt;, keeping contributor work isolated.\nExport: The rendered output from a graft branch under docs/grafts__/.",
-    "crumbs": [
-      "Overview",
-      "Appendix",
-      "Glossary"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Quarto Graft",
-    "section": "",
-    "text": "Compose a single Quarto site from branch-scoped worktrees.\n\nQuarto Graft lets contributors build their chapter or section in an isolated git worktree while the trunk assembles everything into one site. This folder is the starter documentation you can ship with any graft-enabled project: keep it lightweight, opinionated, and ready to brand.\n\n\n\nA ready-to-publish Quarto site scaffold (navbar, sidebar, favicon, footer).\nClear placeholders for auto-generated graft content.\nDocs pages to explain the workflow, commands, and contributor expectations.\n\n\n\n\n\nDeclare branch grafts in grafts.yaml.\nEach graft is exported via a git worktree under .grafts/&lt;name&gt;.\nuv run trunk-build renders graft content to docs/grafts__/... and updates navigation automatically.\n\n\nThis starter stays lean on purpose – drop in your own branding, visuals, and content while keeping the structure intact.",
-    "crumbs": [
-      "Overview",
-      "Quarto Graft"
-    ]
-  },
-  {
-    "objectID": "index.html#what-you-get",
-    "href": "index.html#what-you-get",
-    "title": "Quarto Graft",
-    "section": "",
-    "text": "A ready-to-publish Quarto site scaffold (navbar, sidebar, favicon, footer).\nClear placeholders for auto-generated graft content.\nDocs pages to explain the workflow, commands, and contributor expectations.",
-    "crumbs": [
-      "Overview",
-      "Quarto Graft"
-    ]
-  },
-  {
-    "objectID": "index.html#how-grafting-works",
-    "href": "index.html#how-grafting-works",
-    "title": "Quarto Graft",
-    "section": "",
-    "text": "Declare branch grafts in grafts.yaml.\nEach graft is exported via a git worktree under .grafts/&lt;name&gt;.\nuv run trunk-build renders graft content to docs/grafts__/... and updates navigation automatically.\n\n\nThis starter stays lean on purpose – drop in your own branding, visuals, and content while keeping the structure intact.",
-    "crumbs": [
-      "Overview",
-      "Quarto Graft"
-    ]
-  },
-  {
     "objectID": "workflow.html",
     "href": "workflow.html",
     "title": "Workflow overview",
@@ -144,55 +60,48 @@
     ]
   },
   {
-    "objectID": "grafts__/python-template/index.html",
-    "href": "grafts__/python-template/index.html",
-    "title": "python-template",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Quarto Graft",
     "section": "",
-    "text": "Welcome to the python-template graft. This starter shows how to ship a small Python package and surface it in Quarto content (including notebooks).\n\n\n\nuv-managed project with a package at src/python_template/\nQuarto site with navbar/sidebar and a demo notebook\nSimple greet helper exported from the package\n\n\n\n\nuv sync\nuv run quarto render docs --no-execute\nThen open _site/index.html or run make preview.\n\n\n\nfrom python_template import greet\ngreet(\"Quarto\")\nSee notebook.ipynb for a runnable example.",
+    "text": "Compose a single Quarto site from branch-scoped worktrees.\n\nQuarto Graft lets contributors build their chapter or section in an isolated git worktree while the trunk assembles everything into one site. This folder is the starter documentation you can ship with any graft-enabled project: keep it lightweight, opinionated, and ready to brand.\n\n\n\nA ready-to-publish Quarto site scaffold (navbar, sidebar, favicon, footer).\nClear placeholders for auto-generated graft content.\nDocs pages to explain the workflow, commands, and contributor expectations.\n\n\n\n\n\nDeclare branch grafts in grafts.yaml.\nEach graft is exported via a git worktree under .grafts/&lt;name&gt;.\nuv run trunk-build renders graft content to docs/grafts__/... and updates navigation automatically.\n\n\nThis starter stays lean on purpose – drop in your own branding, visuals, and content while keeping the structure intact.",
     "crumbs": [
       "Overview",
-      "Grafts from branches",
-      "python-template",
-      "python-template"
+      "Quarto Graft"
     ]
   },
   {
-    "objectID": "grafts__/python-template/index.html#whats-inside",
-    "href": "grafts__/python-template/index.html#whats-inside",
-    "title": "python-template",
+    "objectID": "index.html#what-you-get",
+    "href": "index.html#what-you-get",
+    "title": "Quarto Graft",
     "section": "",
-    "text": "uv-managed project with a package at src/python_template/\nQuarto site with navbar/sidebar and a demo notebook\nSimple greet helper exported from the package",
+    "text": "A ready-to-publish Quarto site scaffold (navbar, sidebar, favicon, footer).\nClear placeholders for auto-generated graft content.\nDocs pages to explain the workflow, commands, and contributor expectations.",
     "crumbs": [
       "Overview",
-      "Grafts from branches",
-      "python-template",
-      "python-template"
+      "Quarto Graft"
     ]
   },
   {
-    "objectID": "grafts__/python-template/index.html#quick-start",
-    "href": "grafts__/python-template/index.html#quick-start",
-    "title": "python-template",
+    "objectID": "index.html#how-grafting-works",
+    "href": "index.html#how-grafting-works",
+    "title": "Quarto Graft",
     "section": "",
-    "text": "uv sync\nuv run quarto render docs --no-execute\nThen open _site/index.html or run make preview.",
+    "text": "Declare branch grafts in grafts.yaml.\nEach graft is exported via a git worktree under .grafts/&lt;name&gt;.\nuv run trunk-build renders graft content to docs/grafts__/... and updates navigation automatically.\n\n\nThis starter stays lean on purpose – drop in your own branding, visuals, and content while keeping the structure intact.",
     "crumbs": [
       "Overview",
-      "Grafts from branches",
-      "python-template",
-      "python-template"
+      "Quarto Graft"
     ]
   },
   {
-    "objectID": "grafts__/python-template/index.html#use-the-package",
-    "href": "grafts__/python-template/index.html#use-the-package",
-    "title": "python-template",
+    "objectID": "appendix/glossary.html",
+    "href": "appendix/glossary.html",
+    "title": "Glossary",
     "section": "",
-    "text": "from python_template import greet\ngreet(\"Quarto\")\nSee notebook.ipynb for a runnable example.",
+    "text": "Glossary\n\nGraft: A git branch containing Quarto content that will be mounted into the trunk site.\nTrunk: The main branch that controls grafts.yaml, runs builds, and publishes.\nWorktree: A checked-out view of a branch living under .grafts/&lt;name&gt;, keeping contributor work isolated.\nExport: The rendered output from a graft branch under docs/grafts__/.",
     "crumbs": [
       "Overview",
-      "Grafts from branches",
-      "python-template",
-      "python-template"
+      "Appendix",
+      "Glossary"
     ]
   },
   {
