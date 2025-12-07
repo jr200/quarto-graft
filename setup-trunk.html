@@ -473,12 +473,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="setup-trunk" class="level1">
 <h1>Setup (trunk)</h1>
 <ol type="1">
-<li><p>Navigate to: https://github.com/jr200/quarto-graft</p></li>
-<li><p>Click on <code>Use this template</code> and <code>Create a new repository</code></p>
-<ul>
-<li>You will need to create a new empty <code>gh-pages</code> branch in your new repository.</li>
-</ul></li>
-<li><p><code>git clone</code> your instantiated repo, and you will see:</p>
+<li>Navigate to: https://github.com/jr200/quarto-graft</li>
+<li>Click on <code>Use this template</code> and <code>Create a new repository</code>.</li>
+<li><code>git clone</code> your instantiated repo, and you will see:</li>
+<li>(optional) If you didn’t clone all branches:
+<ol type="a">
+<li>replace the contents of <code>grafts.yaml</code> with <code>branches: []</code></li>
+<li>create and push a new orphaned empty git branch called <code>gh-pages</code>.</li>
+</ol>
 <pre><code>main/
 ├── .grafts/              # local worktrees
 ├── docs/                 # main website
@@ -492,9 +494,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="first-build">First Build</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run trunk-build</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render docs <span class="at">--no-execute</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You’ll see the assembled site (including all grafts) in one site.</p>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run quarto render docs <span class="at">--no-execute</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run quarto preview docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You’ll see the assembled site. If you did not clone all repositories the ‘Grafts from branches’ section will be empty (but that’s fine).</p>
 </section>
 <section id="github-settings" class="level2">
 <h2 class="anchored" data-anchor-id="github-settings">Github Settings</h2>
