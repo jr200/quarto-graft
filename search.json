@@ -12,42 +12,6 @@
     ]
   },
   {
-    "objectID": "grafts__/chapter69/section1.html",
-    "href": "grafts__/chapter69/section1.html",
-    "title": "(ch1) sec1",
-    "section": "",
-    "text": "(ch1) sec1",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) sec1"
-    ]
-  },
-  {
-    "objectID": "grafts__/chapter69/section2.html",
-    "href": "grafts__/chapter69/section2.html",
-    "title": "(ch1) sec2",
-    "section": "",
-    "text": "(ch1) sec2",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) sec2"
-    ]
-  },
-  {
-    "objectID": "grafts__/chapter69/index.html",
-    "href": "grafts__/chapter69/index.html",
-    "title": "(ch1) index.qmd",
-    "section": "",
-    "text": "(ch1) index.qmd",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) index.qmd"
-    ]
-  },
-  {
     "objectID": "grafts__/chapter1/section1.html",
     "href": "grafts__/chapter1/section1.html",
     "title": "(ch1) sec1",
@@ -77,6 +41,42 @@
     "title": "(ch1) index.qmd",
     "section": "",
     "text": "(ch1) index.qmd\nthis is the index 123",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) index.qmd"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter77/section1.html",
+    "href": "grafts__/chapter77/section1.html",
+    "title": "(ch1) sec1",
+    "section": "",
+    "text": "(ch1) sec1",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) sec1"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter77/section2.html",
+    "href": "grafts__/chapter77/section2.html",
+    "title": "(ch1) sec2",
+    "section": "",
+    "text": "(ch1) sec2",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) sec2"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter77/index.html",
+    "href": "grafts__/chapter77/index.html",
+    "title": "(ch1) index.qmd",
+    "section": "",
+    "text": "(ch1) index.qmd",
     "crumbs": [
       "Source",
       "(ch1) introduction",
@@ -118,6 +118,42 @@
     ]
   },
   {
+    "objectID": "grafts__/chapter77/section1_sub.html",
+    "href": "grafts__/chapter77/section1_sub.html",
+    "title": "(ch1) sec1 - sub",
+    "section": "",
+    "text": "(ch1) sec1 - sub",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) sec1 - sub"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter77/section2_sub.html",
+    "href": "grafts__/chapter77/section2_sub.html",
+    "title": "(ch1) sec2 - sub",
+    "section": "",
+    "text": "(ch1) sec2 - sub",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) sec2 - sub"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter77/data.html",
+    "href": "grafts__/chapter77/data.html",
+    "title": "(ch1) data.ipynb",
+    "section": "",
+    "text": "This page has only text and data\n\n\nCode\nimport polars as pl\n\n\n\n\nCode\npl.DataFrame([1,2,3])\n\n\n\nshape: (3, 1)\n\n\n\ncolumn_0\n\n\ni64\n\n\n\n\n1\n\n\n2\n\n\n3",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) data.ipynb"
+    ]
+  },
+  {
     "objectID": "grafts__/chapter1/section1_sub.html",
     "href": "grafts__/chapter1/section1_sub.html",
     "title": "(ch1) sec1 - sub",
@@ -147,42 +183,6 @@
     "title": "(ch1) data.ipynb",
     "section": "",
     "text": "This page has only text and data\n\n\nCode\nfrom chapter_lib.lib import say_hello, calculate_dataframe\n\n\n\n\nCode\nsay_hello()\n\n\n'Hello from chapter-lib!'\n\n\n\n\nCode\ncalculate_dataframe()\n\n\n\nshape: (3, 1)\n\n\n\ncolumn_0\n\n\ni64\n\n\n\n\n1\n\n\n2\n\n\n3",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) data.ipynb"
-    ]
-  },
-  {
-    "objectID": "grafts__/chapter69/section1_sub.html",
-    "href": "grafts__/chapter69/section1_sub.html",
-    "title": "(ch1) sec1 - sub",
-    "section": "",
-    "text": "(ch1) sec1 - sub",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) sec1 - sub"
-    ]
-  },
-  {
-    "objectID": "grafts__/chapter69/section2_sub.html",
-    "href": "grafts__/chapter69/section2_sub.html",
-    "title": "(ch1) sec2 - sub",
-    "section": "",
-    "text": "(ch1) sec2 - sub",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) sec2 - sub"
-    ]
-  },
-  {
-    "objectID": "grafts__/chapter69/data.html",
-    "href": "grafts__/chapter69/data.html",
-    "title": "(ch1) data.ipynb",
-    "section": "",
-    "text": "This page has only text and data\n\n\nCode\nimport polars as pl\n\n\n\n\nCode\npl.DataFrame([1,2,3])\n\n\n\nshape: (3, 1)\n\n\n\ncolumn_0\n\n\ni64\n\n\n\n\n1\n\n\n2\n\n\n3",
     "crumbs": [
       "Source",
       "(ch1) introduction",
