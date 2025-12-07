@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -326,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Quarto Graft</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">quarto-graft</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -341,13 +306,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Quarto Graft</span></a>
+ <span class="menu-text">quarto-graft</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workflow</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Start here</span></a>
+ <span class="menu-text">Getting Started</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -355,14 +326,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./getting-started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started</span></a>
+  <a href="./setup-trunk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup (trunk)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Workflow overview</span></a>
+  <a href="./setup-graft.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup (graft)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting-started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./operations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Commands</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./contributing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Contributing</span></a>
   </div>
 </li>
       </ul>
@@ -370,38 +359,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Operations</span></a>
+ <span class="menu-text">Grafts from branches</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./operations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Commands</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Grafts from branches</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">python-template</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./grafts__/python-template/index.html" class="sidebar-item-text sidebar-link">
@@ -418,13 +390,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">markdown-template</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./grafts__/markdown-template/index.html" class="sidebar-item-text sidebar-link">
@@ -435,23 +407,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendix</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./appendix/glossary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Glossary</span></a>
   </div>
 </li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -462,22 +423,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#quarto-graft" id="toc-quarto-graft" class="nav-link active" data-scroll-target="#quarto-graft">Quarto Graft</a>
+  <li><a href="#quarto-graft" id="toc-quarto-graft" class="nav-link active" data-scroll-target="#quarto-graft">quarto-graft</a>
   <ul class="collapse">
   <li><a href="#why-quarto-graft-exists" id="toc-why-quarto-graft-exists" class="nav-link" data-scroll-target="#why-quarto-graft-exists">Why Quarto Graft exists</a></li>
   <li><a href="#what-you-get" id="toc-what-you-get" class="nav-link" data-scroll-target="#what-you-get">What you get</a></li>
-  <li><a href="#how-grafting-works" id="toc-how-grafting-works" class="nav-link" data-scroll-target="#how-grafting-works">How grafting works</a></li>
-  <li><a href="#second-quick-start-maintainer" id="toc-second-quick-start-maintainer" class="nav-link" data-scroll-target="#second-quick-start-maintainer">30-second quick start (maintainer)</a></li>
   <li><a href="#what-this-solves" id="toc-what-this-solves" class="nav-link" data-scroll-target="#what-this-solves">What this solves</a></li>
   <li><a href="#who-this-is-for" id="toc-who-this-is-for" class="nav-link" data-scroll-target="#who-this-is-for">Who this is for</a></li>
-  <li><a href="#project-structure-mental-model" id="toc-project-structure-mental-model" class="nav-link" data-scroll-target="#project-structure-mental-model">Project structure (mental model)</a></li>
-  <li><a href="#contributing" id="toc-contributing" class="nav-link" data-scroll-target="#contributing">Contributing</a>
-  <ul class="collapse">
-  <li><a href="#content-contributors" id="toc-content-contributors" class="nav-link" data-scroll-target="#content-contributors">Content contributors</a></li>
-  <li><a href="#maintainers" id="toc-maintainers" class="nav-link" data-scroll-target="#maintainers">Maintainers</a></li>
-  </ul></li>
+  <li><a href="#at-a-glance" id="toc-at-a-glance" class="nav-link" data-scroll-target="#at-a-glance">At a glance</a></li>
   <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
-  <li><a href="#roadmap-aspirational" id="toc-roadmap-aspirational" class="nav-link" data-scroll-target="#roadmap-aspirational">Roadmap (aspirational)</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jr200/quarto-graft/blob/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/jr200/quarto-graft/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -490,72 +443,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <section id="quarto-graft" class="level1">
-<h1>Quarto Graft</h1>
+<h1>quarto-graft</h1>
 <p><strong>Compose a single Quarto site from branch-scoped worktrees.</strong></p>
-<p>Quarto Graft lets contributors build chapters, sections, or full sub-sites in isolated git branches and worktrees while the trunk assembles everything into one Quarto website. Think multi-author books, research collectives, internal docs, or any workflow where <strong>content evolves independently but publishes centrally</strong>.</p>
-<hr>
+<p>Quarto Graft lets contributors build chapters, sections, or full sub-sites in isolated git branches while the trunk assembles everything into one Quarto website. Use this page as your launchpad; hop to tutorials, guides, or concepts via the sidebar.</p>
 <section id="why-quarto-graft-exists" class="level2">
 <h2 class="anchored" data-anchor-id="why-quarto-graft-exists">Why Quarto Graft exists</h2>
-<p>Traditional collaboration forces everyone into <code>main</code>, producing merge conflicts, shared heavy deps, and a single project shape. <strong>Quarto Graft flips that:</strong></p>
+<p>Traditional collaboration forces everyone into <code>main</code>, leading to merge conflicts, shared heavy dependencies, and a single project shape. Quarto Graft flips that model:</p>
 <ul>
-<li>Each contributor owns <strong>one branch = one self-contained chapter/section</strong> with its own language, env, and runtime.</li>
+<li>Each contributor owns <strong>one branch = one self-contained chapter/section</strong> with its own language, environment, and runtime.</li>
 <li>The trunk <strong>never executes contributor code</strong>; it only ingests rendered artifacts, keeping <code>main</code> fast and stable.</li>
 <li>Broken branches don’t block the site: last-good fallbacks keep content online with visible warnings.</li>
 </ul>
-<hr>
 </section>
 <section id="what-you-get" class="level2">
 <h2 class="anchored" data-anchor-id="what-you-get">What you get</h2>
 <ul>
 <li>Ready-to-publish Quarto scaffold (navbar, sidebar, favicon, footer, search, GitHub links).</li>
-<li>Branch-grafting build system using git worktrees + uv and auto navigation updates.</li>
+<li>Branch-grafting build system using git worktrees + uv and automatic navigation updates.</li>
 <li>Clean contributor workflow: no cross-branch conflicts or shared dependency coupling; full local preview per branch.</li>
 <li>Failure handling: last-good fallbacks and visible broken-branch stubs.</li>
 </ul>
-<hr>
-</section>
-<section id="how-grafting-works" class="level2">
-<h2 class="anchored" data-anchor-id="how-grafting-works">How grafting works</h2>
-<ol type="1">
-<li><strong>Declare grafts</strong></li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafts.yaml</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">branches</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> python-template</span><span class="kw">,</span><span class="at"> </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> graft/python-template </span><span class="kw">}</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> markdown-template</span><span class="kw">,</span><span class="at"> </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> graft/markdown-template </span><span class="kw">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ol start="2" type="1">
-<li><strong>Each graft lives in its own branch</strong></li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch graft/python-template</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> graft/markdown-template</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ol start="3" type="1">
-<li><strong>Contributors work in isolation</strong></li>
-</ol>
-<ul>
-<li>Their branch carries its own <code>docs/</code>, <code>_quarto.yaml</code>, Makefile, uv env.</li>
-<li>Local preview:</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> preview</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ol start="4" type="1">
-<li><strong>Trunk assembles everything</strong></li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run trunk-build</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This exports each graft via a worktree under <code>.grafts/&lt;name&gt;</code>, copies rendered content into <code>docs/grafts__/&lt;name&gt;/</code>, and refreshes navigation automatically.</p>
-<ol start="5" type="1">
-<li><strong>Main site publishes</strong></li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render docs <span class="at">--no-execute</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
-</section>
-<section id="second-quick-start-maintainer" class="level2">
-<h2 class="anchored" data-anchor-id="second-quick-start-maintainer">30-second quick start (maintainer)</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="op">&lt;</span>repo<span class="op">&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run trunk-build</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render docs <span class="at">--no-execute</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You’ll see all grafted chapters in one site.</p>
-<hr>
 </section>
 <section id="what-this-solves" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-solves">What this solves</h2>
@@ -589,7 +496,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<hr>
 </section>
 <section id="who-this-is-for" class="level2">
 <h2 class="anchored" data-anchor-id="who-this-is-for">Who this is for</h2>
@@ -597,64 +503,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Multi-author books and research publications</li>
 <li>Quant/science teams and education platforms</li>
 <li>Internal documentation portals</li>
+<li>Threaded versioned controlled note-taking</li>
 </ul>
-<p>Not ideal for single-author blogs, live-edit-in-<code>main</code> workflows, or projects without basic git discipline.</p>
 <hr>
 </section>
-<section id="project-structure-mental-model" class="level2">
-<h2 class="anchored" data-anchor-id="project-structure-mental-model">Project structure (mental model)</h2>
-<pre><code>main/
-├── docs/                 # main website
-│   ├── index.qmd
-│   ├── appendix/
-│   └── grafts__/         # auto-generated graft content
-├── grafts.yaml
-├── .grafts/              # local worktrees
-├── src/quarto_graft/     # tooling</code></pre>
-<p>Each <strong>graft branch</strong> carries its own:</p>
-<pre><code>docs/
-_quarto.yaml
-Makefile
-pyproject.toml</code></pre>
-<hr>
-</section>
-<section id="contributing" class="level2">
-<h2 class="anchored" data-anchor-id="contributing">Contributing</h2>
-<section id="content-contributors" class="level3">
-<h3 class="anchored" data-anchor-id="content-contributors">Content contributors</h3>
+<section id="at-a-glance" class="level2">
+<h2 class="anchored" data-anchor-id="at-a-glance">At a glance</h2>
 <ul>
-<li>Touch only your graft branch.</li>
-<li>Do not merge into template branches.</li>
-<li>Typical loop:</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> my-chapter</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> preview</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="maintainers" class="level3">
-<h3 class="anchored" data-anchor-id="maintainers">Maintainers</h3>
-<ul>
-<li>Own <code>main</code> and any template branches.</li>
-<li>Control <code>grafts.yaml</code>, site branding, and publishing.</li>
-<li>Run trunk builds and publishing pipelines.</li>
+<li>Branches stay independent (their own envs, runtimes, docs); trunk never executes contributor code.</li>
+<li>Grafts export via git worktrees into <code>docs/grafts__/...</code> and update navigation automatically.</li>
+<li>Broken grafts fall back to last-good exports with visible warnings, so the site keeps shipping.</li>
 </ul>
 <hr>
-</section>
 </section>
 <section id="license" class="level2">
 <h2 class="anchored" data-anchor-id="license">License</h2>
 <p>Quarto Graft is released under the <strong>MIT License</strong>. You are free to use, modify, and redistribute it with attribution.</p>
-<hr>
-</section>
-<section id="roadmap-aspirational" class="level2">
-<h2 class="anchored" data-anchor-id="roadmap-aspirational">Roadmap (aspirational)</h2>
-<ul>
-<li>Parallel CI graft builds</li>
-<li>Per-chapter build status badges</li>
-<li>Optional content signing/verification</li>
-<li>Per-branch access control</li>
-<li>Graft registry for large collectives</li>
-</ul>
 
 
 </section>
