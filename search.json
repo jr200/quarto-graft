@@ -12,11 +12,83 @@
     ]
   },
   {
+    "objectID": "grafts__/chapter11/section1.html",
+    "href": "grafts__/chapter11/section1.html",
+    "title": "(ch1) sec1",
+    "section": "",
+    "text": "(ch1) sec1",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) sec1"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter11/section2.html",
+    "href": "grafts__/chapter11/section2.html",
+    "title": "(ch1) sec2",
+    "section": "",
+    "text": "(ch1) sec2",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) sec2"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter11/index.html",
+    "href": "grafts__/chapter11/index.html",
+    "title": "(ch1) index.qmd",
+    "section": "",
+    "text": "(ch1) index.qmd",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) index.qmd"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter1/section1.html",
+    "href": "grafts__/chapter1/section1.html",
+    "title": "(ch1) sec1",
+    "section": "",
+    "text": "(ch1) sec1",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) sec1"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter1/section2.html",
+    "href": "grafts__/chapter1/section2.html",
+    "title": "(ch1) sec2",
+    "section": "",
+    "text": "(ch1) sec2\nthis is section 432",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) sec2"
+    ]
+  },
+  {
+    "objectID": "grafts__/chapter1/index.html",
+    "href": "grafts__/chapter1/index.html",
+    "title": "(ch1) index.qmd",
+    "section": "",
+    "text": "(ch1) index.qmd\nthis is the index 123",
+    "crumbs": [
+      "Source",
+      "(ch1) introduction",
+      "(ch1) index.qmd"
+    ]
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "(main) index.qmd",
     "section": "",
-    "text": "setup instructions\n\nsetup github pages https://quarto.org/docs/publishing/github-pages.html\n\nReally just workflow / repo hygiene:\nKeep grafts.yaml on main as the list of chapter branches only\nDon’t put main or chapters in there.\nOnly put user chapter branches you want included in the book:\nchapter1 chapter2 lng-europe shipping-atlantic\nEnforce “no merges into chapters” via GitHub settings / policy\nMark chapters as a protected branch.\nOnly allow maintainer pushes; don’t accept PRs into chapters from user branches.\nCulturally: “You never open a PR back to chapters; you PR into main only if we ever want to promote something to infra/template.”\nWhen a new chapter is created:\nAuthor does:\ngit switch chapters git switch -c my-new-chapter # edit docs/, commit, push git push -u origin my-new-chapter\nYou add my-new-chapter to grafts.yaml on main.\nNow uv run graft-full-build on main will see it, build it, and mount its docs under a new part: in the big book.\ngit checkout –orphan gh-pages git status git rm -rf –dry-run . git rm -rf . docs echo “quarto-graft” &gt; index.html git add . git commit -am “initial gh-page” git push\n\n\nuv venv\nuv sync",
+    "text": "setup instructions\n\nsetup github pages https://quarto.org/docs/publishing/github-pages.html\n\nReally just workflow / repo hygiene:\nKeep grafts.yaml on main as the list of chapter branches only\nDon’t put main or chapters in there.\nOnly put user chapter branches you want included in the book:\nchapter1 chapter2 lng-europe shipping-atlantic\nEnforce “no merges into chapters” via GitHub settings / policy\nMark chapters as a protected branch.\nOnly allow maintainer pushes; don’t accept PRs into chapters from user branches.\nCulturally: “You never open a PR back to chapters; you PR into main only if we ever want to promote something to infra/template.”\nWhen a new chapter is created:\nAuthor does:\ngit switch chapters git switch -c my-new-chapter # edit docs/, commit, push git push -u origin my-new-chapter\nYou add my-new-chapter to grafts.yaml on main.\nNow uv run trunk-build on main will see it, build it, and mount its docs under a new part: in the big book.\ngit checkout –orphan gh-pages git status git rm -rf –dry-run . git rm -rf . docs echo “quarto-graft” &gt; index.html git add . git commit -am “initial gh-page” git push\n\n\nuv venv\nuv sync",
     "crumbs": [
       "Source",
       "(main) index.qmd"
@@ -34,116 +106,20 @@
     ]
   },
   {
-    "objectID": "chapters__/chapter20/section1.html",
-    "href": "chapters__/chapter20/section1.html",
-    "title": "(ch1) sec1",
+    "objectID": "appendix/glossary.html",
+    "href": "appendix/glossary.html",
+    "title": "(main) glossary.qmd",
     "section": "",
-    "text": "(ch1) sec1",
+    "text": "(main) glossary.qmd\nSome words …",
     "crumbs": [
       "Source",
-      "(ch1) introduction",
-      "(ch1) sec1"
+      "appendix",
+      "(main) glossary.qmd"
     ]
   },
   {
-    "objectID": "chapters__/chapter20/section2.html",
-    "href": "chapters__/chapter20/section2.html",
-    "title": "(ch1) sec2",
-    "section": "",
-    "text": "(ch1) sec2",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) sec2"
-    ]
-  },
-  {
-    "objectID": "chapters__/chapter20/index.html",
-    "href": "chapters__/chapter20/index.html",
-    "title": "(ch1) index.qmd",
-    "section": "",
-    "text": "(ch1) index.qmd",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) index.qmd"
-    ]
-  },
-  {
-    "objectID": "chapters__/chapter11/section1.html",
-    "href": "chapters__/chapter11/section1.html",
-    "title": "(ch1) sec1",
-    "section": "",
-    "text": "(ch1) sec1",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) sec1"
-    ]
-  },
-  {
-    "objectID": "chapters__/chapter11/section2.html",
-    "href": "chapters__/chapter11/section2.html",
-    "title": "(ch1) sec2",
-    "section": "",
-    "text": "(ch1) sec2",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) sec2"
-    ]
-  },
-  {
-    "objectID": "chapters__/chapter11/index.html",
-    "href": "chapters__/chapter11/index.html",
-    "title": "(ch1) index.qmd",
-    "section": "",
-    "text": "(ch1) index.qmd",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) index.qmd"
-    ]
-  },
-  {
-    "objectID": "chapters__/chapter1/section1.html",
-    "href": "chapters__/chapter1/section1.html",
-    "title": "(ch1) sec1",
-    "section": "",
-    "text": "(ch1) sec1",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) sec1"
-    ]
-  },
-  {
-    "objectID": "chapters__/chapter1/section2.html",
-    "href": "chapters__/chapter1/section2.html",
-    "title": "(ch1) sec2",
-    "section": "",
-    "text": "(ch1) sec2\nthis is section 432",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) sec2"
-    ]
-  },
-  {
-    "objectID": "chapters__/chapter1/index.html",
-    "href": "chapters__/chapter1/index.html",
-    "title": "(ch1) index.qmd",
-    "section": "",
-    "text": "(ch1) index.qmd\nthis is the index 123",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) index.qmd"
-    ]
-  },
-  {
-    "objectID": "chapters__/chapter1/section1_sub.html",
-    "href": "chapters__/chapter1/section1_sub.html",
+    "objectID": "grafts__/chapter1/section1_sub.html",
+    "href": "grafts__/chapter1/section1_sub.html",
     "title": "(ch1) sec1 - sub",
     "section": "",
     "text": "(ch1) sec1 - sub\nthis is section 456",
@@ -154,8 +130,8 @@
     ]
   },
   {
-    "objectID": "chapters__/chapter1/section2_sub.html",
-    "href": "chapters__/chapter1/section2_sub.html",
+    "objectID": "grafts__/chapter1/section2_sub.html",
+    "href": "grafts__/chapter1/section2_sub.html",
     "title": "(ch1) sec2 - sub",
     "section": "",
     "text": "(ch1) sec2 - sub\nthis is section 678",
@@ -166,8 +142,8 @@
     ]
   },
   {
-    "objectID": "chapters__/chapter1/data.html",
-    "href": "chapters__/chapter1/data.html",
+    "objectID": "grafts__/chapter1/data.html",
+    "href": "grafts__/chapter1/data.html",
     "title": "(ch1) data.ipynb",
     "section": "",
     "text": "This page has only text and data\n\n\nCode\nfrom chapter_lib.lib import say_hello, calculate_dataframe\n\n\n\n\nCode\nsay_hello()\n\n\n'Hello from chapter-lib!'\n\n\n\n\nCode\ncalculate_dataframe()\n\n\n\nshape: (3, 1)\n\n\n\ncolumn_0\n\n\ni64\n\n\n\n\n1\n\n\n2\n\n\n3",
@@ -178,8 +154,8 @@
     ]
   },
   {
-    "objectID": "chapters__/chapter11/section1_sub.html",
-    "href": "chapters__/chapter11/section1_sub.html",
+    "objectID": "grafts__/chapter11/section1_sub.html",
+    "href": "grafts__/chapter11/section1_sub.html",
     "title": "(ch1) sec1 - sub",
     "section": "",
     "text": "(ch1) sec1 - sub",
@@ -190,8 +166,8 @@
     ]
   },
   {
-    "objectID": "chapters__/chapter11/section2_sub.html",
-    "href": "chapters__/chapter11/section2_sub.html",
+    "objectID": "grafts__/chapter11/section2_sub.html",
+    "href": "grafts__/chapter11/section2_sub.html",
     "title": "(ch1) sec2 - sub",
     "section": "",
     "text": "(ch1) sec2 - sub",
@@ -202,8 +178,8 @@
     ]
   },
   {
-    "objectID": "chapters__/chapter11/data.html",
-    "href": "chapters__/chapter11/data.html",
+    "objectID": "grafts__/chapter11/data.html",
+    "href": "grafts__/chapter11/data.html",
     "title": "(ch1) data.ipynb",
     "section": "",
     "text": "This page has only text and data\n\n\nCode\nimport polars as pl\n\n\n\n\nCode\npl.DataFrame([1,2,3])\n\n\n\nshape: (3, 1)\n\n\n\ncolumn_0\n\n\ni64\n\n\n\n\n1\n\n\n2\n\n\n3",
@@ -211,54 +187,6 @@
       "Source",
       "(ch1) introduction",
       "(ch1) data.ipynb"
-    ]
-  },
-  {
-    "objectID": "chapters__/chapter20/section1_sub.html",
-    "href": "chapters__/chapter20/section1_sub.html",
-    "title": "(ch1) sec1 - sub",
-    "section": "",
-    "text": "(ch1) sec1 - sub",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) sec1 - sub"
-    ]
-  },
-  {
-    "objectID": "chapters__/chapter20/section2_sub.html",
-    "href": "chapters__/chapter20/section2_sub.html",
-    "title": "(ch1) sec2 - sub",
-    "section": "",
-    "text": "(ch1) sec2 - sub",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) sec2 - sub"
-    ]
-  },
-  {
-    "objectID": "chapters__/chapter20/data.html",
-    "href": "chapters__/chapter20/data.html",
-    "title": "(ch1) data.ipynb",
-    "section": "",
-    "text": "This page has only text and data\n\n\nCode\nimport polars as pl\n\n\n\n\nCode\npl.DataFrame([1,2,3])\n\n\n\nshape: (3, 1)\n\n\n\ncolumn_0\n\n\ni64\n\n\n\n\n1\n\n\n2\n\n\n3",
-    "crumbs": [
-      "Source",
-      "(ch1) introduction",
-      "(ch1) data.ipynb"
-    ]
-  },
-  {
-    "objectID": "appendix/glossary.html",
-    "href": "appendix/glossary.html",
-    "title": "(main) glossary.qmd",
-    "section": "",
-    "text": "(main) glossary.qmd\nSome words …",
-    "crumbs": [
-      "Source",
-      "appendix",
-      "(main) glossary.qmd"
     ]
   }
 ]
