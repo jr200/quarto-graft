@@ -10,6 +10,10 @@ dependencies = [
   "quarto-cli>=1.8.26",
   "ruamel-yaml>=0.18.16",
   "Jinja2>=3.1",
+  "marimo>=0.18.4",
+  "ruff>=0.14.8",
+  "packaging>=25.0",
+  "uv>=0.9.17",
 ]
 
 [project.scripts]

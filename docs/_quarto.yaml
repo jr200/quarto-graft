@@ -4,6 +4,11 @@ project:
   resources:
   - favicon.svg
 
+filters:
+# - site-build.lua
+- marimo-team/marimo
+
+
 website:
   title: "Quarto Graft"
   description: "Skeleton docs for branch-based Quarto builds."
@@ -31,25 +36,20 @@ website:
     contents:
     - section: index.qmd
       contents:
-      - playbook.qmd
+      # - playbook.qmd
 
-      - section: Getting Started
-        contents:
-        - setup-trunk.qmd
-        - setup-graft.qmd
+      # - section: Getting Started
+      #   contents:
+      #   - setup-trunk.qmd
+      #   - setup-graft.qmd
 
-      - api-reference.qmd
+      # - api-reference.qmd
 
       - section: Grafts from branches
         contents:
         - _AUTOGEN_GRAFTS: '...hidden-node...'
-        - section: jupyter-demo
-          contents:
-          - grafts__/jupyter-demo/index.qmd
-          - grafts__/jupyter-demo/notebook.ipynb
-          _autogen_branch: graft/jupyter-demo
-      - contributing.qmd
-      - appendix/glossary.qmd
+      # - contributing.qmd
+      # - appendix/glossary.qmd
 
 format:
   html:
@@ -63,6 +63,10 @@ format:
     toc: true
     code-copy: true
     code-overflow: wrap
+    code-tools: true
+    code-fold: true
+    code-summary: "Show the code"
+
     link-external-newwindow: true
     page-footer:
       left: "[quarto-graft](https://github.com/jr200/quarto-graft)"
@@ -74,8 +78,5 @@ highlight-style: a11y
 execute:
   enabled: false
 
-filters:
-- site-build.lua
-
-metadata:
-  site_build: "pending"
+# metadata:
+#   site_build: "pending"
