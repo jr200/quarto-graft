@@ -314,8 +314,8 @@
     ]
   },
   {
-    "objectID": "grafts__/markdown-template/index.html",
-    "href": "grafts__/markdown-template/index.html",
+    "objectID": "grafts__/markdown-demo/index.html",
+    "href": "grafts__/markdown-demo/index.html",
     "title": "Overview",
     "section": "",
     "text": "Welcome to the markdown-template graft. This is a lightweight Markdown starter for teams that just need prose and simple code fences.\n\n\n\nReplace this page with your own content.\nAdd more .qmd or .md files under docs/ and link them via the sidebar.\nRun make render (or quarto render docs) to build _site/.\n\nHappy writing!",
@@ -328,8 +328,8 @@
     ]
   },
   {
-    "objectID": "grafts__/markdown-template/index.html#what-to-do-next",
-    "href": "grafts__/markdown-template/index.html#what-to-do-next",
+    "objectID": "grafts__/markdown-demo/index.html#what-to-do-next",
+    "href": "grafts__/markdown-demo/index.html#what-to-do-next",
     "title": "Overview",
     "section": "",
     "text": "Replace this page with your own content.\nAdd more .qmd or .md files under docs/ and link them via the sidebar.\nRun make render (or quarto render docs) to build _site/.\n\nHappy writing!",
