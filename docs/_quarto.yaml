@@ -48,10 +48,6 @@ website:
           - grafts__/jupyter-demo/index.qmd
           - grafts__/jupyter-demo/notebook.ipynb
           _autogen_branch: graft/jupyter-demo
-        - section: markdown-demo
-          contents:
-          - grafts__/markdown-demo/index.qmd
-          _autogen_branch: graft/markdown-demo
       - contributing.qmd
       - appendix/glossary.qmd
 

@@ -76,6 +76,21 @@ def _render_template_tree(template_dir: Path, dest_dir: Path, context: Dict[str,
                 raise
 
 
+def _purge_pycache(root: Path) -> None:
+    """Remove __pycache__ directories and stray .pyc files under root (excluding .git)."""
+    for path in root.rglob("__pycache__"):
+        if ".git" in path.parts:
+            continue
+        shutil.rmtree(path, ignore_errors=True)
+    for path in root.rglob("*.pyc"):
+        if ".git" in path.parts:
+            continue
+        try:
+            path.unlink()
+        except FileNotFoundError:
+            pass
+
+
 class ManifestEntry(TypedDict, total=False):
     """Type definition for entries in grafts.lock manifest."""
 
@@ -320,14 +335,22 @@ def new_graft_branch(
         check=True,
     )
 
-    # Ensure the worktree starts empty before seeding with the template
-    for child in wt_dir.iterdir():
-        if child.name == ".git":
-            continue
-        if child.is_dir():
-            shutil.rmtree(child)
-        else:
-            child.unlink()
+    # Ensure the worktree starts completely empty before seeding with the template.
+    # `git rm -rf .` clears tracked files; `git clean -fdx` removes everything else
+    # (e.g., __pycache__, build artifacts) while leaving .git intact.
+    subprocess.run(
+        ["git", "-C", str(wt_dir), "rm", "-rf", "."],
+        check=False,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    subprocess.run(
+        ["git", "-C", str(wt_dir), "clean", "-fdx"],
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    _purge_pycache(wt_dir)
 
     pkg_name = _python_package_name(name)
     context = {
