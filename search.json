@@ -24,20 +24,6 @@
     ]
   },
   {
-    "objectID": "grafts__/jupyter-demo/notebook.html",
-    "href": "grafts__/jupyter-demo/notebook.html",
-    "title": "Jupyter Notebook Example",
-    "section": "",
-    "text": "Quick check that the graft package imports and runs.\n\nfrom jupyter_demo import greet, show_dataframe\n\ngreet(\"branch builder\")\n\n\nshow_dataframe()",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Grafts from branches",
-      "jupyter-demo",
-      "Jupyter Notebook Example"
-    ]
-  },
-  {
     "objectID": "appendix/glossary.html",
     "href": "appendix/glossary.html",
     "title": "Glossary",
@@ -255,62 +241,6 @@
       "Overview",
       "quarto-graft",
       "API Reference"
-    ]
-  },
-  {
-    "objectID": "grafts__/jupyter-demo/index.html",
-    "href": "grafts__/jupyter-demo/index.html",
-    "title": "Overview",
-    "section": "",
-    "text": "Welcome to the jupyter-demo graft. This starter shows how to ship a small Python package and surface it in Quarto content (including notebooks).\n\n\n\nuv-managed project with a package at src/jupyter_demo/\nQuarto site with navbar/sidebar and a pre-rendered demo notebook\nSimple helpers exported from the package\n\n\n\n\nuv sync\nuv run quarto render docs --no-execute\nThen open _site/index.html or run make preview.\n\n\n\n```python from jupyter_demo import greet, show_dataframe greet(“Quarto”)\nshow_dataframe() ```d\nSee notebook.ipynb for a jupyter notebook example.",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Grafts from branches",
-      "jupyter-demo",
-      "Overview"
-    ]
-  },
-  {
-    "objectID": "grafts__/jupyter-demo/index.html#whats-inside",
-    "href": "grafts__/jupyter-demo/index.html#whats-inside",
-    "title": "Overview",
-    "section": "",
-    "text": "uv-managed project with a package at src/jupyter_demo/\nQuarto site with navbar/sidebar and a pre-rendered demo notebook\nSimple helpers exported from the package",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Grafts from branches",
-      "jupyter-demo",
-      "Overview"
-    ]
-  },
-  {
-    "objectID": "grafts__/jupyter-demo/index.html#quick-start",
-    "href": "grafts__/jupyter-demo/index.html#quick-start",
-    "title": "Overview",
-    "section": "",
-    "text": "uv sync\nuv run quarto render docs --no-execute\nThen open _site/index.html or run make preview.",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Grafts from branches",
-      "jupyter-demo",
-      "Overview"
-    ]
-  },
-  {
-    "objectID": "grafts__/jupyter-demo/index.html#use-the-package",
-    "href": "grafts__/jupyter-demo/index.html#use-the-package",
-    "title": "Overview",
-    "section": "",
-    "text": "```python from jupyter_demo import greet, show_dataframe greet(“Quarto”)\nshow_dataframe() ```d\nSee notebook.ipynb for a jupyter notebook example.",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Grafts from branches",
-      "jupyter-demo",
-      "Overview"
     ]
   }
 ]
