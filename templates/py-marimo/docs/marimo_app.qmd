@@ -1,0 +1,80 @@
+title: Tiny Calculator
+marimo-version: 0.13.2
+filters:
+- marimo-team/marimo
+---
+
+```python {.marimo}
+import marimo as mo
+
+mo.md(
+    """
+    # Tiny calculator
+
+    Move the slider or edit the number — the math updates instantly.
+    """
+)
+```
+
+```python {.marimo}
+# Inputs: one slider, one number box, and an operation picker
+first_number = mo.ui.slider(start=0, stop=20, step=1, value=6, label="Slider A")
+second_number = mo.ui.number(
+    value=3, min_value=0, max_value=20, step=1, label="Number B"
+)
+operation = mo.ui.dropdown(
+    [
+        ("+ add", "add"),
+        ("- subtract", "subtract"),
+        ("× multiply", "multiply"),
+        ("÷ divide", "divide"),
+    ],
+    value="add",
+    label="Operation",
+)
+```
+
+```python {.marimo}
+def calculate(a: float, b: float, op: str) -> float | str:
+    if op == "add":
+        return a + b
+    if op == "subtract":
+        return a - b
+    if op == "multiply":
+        return a * b
+    if op == "divide":
+        return "undefined" if b == 0 else a / b
+    return "?"
+```
+
+```python {.marimo}
+symbol = {
+    "add": "+",
+    "subtract": "−",
+    "multiply": "×",
+    "divide": "÷",
+}[operation.value]
+
+result = calculate(first_number.value, second_number.value, operation.value)
+formatted_result = (
+    f"{result:.2f}" if isinstance(result, (int, float)) else str(result)
+)
+
+mo.vstack(
+    [
+        mo.md("## Play with the inputs"),
+        mo.hstack([first_number, second_number, operation], wrap=True, gap="0.75rem"),
+        mo.md(
+            f"**Result:** {first_number.value} {symbol} {second_number.value} = **{formatted_result}**"
+        ),
+        mo.callout(
+            mo.md(
+                "Try dragging the slider or editing the number box. "
+                "marimo recomputes the result automatically — no manual reruns needed."
+            ),
+            kind="info",
+        ),
+    ],
+    gap="0.75rem",
+)
+```

@@ -13,15 +13,13 @@ website:
   title: "{{ graft_name }}"
   navbar:
     left:
-      - text: "Overview"
-        href: index.qmd
-      - text: "Jupyter Notebook"
-        href: notebook.ipynb
+      - href: index.qmd
+        text: Overview
   sidebar:
     style: floating
     contents:
-      - href: index.qmd
-      - href: notebook.ipynb
+      - index.qmd
+      - marimo_app.qmd
 
 format:
   html:

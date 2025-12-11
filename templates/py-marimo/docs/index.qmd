@@ -6,7 +6,7 @@ Welcome! This graft shows how to pair Quarto with a small Python package and a *
 
 - uv-managed project with a package at `src/{{ package_name }}/`
 - marimo + polars dependencies pre-wired for client-side interactivity
-- A marimo app at `docs/marimo_app.py` that exports to `docs/marimo-demo.html`
+- A marimo app at `docs/marimo_app.qmd` that renders to `docs/marimo_app.html`
 - Quarto site with navbar/sidebar linking to the exported HTML
 - Make targets to export the app and render the site
 
@@ -14,50 +14,55 @@ Welcome! This graft shows how to pair Quarto with a small Python package and a *
 
 ```bash
 uv sync
-make render          # exports marimo_app.py -> marimo-demo.html and renders Quarto
+make render          # renders marimo_app.qmd -> marimo_app.html and the Quarto site
 ```
 
-Then open `_site/index.html` or run `make preview`. Use the sidebar or navbar to open `marimo-demo.html` and play with the widget (fully client-side, no runtime server).
+Then open `_site/index.html` or run `make preview`. Use the sidebar or navbar to open `marimo_app.html` and play with the widget (fully client-side, no runtime server).
 
 ## How it works
 
-- The marimo app lives in `docs/marimo_app.py`.
-- `make render` runs `marimo export` to build `docs/marimo-demo.html` with embedded assets.
+- The marimo app lives in `docs/marimo_app.qmd`.
+- `make render` runs `quarto render docs` (with the marimo filter) to build `docs/marimo_app.html` with embedded assets.
 - Quarto copies that HTML into `_site/` and links it in the nav.
 
 ## Peek at the app
 
-The core of `marimo_app.py`:
+The core of `marimo_app.qmd`:
 
 ```python
-@mo.app
-def app():
-    sales = demo_sales_data()
-    region = mo.ui.dropdown(options=["All"] + sorted(sales.get_column("region").unique().to_list()), value="All")
-    min_revenue = mo.ui.slider(start=0, stop=int(sales.get_column("revenue").max()), step=25, value=200)
-    top_n = mo.ui.slider(start=3, stop=10, value=5, step=1)
+first = mo.ui.slider(start=0, stop=20, step=1, value=6, label="Slider A")
+second = mo.ui.number(value=3, min_value=0, max_value=20, step=1, label="Number B")
+operation = mo.ui.dropdown(
+    [("+ add", "add"), ("- subtract", "subtract"), ("× multiply", "multiply"), ("÷ divide", "divide")],
+    value="add",
+    label="Operation",
+)
 
-    filtered = sales
-    if region.value != "All":
-        filtered = filtered.filter(pl.col("region") == region.value)
-    filtered = (
-        filtered.filter(pl.col("revenue") >= min_revenue.value)
-        .sort("revenue", descending=True)
-        .head(top_n.value)
-    )
+def calculate(a: float, b: float, op: str) -> float | str:
+    if op == "add":
+        return a + b
+    if op == "subtract":
+        return a - b
+    if op == "multiply":
+        return a * b
+    if op == "divide":
+        return "undefined" if b == 0 else a / b
+    return "?"
 
-    return mo.vstack(
-        [
-            mo.md(f"{greet()} Explore the sample sales data."),
-            mo.hstack([region, min_revenue, top_n], wrap=True, gap="0.75rem"),
-            mo.ui.table(filtered.to_dict(as_series=False)),
-        ],
-        gap="0.75rem",
-    )
+symbol = { "add": "+", "subtract": "−", "multiply": "×", "divide": "÷" }[operation.value]
+result = calculate(first.value, second.value, operation.value)
+
+mo.vstack(
+    [
+        mo.hstack([first, second, operation], wrap=True, gap="0.75rem"),
+        mo.md(f"**Result:** {first.value} {symbol} {second.value} = **{result}**"),
+    ],
+    gap="0.75rem",
+)
 ```
 
 ## Adapt it
 
-- Swap `demo_sales_data` for your own loader and schema.
-- Add more UI pieces (`mo.ui.select`, `mo.ui.switch`, `mo.ui.number`) and marimo will keep outputs in sync.
-- To ship elsewhere, just copy `_site/marimo-demo.html` (it’s self contained).
+- Replace the inputs with the controls your app needs — marimo will keep the output in sync.
+- Add more UI pieces (`mo.ui.select`, `mo.ui.switch`, `mo.ui.table`) to build out your interface.
+- To ship elsewhere, just copy `_site/marimo_app.html` (it’s self contained).
