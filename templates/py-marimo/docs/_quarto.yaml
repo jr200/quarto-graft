@@ -11,9 +11,9 @@ filters:
 
 website:
   title: "{{ graft_name }}"
-  page-navigation: true
-  back-to-top-navigation: true
-  open-graph: true
+  # page-navigation: true
+  # back-to-top-navigation: true
+  # open-graph: true
   sidebar:
     style: floating
     search: true
@@ -22,22 +22,34 @@ website:
       - index.qmd
       - marimo_app.qmd
 
-format:
-  html:
-    theme: cosmo
-    toc: true
-
-execute:
-  freeze: auto
-
+# execute:
+#   freeze: auto
 
 format:
   html:
-    theme: zephyr
+    # comments:
+    #   hypothesis: false
+    # code-fold: true
+    # code-copy: true
     toc: true
-    code-tools: true
-    code-fold: true
-    code-summary: "Show the code"
+    # code-summary: "Show the code"
 
-execute:
-  enabled: false
+    # theme:
+    #   light: flatly
+    #   dark: darkly
+    # embed-resources: false
+    # self_contained: false
+    # page-layout: full
+# format:
+#   html:
+#     theme:
+#       light: spacelab
+#       dark: darkly
+#     css: styles.css
+#     toc: true
+#     # code-tools: true
+#     code-fold: false
+#     code-summary: "Show the code"
+
+# execute:
+#   enabled: false

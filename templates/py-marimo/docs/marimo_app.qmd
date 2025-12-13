@@ -1,6 +1,5 @@
-----
+---
 title: Slider Adder
-marimo-version: 0.13.2
 filters:
 - marimo-team/marimo
 ---
@@ -18,10 +17,30 @@ mo.md(
 ```
 
 ```python {.marimo}
-slider = mo.ui.slider(1, 10)
-mo.md("Choose a value: {slider}")
+base_number = 10
+increment = mo.ui.slider(
+    start=1,
+    stop=10,
+    value=3,
+    show_value=False,
+    include_input=True,
+)
+increment
 ```
 
 ```python {.marimo}
-mo.md(f"**Sum:** {base_number} + {increment.value} = **{base_number + increment.value}**"),
+mo.md(f"**Sum:** {base_number} + {increment.value} = **{base_number + increment.value}**")
+```
+
+```python {.marimo}
+mo.callout(
+    mo.md("Tip: drag either slider to see the sum update instantly."),
+    kind="info",
+)
+```
+
+
+```python {.marimo}
+# Spacer cell to keep marimo's filter happy when counting cells.
+mo.hstack([])
 ```

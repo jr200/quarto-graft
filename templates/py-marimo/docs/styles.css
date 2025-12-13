@@ -1,0 +1,15 @@
+.quarto-light :not(pre) > code {
+    color: #7d12ba;
+  }
+  
+  .quarto-dark :not(pre) > code {
+    color: #333333;
+    background-color: #FFFFFF;
+  }
+  
+  .sidebar nav li code,
+  .quarto-toc-content code {
+    color: #FF9500 !important;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }

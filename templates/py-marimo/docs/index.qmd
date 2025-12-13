@@ -14,7 +14,7 @@ Welcome! This graft shows how to pair Quarto with a small Python package and a *
 
 ```bash
 uv sync
-make render          # renders marimo_app.qmd -> marimo_app.html and the Quarto site
+make render  # renders marimo_app.qmd -> marimo_app.html and the Quarto site
 ```
 
 Then open `_site/index.html` or run `make preview`. Use the sidebar or navbar to open `marimo_app.html` and play with the widget (fully client-side, no runtime server).
@@ -45,6 +45,6 @@ mo.vstack(
 
 ## Adapt it
 
-- Replace the inputs with the controls your app needs — marimo will keep the output in sync.
+- Replace the inputs with the controls your app needs - marimo will keep the output in sync.
 - Add more UI pieces (`mo.ui.select`, `mo.ui.switch`, `mo.ui.table`) to build out your interface.
-- To ship elsewhere, just copy `_site/marimo_app.html` (it’s self contained).
+- To ship elsewhere, just copy `_site/marimo_app.html` (it's self contained).
