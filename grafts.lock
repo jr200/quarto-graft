@@ -1,11 +1,21 @@
 {
+  "graft/jupyter-demo": {
+    "branch_key": "jupyter-demo",
+    "exported": [
+      "index.qmd",
+      "notebook.ipynb"
+    ],
+    "last_checked": "2025-12-13T11:46:20.142131Z",
+    "last_good": "a31bcb5c05fa839215fa69e16e9f5a042427add9",
+    "title": "jupyter-demo"
+  },
   "graft/marimo-demo": {
     "branch_key": "marimo-demo",
     "exported": [
       "index.qmd",
       "marimo_app.qmd"
     ],
-    "last_checked": "2025-12-13T10:45:13.521395Z",
+    "last_checked": "2025-12-13T11:46:20.017510Z",
     "last_good": "28d8a1e12029b6c504cddd633a56f91fe2600a15",
     "title": "marimo-demo"
   },
@@ -14,7 +24,7 @@
     "exported": [
       "index.qmd"
     ],
-    "last_checked": "2025-12-13T10:45:13.416114Z",
+    "last_checked": "2025-12-13T11:46:19.894676Z",
     "last_good": "6f5f3f8587a4ef3c103a8d5dce1ebdba6b476240",
     "title": "markdown-demo"
   }

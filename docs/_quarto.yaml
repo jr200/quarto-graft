@@ -57,6 +57,11 @@ website:
           - grafts__/marimo-demo/index.qmd
           - grafts__/marimo-demo/marimo_app.qmd
           _autogen_branch: graft/marimo-demo
+        - section: jupyter-demo
+          contents:
+          - grafts__/jupyter-demo/index.qmd
+          - grafts__/jupyter-demo/notebook.ipynb
+          _autogen_branch: graft/jupyter-demo
       - contributing.qmd
       - appendix/glossary.qmd
 
