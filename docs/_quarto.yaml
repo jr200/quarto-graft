@@ -1,10 +1,10 @@
 project:
   type: website
   output-dir: _site
-  # render:
-  #   - "**/*.ipynb"
-  #   - "**/*.md"
-  #   - "**/*.qmd"
+  render:
+    - "**/*.ipynb"
+    - "**/*.md"
+    - "**/*.qmd"
 
 filters:
 - marimo-team/marimo
