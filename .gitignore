@@ -30,6 +30,7 @@ ENV/
 env.bak/
 venv.bak/
 .pytest_cache
+*.bak
 
 # IDE specific files
 .idea/
@@ -47,3 +48,10 @@ venv.bak/
 ._*
 Thumbs.db
 .history/
+
+# Quarto specific
+_site/
+.quarto
+/.quarto/
+**/*.quarto_ipynb
+grafts__/

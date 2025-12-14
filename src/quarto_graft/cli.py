@@ -416,7 +416,7 @@ def trunk_init(
         name=name,
         template=template_path,
         overwrite=overwrite,
-        with_templates=with_addons or [],
+        with_addons=with_addons or [],
     )
     console.print(f"[green]✓[/green] Trunk initialized from template '{template_name}' at: {docs_dir}")
     console.print(f"[dim]Site name:[/dim] {name}")

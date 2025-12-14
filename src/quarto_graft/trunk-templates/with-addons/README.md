@@ -20,7 +20,6 @@ uv run trunk-init --template default --with gh-pages --with analytics
 
 Adds GitHub Pages specific files:
 - `.nojekyll`: Tells GitHub Pages not to use Jekyll processing
-- `LICENSE`: Copy of the project license for the published site
 
 ## Creating New Add-ons
 

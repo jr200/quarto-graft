@@ -649,7 +649,7 @@ def init_trunk(
     name: str,
     template: str | Path,
     overwrite: bool = False,
-    with_templates: list[str] | None = None
+    with_addons: list[str] | None = None
 ) -> Path:
     """
     Initialize the trunk (docs/) from a template.
@@ -658,18 +658,13 @@ def init_trunk(
         name: Name of the main site/project (used as Jinja2 template parameter)
         template: Template name (str) or direct path to template directory (Path)
         overwrite: If True, overwrite existing docs/ directory
-        with_templates: Optional list of addons to include from trunk-templates/with-addons/
+        with_addons: Optional list of addons to include from trunk-templates/with-addons/
 
     Returns:
         Path to the initialized docs directory
     """
-    # Support both string names (legacy) and direct paths (new multi-source)
-    if isinstance(template, str):
-        template_dir = TRUNK_TEMPLATES_DIR / template
-        template_name = template
-    else:
-        template_dir = template
-        template_name = template.name
+    template_dir = template
+    template_name = template.name
 
     if not template_dir.exists() or not template_dir.is_dir():
         raise RuntimeError(f"Trunk template directory not found: {template_dir}")
@@ -705,10 +700,10 @@ def init_trunk(
     logger.info(f"[trunk-init] Trunk initialized from template '{template_name}' at {MAIN_DOCS}")
 
     # Apply additional "with" templates
-    if with_templates:
+    if with_addons:
         from .constants import TRUNK_ADDONS_DIR
         with_dir = TRUNK_TEMPLATES_DIR / TRUNK_ADDONS_DIR
-        for with_name in with_templates:
+        for with_name in with_addons:
             with_template_dir = with_dir / with_name
             if not with_template_dir.exists() or not with_template_dir.is_dir():
                 logger.warning(f"[trunk-init] addon '{with_name}' not found, skipping")

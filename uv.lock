@@ -1532,7 +1532,7 @@ sdist = { url = "https://files.pythonhosted.org/packages/a4/20/3c6d3784b06be0f4b
 
 [[package]]
 name = "quarto-graft"
-version = "0.0.11"
+version = "0.0.12"
 source = { editable = "." }
 dependencies = [
     { name = "jinja2" },
