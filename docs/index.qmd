@@ -233,7 +233,6 @@ quarto publish gh-pages
 
 ### Need Help?
 
-- **Architecture details:** See [ARCHITECTURE.md](ARCHITECTURE.md)
 - **Interactive mode:** Run `quarto-graft` with no arguments
 - **Command help:** Use `--help` on any command
 - **Issues:** https://github.com/jr200/quarto-graft/issues

@@ -1,6 +1,6 @@
 [project]
 name = "quarto-graft"
-version = "0.0.2"
+version = "0.0.3"
 description = "Quarto GitHub Pages branch graft tool"
 readme = "README.md"
 requires-python = ">=3.11"

@@ -32,28 +32,17 @@ website:
     - section: index.qmd
       contents:
       - playbook.qmd
-
       - section: Getting Started
         contents:
         - setup-trunk.qmd
         - setup-graft.qmd
-
       - api-reference.qmd
-
-      - section: Grafts from branches
-        contents:
-        - _AUTOGEN_GRAFTS: '...hidden-node...'
-        - section: jupyter-demo
-          contents:
-          - grafts__/jupyter-demo/index.qmd
-          - grafts__/jupyter-demo/notebook.ipynb
-          _autogen_branch: graft/jupyter-demo
-        - section: markdown-demo
-          contents:
-          - grafts__/markdown-demo/index.qmd
-          _autogen_branch: graft/markdown-demo
       - contributing.qmd
       - appendix/glossary.qmd
+
+  page-footer:
+    left: "[quarto-graft](https://github.com/jr200/quarto-graft)"
+    right: "Last build: {{< meta site_build >}}"
 
 format:
   html:
@@ -68,9 +57,6 @@ format:
     code-copy: true
     code-overflow: wrap
     link-external-newwindow: true
-    page-footer:
-      left: "[quarto-graft](https://github.com/jr200/quarto-graft)"
-      right: "Last build: {{< meta site_build >}}"
     number-sections: false
 
 highlight-style: a11y
