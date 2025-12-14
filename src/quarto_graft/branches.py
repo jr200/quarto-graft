@@ -464,10 +464,19 @@ def new_graft_branch(
             "Commit your trunk files first, then retry."
         )
     # Create worktree detached at HEAD to avoid creating an unwanted branch
-    # pygit2.add_worktree(name, path) creates a branch named 'name' by default
-    # To avoid this, we pass HEAD as the ref so it creates a detached worktree
-    repo.add_worktree(branch_key, str(wt_dir), ref=repo.head)
+    # pygit2.add_worktree requires a branch name, so we create a temp branch then delete it
+    temp_branch_name = f"__temp_worktree_{branch_key}"
+    repo.add_worktree(temp_branch_name, str(wt_dir))
     wt_repo = pygit2.Repository(str(wt_dir))
+
+    # Detach HEAD in the worktree to the current commit
+    commit_oid = wt_repo.head.target
+    wt_repo.set_head(commit_oid)
+
+    # Delete the temporary branch from the main repo
+    temp_branch = repo.branches.get(temp_branch_name)
+    if temp_branch:
+        temp_branch.delete()
 
     # Reset worktree to clean state
     wt_repo.reset(wt_repo.head.target, pygit2.GIT_RESET_HARD)

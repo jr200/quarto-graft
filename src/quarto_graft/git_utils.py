@@ -38,6 +38,22 @@ def _list_worktree_objects(repo: pygit2.Repository):
     return worktrees
 
 
+def _get_auth_callbacks() -> pygit2.RemoteCallbacks:
+    """Create RemoteCallbacks with SSH agent authentication support."""
+
+    class AuthCallbacks(pygit2.RemoteCallbacks):
+        def credentials(self, url, username_from_url, allowed_types):
+            # Try SSH agent first (most common for GitHub/GitLab)
+            if allowed_types & pygit2.credentials.CredentialType.SSH_KEY:
+                # Use git as username if connecting to GitHub/GitLab
+                username = username_from_url or "git"
+                return pygit2.KeypairFromAgent(username)
+            # Fallback to default credential types
+            return None
+
+    return AuthCallbacks()
+
+
 def run_git(args: list[str], cwd: Path | None = None) -> str:
     """
     Execute git commands using pygit2 (pure Python implementation).
@@ -131,7 +147,7 @@ def run_git(args: list[str], cwd: Path | None = None) -> str:
         if args[-1].startswith(":"):
             ref_to_delete = args[-1][1:]  # Remove leading :
             try:
-                origin.push([f":{ref_to_delete}"])
+                origin.push([f":{ref_to_delete}"], callbacks=_get_auth_callbacks())
             except Exception as e:
                 logger.debug(f"Push delete failed: {e}")
                 # Not necessarily an error - branch may not exist on remote
@@ -140,7 +156,7 @@ def run_git(args: list[str], cwd: Path | None = None) -> str:
         # Handle normal push
         refspec = args[-1]
         try:
-            origin.push([refspec])
+            origin.push([refspec], callbacks=_get_auth_callbacks())
         except Exception as e:
             raise subprocess.CalledProcessError(1, ["git", *args], f"push failed: {e}") from e
         return ""
@@ -154,7 +170,7 @@ def run_git(args: list[str], cwd: Path | None = None) -> str:
             return ""
         prune = "--prune" in args
         try:
-            origin.fetch(prune=prune)
+            origin.fetch(prune=prune, callbacks=_get_auth_callbacks())
         except Exception as e:
             raise subprocess.CalledProcessError(1, ["git", *args], f"fetch failed: {e}") from e
         return ""
@@ -197,7 +213,7 @@ def fetch_origin() -> None:
     except KeyError:
         logger.info("[fetch] No origin remote found; skipping fetch")
         return
-    origin.fetch(prune=True)
+    origin.fetch(prune=True, callbacks=_get_auth_callbacks())
 
 
 def _resolve_ref(repo: pygit2.Repository, ref: str) -> pygit2.Object:
