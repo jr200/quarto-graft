@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -43,9 +78,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-d640c705e8c17715bca3574aa719063f.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6c5ca751716d0753d1b426a0c8c37c9d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-0631759eefbd019e01d568e46f275fbf.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-6c5ca751716d0753d1b426a0c8c37c9d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3d137b9cca662f737c1c89c8073b1392.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-fdb2b6b26bbc38bb8d6226994399233f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3d137b9cca662f737c1c89c8073b1392.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -326,13 +361,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./setup-trunk.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Setup (trunk)</span></a>
+ <span class="menu-text">Trunk Setup</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./setup-graft.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Setup (graft)</span></a>
+ <span class="menu-text">Graft Setup</span></a>
   </div>
 </li>
       </ul>
@@ -340,7 +375,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./api-reference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">API Reference</span></a>
+ <span class="menu-text">CLI Reference</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
@@ -355,64 +390,32 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">markdown-demo</span></a>
+ <span class="menu-text">jupyter-demo</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/markdown-demo/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
+ <span class="menu-text">grafts__/jupyter-demo/index.qmd</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">grafts__/jupyter-demo/notebook.ipynb</span>
+  </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">marimo-demo</span></a>
+ <span class="menu-text">markdown-demo</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/marimo-demo/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">marimo-demo: Marimo + Quarto</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/marimo-demo/marimo_app.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Slider Adder</span></a>
-  </div>
-</li>
-      </ul>
+ <span class="menu-text">grafts__/markdown-demo/index.qmd</span>
   </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
- <span class="menu-text">jupyter-demo</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/jupyter-demo/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/jupyter-demo/notebook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Jupyter Notebook Example</span></a>
-  </div>
-</li>
       </ul>
   </li>
       </ul>
@@ -445,9 +448,15 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#roles" id="toc-roles" class="nav-link" data-scroll-target="#roles">Roles</a>
   <ul class="collapse">
-  <li><a href="#content-creator" id="toc-content-creator" class="nav-link" data-scroll-target="#content-creator">Content Creator</a></li>
+  <li><a href="#content-creator-graft-author" id="toc-content-creator-graft-author" class="nav-link" data-scroll-target="#content-creator-graft-author">Content Creator (Graft Author)</a></li>
   <li><a href="#trunk-maintainer" id="toc-trunk-maintainer" class="nav-link" data-scroll-target="#trunk-maintainer">Trunk Maintainer</a></li>
-  <li><a href="#template-contributor" id="toc-template-contributor" class="nav-link" data-scroll-target="#template-contributor">Template Contributor</a></li>
+  <li><a href="#template-author" id="toc-template-author" class="nav-link" data-scroll-target="#template-author">Template Author</a></li>
+  </ul></li>
+  <li><a href="#workflows" id="toc-workflows" class="nav-link" data-scroll-target="#workflows">Workflows</a>
+  <ul class="collapse">
+  <li><a href="#adding-a-new-collar" id="toc-adding-a-new-collar" class="nav-link" data-scroll-target="#adding-a-new-collar">Adding a New Collar</a></li>
+  <li><a href="#retiring-a-graft" id="toc-retiring-a-graft" class="nav-link" data-scroll-target="#retiring-a-graft">Retiring a Graft</a></li>
+  <li><a href="#custom-organization-templates" id="toc-custom-organization-templates" class="nav-link" data-scroll-target="#custom-organization-templates">Custom Organization Templates</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -462,40 +471,92 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="playbook" class="level1">
 <h1>Playbook</h1>
-<p>Quarto Graft keeps contributors in small, safe branches while the trunk curates a single site.</p>
-<p>This page explains the hats a quarto-graft wears during the development of the website.</p>
+<p>Quarto Graft separates concerns: contributors work in isolated graft branches, while the trunk maintainer orchestrates the unified site.</p>
+<p>This page explains the roles and workflows in a quarto-graft project.</p>
 <section id="roles" class="level2">
 <h2 class="anchored" data-anchor-id="roles">Roles</h2>
-<section id="content-creator" class="level3">
-<h3 class="anchored" data-anchor-id="content-creator">Content Creator</h3>
-<ul>
-<li>Work only in their graft branch.</li>
-<li>Never merge back – their content is pulled in by the trunk.</li>
-<li>Typical loop:
-<ul>
-<li><code>git checkout my-graft-branch</code></li>
-<li><em>…working on the content…</em></li>
-<li><code>make preview</code></li>
-<li><code>git commit</code> and <code>git push</code></li>
-</ul></li>
-</ul>
+<section id="content-creator-graft-author" class="level3">
+<h3 class="anchored" data-anchor-id="content-creator-graft-author">Content Creator (Graft Author)</h3>
+<p><strong>Responsibility</strong>: Create and maintain content in an isolated graft branch.</p>
+<p><strong>Workflow</strong>: 1. Request a graft from the trunk maintainer (or create one yourself if you have access) 2. Check out your graft branch: <code>git checkout graft/my-graft</code> 3. Edit content in <code>docs/</code> 4. Preview locally: <code>quarto preview docs</code> 5. Commit and push: <code>git add . &amp;&amp; git commit -m "Update content" &amp;&amp; git push</code></p>
+<p><strong>Key Points</strong>: - You <strong>never merge</strong> back to main — the trunk pulls your rendered content - Your graft has its own dependencies (Python packages, R libraries, etc.) - Execute notebooks before committing (trunk doesn’t run code) - Preview your graft standalone or wait for trunk maintainer to build the full site</p>
+<p><strong>Example Session</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout graft/my-tutorial</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">vim</span> docs/chapter1.qmd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview docs           <span class="co"># Preview your graft</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add docs/chapter1.qmd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add chapter 1"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="trunk-maintainer" class="level3">
 <h3 class="anchored" data-anchor-id="trunk-maintainer">Trunk Maintainer</h3>
-<ul>
-<li>Owns the <code>main</code> trunk.</li>
-<li>Controls the inventory <code>grafts.yaml</code> and <code>grafts.lock</code>.</li>
-<li>Maintains <code>docs/_quart.yaml</code> and site branding.</li>
-<li>Run trunk builds, publishing pipelines.</li>
-<li>Owns graft lifecycle: <code>graft-new</code>, <code>graft-list</code>, <code>graft-destroy</code>, <code>graft-cleanup-orphans</code></li>
-</ul>
+<p><strong>Responsibility</strong>: Manage the overall site structure, collars, builds, and graft lifecycle.</p>
+<p><strong>Owns</strong>: - The <code>main</code> branch and <code>_quarto.yaml</code> (collar definitions) - <code>grafts.yaml</code> configuration - Build and publish pipeline - Graft lifecycle management</p>
+<p><strong>Common Tasks</strong>:</p>
+<p>Create a new graft for a contributor:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft create contributor-name <span class="at">--collar</span> articles</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Build all grafts and update navigation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> build</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>List and manage grafts:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft list</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft destroy old-graft</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Define new collars in <code>_quarto.yaml</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> New Section</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">_GRAFT_COLLAR</span><span class="kw">:</span><span class="at"> new-collar</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="template-contributor" class="level3">
-<h3 class="anchored" data-anchor-id="template-contributor">Template Contributor</h3>
-<ul>
-<li>Propose and evolve the starter skeletons used for new grafts.</li>
-<li>Submit changes via PRs to <code>main</code>; maintainers promote accepted templates into the <code>templates/</code> folder.</li>
-</ul>
+<section id="template-author" class="level3">
+<h3 class="anchored" data-anchor-id="template-author">Template Author</h3>
+<p><strong>Responsibility</strong>: Design and contribute reusable templates for trunks and grafts.</p>
+<p><strong>Template Types</strong>:</p>
+<p><strong>Trunk Templates</strong>: Define site structure, styling, collars - Located in <code>src/quarto_graft/trunk-templates/</code> - Include <code>_quarto.yaml</code>, <code>docs/</code>, <code>grafts.yaml</code> - Use Jinja2 for customization</p>
+<p><strong>Graft Templates</strong>: Provide starter content for different use cases - Located in <code>src/quarto_graft/graft-templates/</code> - Examples: <code>python-notebook</code>, <code>r-analysis</code>, <code>documentation</code> - Include language-specific dependencies</p>
+<p><strong>How to Contribute</strong>: 1. Create a template directory with required structure 2. Test it: <code>quarto-graft trunk init test --template ./my-template</code> 3. Submit PR with template in appropriate directory 4. Maintainers review and merge</p>
+<p><strong>Template Best Practices</strong>: - Include clear README with template purpose - Provide working example content - Document required dependencies - Use Jinja2 variables for customization (<code>{ project_name }</code>, etc.)</p>
+</section>
+</section>
+<section id="workflows" class="level2">
+<h2 class="anchored" data-anchor-id="workflows">Workflows</h2>
+<section id="adding-a-new-collar" class="level3">
+<h3 class="anchored" data-anchor-id="adding-a-new-collar">Adding a New Collar</h3>
+<p>Trunk maintainer edits <code>_quarto.yaml</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> Case Studies</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">_GRAFT_COLLAR</span><span class="kw">:</span><span class="at"> case-studies</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Authors can now create grafts that attach to <code>case-studies</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft create my-case-study <span class="at">--collar</span> case-studies</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="retiring-a-graft" class="level3">
+<h3 class="anchored" data-anchor-id="retiring-a-graft">Retiring a Graft</h3>
+<ol type="1">
+<li><p>Content creator archives their work (optional)</p></li>
+<li><p>Trunk maintainer destroys the graft:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft destroy old-graft</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Rebuild to update navigation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> build</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
+</section>
+<section id="custom-organization-templates" class="level3">
+<h3 class="anchored" data-anchor-id="custom-organization-templates">Custom Organization Templates</h3>
+<p>Organizations can create standard templates:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Organization's template repo</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">my-org-templates/</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> trunk-templates/</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── corporate/</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       ├── _quarto.yaml     <span class="co"># Corporate branding</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       ├── docs/</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       └── grafts.yaml</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> graft-templates/</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> research-paper/</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> product-docs/</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Use organizational templates</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> trunk init project <span class="at">--template</span> my-org-templates/trunk-templates/corporate</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft create study <span class="at">--template</span> my-org-templates/graft-templates/research-paper</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>

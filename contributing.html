@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -43,9 +78,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-d640c705e8c17715bca3574aa719063f.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6c5ca751716d0753d1b426a0c8c37c9d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-0631759eefbd019e01d568e46f275fbf.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-6c5ca751716d0753d1b426a0c8c37c9d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3d137b9cca662f737c1c89c8073b1392.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-fdb2b6b26bbc38bb8d6226994399233f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3d137b9cca662f737c1c89c8073b1392.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -326,13 +361,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./setup-trunk.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Setup (trunk)</span></a>
+ <span class="menu-text">Trunk Setup</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./setup-graft.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Setup (graft)</span></a>
+ <span class="menu-text">Graft Setup</span></a>
   </div>
 </li>
       </ul>
@@ -340,7 +375,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./api-reference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">API Reference</span></a>
+ <span class="menu-text">CLI Reference</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
@@ -355,64 +390,32 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">markdown-demo</span></a>
+ <span class="menu-text">jupyter-demo</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/markdown-demo/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
+ <span class="menu-text">grafts__/jupyter-demo/index.qmd</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">grafts__/jupyter-demo/notebook.ipynb</span>
+  </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">marimo-demo</span></a>
+ <span class="menu-text">markdown-demo</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/marimo-demo/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">marimo-demo: Marimo + Quarto</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/marimo-demo/marimo_app.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Slider Adder</span></a>
-  </div>
-</li>
-      </ul>
+ <span class="menu-text">grafts__/markdown-demo/index.qmd</span>
   </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
- <span class="menu-text">jupyter-demo</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/jupyter-demo/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/jupyter-demo/notebook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Jupyter Notebook Example</span></a>
-  </div>
-</li>
       </ul>
   </li>
       </ul>
@@ -443,12 +446,19 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#contributing" id="toc-contributing" class="nav-link active" data-scroll-target="#contributing">Contributing</a>
   <ul class="collapse">
-  <li><a href="#templates" id="toc-templates" class="nav-link" data-scroll-target="#templates">Templates</a>
+  <li><a href="#types-of-contributions" id="toc-types-of-contributions" class="nav-link" data-scroll-target="#types-of-contributions">Types of Contributions</a>
   <ul class="collapse">
-  <li><a href="#what-makes-a-good-template" id="toc-what-makes-a-good-template" class="nav-link" data-scroll-target="#what-makes-a-good-template">What makes a good template</a></li>
-  <li><a href="#templates-wed-like-to-see" id="toc-templates-wed-like-to-see" class="nav-link" data-scroll-target="#templates-wed-like-to-see">Templates we’d like to see</a></li>
-  <li><a href="#how-template-contributions-work" id="toc-how-template-contributions-work" class="nav-link" data-scroll-target="#how-template-contributions-work">How template contributions work</a></li>
+  <li><a href="#code-contributions" id="toc-code-contributions" class="nav-link" data-scroll-target="#code-contributions">Code Contributions</a></li>
+  <li><a href="#template-contributions" id="toc-template-contributions" class="nav-link" data-scroll-target="#template-contributions">Template Contributions</a></li>
+  <li><a href="#templates-wed-like-to-see" id="toc-templates-wed-like-to-see" class="nav-link" data-scroll-target="#templates-wed-like-to-see">Templates We’d Like to See</a></li>
+  <li><a href="#template-best-practices" id="toc-template-best-practices" class="nav-link" data-scroll-target="#template-best-practices">Template Best Practices</a></li>
+  <li><a href="#template-submission-process" id="toc-template-submission-process" class="nav-link" data-scroll-target="#template-submission-process">Template Submission Process</a></li>
+  <li><a href="#documentation-contributions" id="toc-documentation-contributions" class="nav-link" data-scroll-target="#documentation-contributions">Documentation Contributions</a></li>
+  <li><a href="#reporting-issues" id="toc-reporting-issues" class="nav-link" data-scroll-target="#reporting-issues">Reporting Issues</a></li>
   </ul></li>
+  <li><a href="#code-style" id="toc-code-style" class="nav-link" data-scroll-target="#code-style">Code Style</a></li>
+  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions?</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jr200/quarto-graft/blob/main/contributing.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/jr200/quarto-graft/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -462,53 +472,164 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="contributing" class="level1">
 <h1>Contributing</h1>
-<section id="templates" class="level2">
-<h2 class="anchored" data-anchor-id="templates">Templates</h2>
-<p>A template is a ready-to-use graft skeleton (project structure, language/tooling, Quarto settings, navigation, dependency strategy). New graft branches start from whatever template lives on the protected template branch.</p>
-<section id="what-makes-a-good-template" class="level3">
-<h3 class="anchored" data-anchor-id="what-makes-a-good-template">What makes a good template</h3>
-<ul>
-<li>Runs immediately with <code>make preview</code>.</li>
-<li>Includes the basics:
-<ul>
-<li><code>docs/</code></li>
-<li><code>_quarto.yaml</code></li>
-<li><code>Makefile</code></li>
-<li><code>pyproject.toml</code> (or equivalent for the stack)</li>
-</ul></li>
-<li>Clearly shows:
-<ul>
-<li>the primary language/toolchain,</li>
-<li>how outputs are rendered,</li>
-<li>how notebooks or scripts are handled.</li>
-</ul></li>
-</ul>
+<p>Thank you for your interest in contributing to Quarto Graft! This project welcomes contributions of code, templates, documentation, and ideas.</p>
+<section id="types-of-contributions" class="level2">
+<h2 class="anchored" data-anchor-id="types-of-contributions">Types of Contributions</h2>
+<section id="code-contributions" class="level3">
+<h3 class="anchored" data-anchor-id="code-contributions">Code Contributions</h3>
+<p><strong>Areas to contribute:</strong> - CLI improvements and new commands - Template rendering engine - Build system optimizations - Error handling and user experience - Test coverage</p>
+<p><strong>Process:</strong> 1. Fork the repository 2. Create a feature branch: <code>git checkout -b feature/my-feature</code> 3. Make your changes with tests 4. Run tests: <code>pytest</code> 5. Submit a pull request</p>
+<p><strong>Development setup:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/jr200/quarto-graft</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> quarto-graft</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-e</span> <span class="st">".[dev]"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="template-contributions" class="level3">
+<h3 class="anchored" data-anchor-id="template-contributions">Template Contributions</h3>
+<p>Templates are reusable starter projects for trunks and grafts.</p>
+<section id="trunk-templates" class="level4">
+<h4 class="anchored" data-anchor-id="trunk-templates">Trunk Templates</h4>
+<p>Define the initial structure and styling of a Quarto site.</p>
+<p><strong>Location:</strong> <code>src/quarto_graft/trunk-templates/</code></p>
+<p><strong>Required structure:</strong></p>
+<pre><code>my-trunk-template/
+├── _quarto.yaml          # Jinja2 template with collars
+├── docs/
+│   ├── index.qmd         # Jinja2 template
+│   └── appendix/
+│       └── glossary.qmd
+└── grafts.yaml           # Initial config</code></pre>
+<p><strong>Available Jinja2 variables:</strong> - <code>{ project_name }</code> - User-provided project name - <code>{ project_slug }</code> - URL-safe version of project name - <code>{ package_name }</code> - Python package name</p>
+<p><strong>Example collar definition:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In _quarto.yaml template</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="at">{ project_name </span><span class="kw">}</span><span class="at">}</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">_GRAFT_COLLAR</span><span class="kw">:</span><span class="at"> main</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> Documentation</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">_GRAFT_COLLAR</span><span class="kw">:</span><span class="at"> docs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="graft-templates" class="level4">
+<h4 class="anchored" data-anchor-id="graft-templates">Graft Templates</h4>
+<p>Provide starter content for different types of contributions.</p>
+<p><strong>Location:</strong> <code>src/quarto_graft/graft-templates/</code></p>
+<p><strong>Required structure:</strong></p>
+<pre><code>my-graft-template/
+├── docs/
+│   ├── index.qmd         # Jinja2 template
+│   └── _quarto.yaml      # Graft-specific config
+├── README.md
+└── pyproject.toml        # Optional dependencies</code></pre>
+<p><strong>Available Jinja2 variables:</strong> - <code>{ graft_name }</code> - Display name of the graft - <code>{ graft_branch }</code> - Git branch name - <code>{ graft_slug }</code> - URL-safe identifier - <code>{ graft_local_path }</code> - Local worktree path</p>
+<p><strong>Example graft <code>_quarto.yaml</code>:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">output-dir</span><span class="kw">:</span><span class="at"> _site</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">website</span><span class="kw">:</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"{{ graft_name }}"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> docs/index.qmd</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
 </section>
 <section id="templates-wed-like-to-see" class="level3">
-<h3 class="anchored" data-anchor-id="templates-wed-like-to-see">Templates we’d like to see</h3>
+<h3 class="anchored" data-anchor-id="templates-wed-like-to-see">Templates We’d Like to See</h3>
+<p><strong>Trunk templates:</strong> - Minimal (single-page site) - Documentation portal (corporate style) - Book template (chapter-based) - Research publication template - Course/tutorial site template</p>
+<p><strong>Graft templates:</strong> - Python + Jupyter + Pandas - R + Quarto + ggplot2 - Julia + Pluto notebooks - Observable + D3.js - Documentation (API reference) - Research paper template - Tutorial/workshop template</p>
+</section>
+<section id="template-best-practices" class="level3">
+<h3 class="anchored" data-anchor-id="template-best-practices">Template Best Practices</h3>
+<p>✅ <strong>Do:</strong> - Include a README explaining the template purpose - Provide working example content - Use clear variable names in Jinja2 templates - Document required dependencies - Test the template before submitting - Use consistent styling and structure</p>
+<p>❌ <strong>Don’t:</strong> - Hardcode project-specific names - Include large binary files - Use deprecated Quarto features - Require proprietary software - Include secrets or credentials</p>
+</section>
+<section id="template-submission-process" class="level3">
+<h3 class="anchored" data-anchor-id="template-submission-process">Template Submission Process</h3>
+<ol type="1">
+<li><p><strong>Create your template</strong> in the appropriate directory:</p>
 <ul>
-<li>Python + Jupyter + Polars</li>
-<li>R + Quarto + ggplot</li>
-<li>JavaScript + Observable + WASM</li>
-<li>Book-style chapters vs website-style sections</li>
-<li>Research reproducibility templates</li>
-<li>Internal documentation templates</li>
+<li><code>src/quarto_graft/trunk-templates/my-template/</code></li>
+<li><code>src/quarto_graft/graft-templates/my-template/</code></li>
+</ul></li>
+<li><p><strong>Test it thoroughly:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For trunk templates</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> trunk init test-project <span class="at">--template</span> my-template</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> test-project</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For graft templates</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft create test-graft <span class="at">--template</span> my-template</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout graft/test-graft</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Document it</strong> with a README in the template directory:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># My Template</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Description</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Brief description of what this template provides.</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Use Case</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>Who should use this template and when.</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Requirements</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Quarto &gt;= 1.4</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Python &gt;= 3.10 (if applicable)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Features</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Feature 1</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Feature 2</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Example</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="in">`quarto-graft trunk init my-proj --template my-template`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Submit a pull request:</strong></p>
+<ul>
+<li>Title: “Add [trunk|graft] template: [template-name]”</li>
+<li>Description: Explain the use case and features</li>
+<li>Include screenshots if applicable</li>
+</ul></li>
+</ol>
+</section>
+<section id="documentation-contributions" class="level3">
+<h3 class="anchored" data-anchor-id="documentation-contributions">Documentation Contributions</h3>
+<p>Help improve the docs in <code>docs/</code>: - Fix typos and clarify explanations - Add examples and use cases - Improve CLI command documentation - Create tutorials and guides</p>
+<p><strong>Build docs locally:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> docs</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="reporting-issues" class="level3">
+<h3 class="anchored" data-anchor-id="reporting-issues">Reporting Issues</h3>
+<p><strong>Bug reports:</strong> - Use GitHub Issues - Include version: <code>quarto-graft --version</code> - Provide minimal reproducible example - Include error messages and logs</p>
+<p><strong>Feature requests:</strong> - Describe the use case - Explain current workarounds - Suggest implementation approach</p>
+</section>
+</section>
+<section id="code-style" class="level2">
+<h2 class="anchored" data-anchor-id="code-style">Code Style</h2>
+<ul>
+<li>Follow PEP 8 for Python code</li>
+<li>Use type hints</li>
+<li>Write docstrings for public functions</li>
+<li>Keep functions focused and testable</li>
 </ul>
 </section>
-<section id="how-template-contributions-work" class="level3">
-<h3 class="anchored" data-anchor-id="how-template-contributions-work">How template contributions work</h3>
-<ul>
-<li>Open a PR to <code>main</code> with your proposed template changes.</li>
-<li>Maintainers review for structure, safety, and ergonomics.</li>
-<li>Once accepted, maintainers promote it into the protected template branch.</li>
-<li>Contributors automatically inherit the updated template when they create new grafts.</li>
-</ul>
-<blockquote class="blockquote">
-<p>Important: No one opens PRs directly into the protected template branch; it remains maintainer-controlled.</p>
-</blockquote>
-
-
+<section id="testing" class="level2">
+<h2 class="anchored" data-anchor-id="testing">Testing</h2>
+<p>Run the test suite:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span>                    <span class="co"># All tests</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> tests/test_cli.py  <span class="co"># Specific file</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> <span class="at">-v</span>                 <span class="co"># Verbose output</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions?</h2>
+<ul>
+<li>Open a GitHub Discussion</li>
+<li>Check existing issues and PRs</li>
+<li>Review the documentation</li>
+</ul>
+<p>Thank you for contributing! 🎉</p>
+
+
 </section>
 </section>
 

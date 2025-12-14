@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -43,9 +78,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-d640c705e8c17715bca3574aa719063f.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6c5ca751716d0753d1b426a0c8c37c9d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-0631759eefbd019e01d568e46f275fbf.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-6c5ca751716d0753d1b426a0c8c37c9d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3d137b9cca662f737c1c89c8073b1392.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-fdb2b6b26bbc38bb8d6226994399233f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3d137b9cca662f737c1c89c8073b1392.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -287,7 +322,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">quarto-graft</a></li><li class="breadcrumb-item"><a href="./api-reference.html">API Reference</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">quarto-graft</a></li><li class="breadcrumb-item"><a href="./api-reference.html">CLI Reference</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -326,13 +361,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./setup-trunk.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Setup (trunk)</span></a>
+ <span class="menu-text">Trunk Setup</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./setup-graft.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Setup (graft)</span></a>
+ <span class="menu-text">Graft Setup</span></a>
   </div>
 </li>
       </ul>
@@ -340,7 +375,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./api-reference.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">API Reference</span></a>
+ <span class="menu-text">CLI Reference</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
@@ -355,64 +390,32 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">markdown-demo</span></a>
+ <span class="menu-text">jupyter-demo</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/markdown-demo/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
+ <span class="menu-text">grafts__/jupyter-demo/index.qmd</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">grafts__/jupyter-demo/notebook.ipynb</span>
+  </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">marimo-demo</span></a>
+ <span class="menu-text">markdown-demo</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/marimo-demo/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">marimo-demo: Marimo + Quarto</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/marimo-demo/marimo_app.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Slider Adder</span></a>
-  </div>
-</li>
-      </ul>
+ <span class="menu-text">grafts__/markdown-demo/index.qmd</span>
   </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
- <span class="menu-text">jupyter-demo</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/jupyter-demo/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./grafts__/jupyter-demo/notebook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Jupyter Notebook Example</span></a>
-  </div>
-</li>
       </ul>
   </li>
       </ul>
@@ -441,81 +444,228 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#api-reference" id="toc-api-reference" class="nav-link active" data-scroll-target="#api-reference">API Reference</a></li>
+  <li><a href="#cli-reference" id="toc-cli-reference" class="nav-link active" data-scroll-target="#cli-reference">CLI Reference</a>
+  <ul class="collapse">
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#command-structure" id="toc-command-structure" class="nav-link" data-scroll-target="#command-structure">Command Structure</a></li>
+  <li><a href="#trunk-commands" id="toc-trunk-commands" class="nav-link" data-scroll-target="#trunk-commands">Trunk Commands</a>
+  <ul class="collapse">
+  <li><a href="#trunk-init" id="toc-trunk-init" class="nav-link" data-scroll-target="#trunk-init"><code>trunk init</code></a></li>
+  </ul></li>
+  <li><a href="#graft-commands" id="toc-graft-commands" class="nav-link" data-scroll-target="#graft-commands">Graft Commands</a>
+  <ul class="collapse">
+  <li><a href="#graft-create" id="toc-graft-create" class="nav-link" data-scroll-target="#graft-create"><code>graft create</code></a></li>
+  <li><a href="#graft-list" id="toc-graft-list" class="nav-link" data-scroll-target="#graft-list"><code>graft list</code></a></li>
+  <li><a href="#graft-destroy" id="toc-graft-destroy" class="nav-link" data-scroll-target="#graft-destroy"><code>graft destroy</code></a></li>
+  </ul></li>
+  <li><a href="#build-commands" id="toc-build-commands" class="nav-link" data-scroll-target="#build-commands">Build Commands</a>
+  <ul class="collapse">
+  <li><a href="#build" id="toc-build" class="nav-link" data-scroll-target="#build"><code>build</code></a></li>
+  </ul></li>
+  <li><a href="#utility-commands" id="toc-utility-commands" class="nav-link" data-scroll-target="#utility-commands">Utility Commands</a>
+  <ul class="collapse">
+  <li><a href="#collars-list" id="toc-collars-list" class="nav-link" data-scroll-target="#collars-list"><code>collars list</code></a></li>
+  <li><a href="#templates-list" id="toc-templates-list" class="nav-link" data-scroll-target="#templates-list"><code>templates list</code></a></li>
+  </ul></li>
+  <li><a href="#configuration-files" id="toc-configuration-files" class="nav-link" data-scroll-target="#configuration-files">Configuration Files</a>
+  <ul class="collapse">
+  <li><a href="#grafts.yaml" id="toc-grafts.yaml" class="nav-link" data-scroll-target="#grafts.yaml"><code>grafts.yaml</code></a></li>
+  <li><a href="#grafts.lock" id="toc-grafts.lock" class="nav-link" data-scroll-target="#grafts.lock"><code>grafts.lock</code></a></li>
+  </ul></li>
+  <li><a href="#environment-variables" id="toc-environment-variables" class="nav-link" data-scroll-target="#environment-variables">Environment Variables</a></li>
+  <li><a href="#exit-codes" id="toc-exit-codes" class="nav-link" data-scroll-target="#exit-codes">Exit Codes</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jr200/quarto-graft/blob/main/api-reference.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/jr200/quarto-graft/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">quarto-graft</a></li><li class="breadcrumb-item"><a href="./api-reference.html">API Reference</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">quarto-graft</a></li><li class="breadcrumb-item"><a href="./api-reference.html">CLI Reference</a></li></ol></nav></header>
 
 
 
 
 
-<section id="api-reference" class="level1">
-<h1>API Reference</h1>
-<p>Project scripts (via <code>uv run</code>) you can advertise to contributors and maintainers.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Command</th>
-<th>Purpose</th>
-<th>When to use</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>uv run trunk-build</code></td>
-<td>Build every graft listed in <code>grafts.yaml</code> and refresh navigation.</td>
-<td>Regular builds in CI or before publishing.</td>
-</tr>
-<tr class="even">
-<td><code>uv run trunk-lock</code></td>
-<td>Regenerate <code>grafts.lock</code> after successful builds.</td>
-<td>After trunk-build to persist the manifest.</td>
-</tr>
-<tr class="odd">
-<td><code>uv run graft-new --template &lt;template&gt; &lt;name&gt;</code></td>
-<td>Create a new graft branch from the template.</td>
-<td>Onboard a new section/chapter owner.</td>
-</tr>
-<tr class="even">
-<td><code>uv run graft-get &lt;name&gt;</code></td>
-<td>Ensure a worktree exists locally for a graft branch.</td>
-<td>When resuming work on an existing graft.</td>
-</tr>
-<tr class="odd">
-<td><code>uv run graft-build --branch &lt;name&gt;</code></td>
-<td>Build a single graft branch.</td>
-<td>Local iteration on one section.</td>
-</tr>
-<tr class="even">
-<td><code>uv run graft-list</code></td>
-<td>Show graft branches that can safely be destroyed.</td>
-<td>Before removing stale grafts.</td>
-</tr>
-<tr class="odd">
-<td><code>uv run graft-destroy &lt;branch&gt;</code></td>
-<td>Remove a graft branch locally/remotely and clean config.</td>
-<td>When retiring a graft.</td>
-</tr>
-<tr class="even">
-<td><code>uv run graft-cleanup-orphans</code></td>
-<td>Remove <code>.grafts/*</code> directories no longer registered as worktrees.</td>
-<td>Repo hygiene if worktrees drift.</td>
-</tr>
-</tbody>
-</table>
-<blockquote class="blockquote">
-<p>Add your own helper scripts here, or link to CI workflows that run these commands.</p>
-</blockquote>
+<section id="cli-reference" class="level1">
+<h1>CLI Reference</h1>
+<p>Complete reference for the <code>quarto-graft</code> command-line tool.</p>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install quarto-graft</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="command-structure" class="level2">
+<h2 class="anchored" data-anchor-id="command-structure">Command Structure</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> <span class="pp">[</span><span class="ss">COMMAND</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">SUBCOMMAND</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="trunk-commands" class="level2">
+<h2 class="anchored" data-anchor-id="trunk-commands">Trunk Commands</h2>
+<section id="trunk-init" class="level3">
+<h3 class="anchored" data-anchor-id="trunk-init"><code>trunk init</code></h3>
+<p>Initialize a new trunk project from a template.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> trunk init PROJECT_NAME <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Arguments:</strong> - <code>PROJECT_NAME</code> - Name of the new project</p>
+<p><strong>Options:</strong> - <code>--template, -t TEXT</code> - Template name or path (default: “default”) - <code>--help</code> - Show help message</p>
+<p><strong>Examples:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create from default template</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> trunk init my-project</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create from custom template</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> trunk init my-project <span class="at">--template</span> /path/to/template</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create from built-in template</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> trunk init my-project <span class="at">--template</span> minimal</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="graft-commands" class="level2">
+<h2 class="anchored" data-anchor-id="graft-commands">Graft Commands</h2>
+<section id="graft-create" class="level3">
+<h3 class="anchored" data-anchor-id="graft-create"><code>graft create</code></h3>
+<p>Create a new graft branch from a template.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft create <span class="pp">[</span><span class="ss">NAME</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Arguments:</strong> - <code>NAME</code> - Name of the graft (optional, will prompt if not provided)</p>
+<p><strong>Options:</strong> - <code>--template, -t TEXT</code> - Graft template name or path - <code>--collar, -c TEXT</code> - Attachment point (collar) in trunk - <code>--branch-name TEXT</code> - Custom git branch name (default: <code>graft/{NAME}</code>) - <code>--push/--no-push</code> - Push to remote (default: <code>--push</code>) - <code>--help</code> - Show help message</p>
+<p><strong>Examples:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactive mode (prompts for all options)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft create</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify name and collar</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft create my-tutorial <span class="at">--collar</span> tutorials</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use custom template</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft create analysis <span class="at">--template</span> python-notebook <span class="at">--collar</span> research</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Don't push to remote</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft create draft <span class="at">--collar</span> notes <span class="at">--no-push</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Interactive Prompts:</strong> - Graft name (if not provided) - Template selection (shows available templates) - Collar selection (shows available collars from <code>_quarto.yaml</code>) - Branch name confirmation</p>
+</section>
+<section id="graft-list" class="level3">
+<h3 class="anchored" data-anchor-id="graft-list"><code>graft list</code></h3>
+<p>List all grafts from <code>grafts.yaml</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Output:</strong></p>
+<pre><code>Grafts:
+  tutorial1 (graft/tutorial1) → collar: main
+  notes (graft/notes) → collar: notes
+  analysis (graft/data-analysis) → collar: research</code></pre>
+</section>
+<section id="graft-destroy" class="level3">
+<h3 class="anchored" data-anchor-id="graft-destroy"><code>graft destroy</code></h3>
+<p>Completely destroy a graft (removes from grafts.yaml, deletes local and remote branches).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft destroy <span class="pp">[</span><span class="ss">BRANCH</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Arguments:</strong> - <code>BRANCH</code> - Git branch name to destroy (optional, will prompt if not provided)</p>
+<p><strong>Options:</strong> - <code>--keep-remote</code> - Do not delete the remote branch on origin - <code>--help</code> - Show help message</p>
+<p><strong>Examples:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactive selection</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft destroy</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Destroy specific graft</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft destroy graft/old-tutorial</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep remote branch</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> graft destroy graft/old-tutorial <span class="at">--keep-remote</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Warning:</strong> This is destructive and irreversible!</p>
+<hr>
+</section>
+</section>
+<section id="build-commands" class="level2">
+<h2 class="anchored" data-anchor-id="build-commands">Build Commands</h2>
+<section id="build" class="level3">
+<h3 class="anchored" data-anchor-id="build"><code>build</code></h3>
+<p>Build all grafts and update trunk navigation.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> build <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Options:</strong> - <code>--branch, -b TEXT</code> - Build only specific branch - <code>--help</code> - Show help message</p>
+<p><strong>Examples:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build all grafts</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> build</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build specific graft</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> build <span class="at">--branch</span> graft/my-tutorial</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>What it does:</strong> 1. Fetches latest commits from all graft branches 2. Renders each graft in its worktree 3. Copies outputs to <code>docs/grafts__/</code> 4. Updates <code>grafts.lock</code> manifest 5. Updates trunk <code>_quarto.yaml</code> navigation</p>
+<hr>
+</section>
+</section>
+<section id="utility-commands" class="level2">
+<h2 class="anchored" data-anchor-id="utility-commands">Utility Commands</h2>
+<section id="collars-list" class="level3">
+<h3 class="anchored" data-anchor-id="collars-list"><code>collars list</code></h3>
+<p>List all available collar attachment points from <code>_quarto.yaml</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> collars list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Output:</strong></p>
+<pre><code>Available collars:
+  - main
+  - tutorials
+  - articles
+  - notes</code></pre>
+</section>
+<section id="templates-list" class="level3">
+<h3 class="anchored" data-anchor-id="templates-list"><code>templates list</code></h3>
+<p>List available templates.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> templates list <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Options:</strong> - <code>--type TEXT</code> - Filter by type: <code>trunk</code> or <code>graft</code></p>
+<p><strong>Examples:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all templates</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> templates list</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List only trunk templates</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> templates list <span class="at">--type</span> trunk</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># List only graft templates</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto-graft</span> templates list <span class="at">--type</span> graft</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="configuration-files" class="level2">
+<h2 class="anchored" data-anchor-id="configuration-files">Configuration Files</h2>
+<section id="grafts.yaml" class="level3">
+<h3 class="anchored" data-anchor-id="grafts.yaml"><code>grafts.yaml</code></h3>
+<p>Main configuration file listing all grafts:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> tutorial1</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> graft/tutorial1</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">collar</span><span class="kw">:</span><span class="at"> main</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">local_path</span><span class="kw">:</span><span class="at"> tutorial1</span><span class="co">  # optional, defaults to name</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> my-notes</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> graft/personal-notes</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">collar</span><span class="kw">:</span><span class="at"> notes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Required fields:</strong> - <code>name</code> - Display name - <code>branch</code> - Git branch name - <code>collar</code> - Attachment point</p>
+<p><strong>Optional fields:</strong> - <code>local_path</code> - Worktree directory (defaults to <code>name</code>)</p>
+</section>
+<section id="grafts.lock" class="level3">
+<h3 class="anchored" data-anchor-id="grafts.lock"><code>grafts.lock</code></h3>
+<p>Auto-generated build manifest (don’t edit manually):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">graft/tutorial1</span><span class="kw">:</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">last_good</span><span class="kw">:</span><span class="at"> abc123def456...</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">last_checked</span><span class="kw">:</span><span class="at"> </span><span class="st">"2025-01-15T10:30:00"</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Tutorial"</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">branch_key</span><span class="kw">:</span><span class="at"> graft-tutorial1</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">exported</span><span class="kw">:</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> chapter1.qmd</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="environment-variables" class="level2">
+<h2 class="anchored" data-anchor-id="environment-variables">Environment Variables</h2>
+<ul>
+<li><code>QUARTO_GRAFT_TEMPLATES_DIR</code> - Custom templates directory</li>
+<li><code>QUARTO_GRAFT_NO_COLOR</code> - Disable colored output</li>
+</ul>
+<hr>
+</section>
+<section id="exit-codes" class="level2">
+<h2 class="anchored" data-anchor-id="exit-codes">Exit Codes</h2>
+<ul>
+<li><code>0</code> - Success</li>
+<li><code>1</code> - General error</li>
+<li><code>2</code> - Invalid arguments</li>
+<li><code>3</code> - Git operation failed</li>
+<li><code>4</code> - Build failed</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
