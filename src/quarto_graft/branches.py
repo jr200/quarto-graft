@@ -5,7 +5,7 @@ import logging
 import re
 import shutil
 from pathlib import Path
-from typing import TypedDict
+from typing import Any, TypedDict
 
 import pygit2
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, TemplateSyntaxError
@@ -137,6 +137,7 @@ class ManifestEntry(TypedDict, total=False):
     title: str
     branch_key: str
     exported: list[str]
+    structure: Any  # Original sidebar/chapter structure from graft's _quarto.yaml
 
 class BranchSpec(TypedDict):
     """Configuration for a single graft branch."""

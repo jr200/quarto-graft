@@ -6,7 +6,7 @@ import subprocess
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 from uuid import uuid4
 
 from .branches import (
@@ -26,6 +26,7 @@ from .git_utils import (
 from .quarto_config import (
     collect_exported_relpaths,
     derive_section_title,
+    extract_nav_structure,
     load_quarto_config,
 )
 
@@ -150,9 +151,10 @@ def _export_from_worktree(
     inject_warning: bool = False,
     warn_head_sha: str | None = None,
     warn_last_good_sha: str | None = None,
-) -> tuple[str, str, list[str], list[Path]]:
+) -> tuple[str, str, list[str], list[Path], Any]:
     """
     Export content from a worktree for the given ref.
+    Returns: (sha, section_title, exported_relpaths, exported_dest_paths, nav_structure)
     """
     try:
         with managed_worktree(ref, worktree_name) as wt_dir:
@@ -163,6 +165,7 @@ def _export_from_worktree(
             section_title = derive_section_title(cfg, branch)
 
             src_relpaths = collect_exported_relpaths(project_dir, cfg)
+            nav_structure = extract_nav_structure(cfg)
 
             dest_dir = GRAFTS_BUILD_DIR / branch_key
             dest_dir.mkdir(parents=True, exist_ok=True)
@@ -199,7 +202,7 @@ def _export_from_worktree(
                 exported_dest_paths.append(dest)
                 exported_relpaths_for_main.append(dest_rel)
 
-            return sha, section_title, exported_relpaths_for_main, exported_dest_paths
+            return sha, section_title, exported_relpaths_for_main, exported_dest_paths, nav_structure
     except Exception as e:
         logger.error(f"[{branch}] Export from worktree failed: {e}", exc_info=True)
         raise
@@ -211,6 +214,7 @@ def _update_manifest_entry(
     branch_key: str,
     title: str,
     exported_relpaths: list[str],
+    nav_structure: Any = None,
     last_good: str | None = None,
     now: str | None = None,
 ) -> None:
@@ -224,6 +228,8 @@ def _update_manifest_entry(
         "branch_key": branch_key,
         "exported": exported_relpaths,
     }
+    if nav_structure is not None:
+        entry["structure"] = nav_structure
     if last_good:
         entry["last_good"] = last_good
 
@@ -296,7 +302,7 @@ def build_branch(spec: BranchSpec | str, update_manifest: bool = True, fetch: bo
             last_good_short = last_good_sha[:7] if len(last_good_sha) >= 7 else last_good_sha
             logger.info(f"Using last_good commit {last_good_short} for branch {branch}")
             try:
-                sha, title, exported_relpaths, exported_dest_paths = _export_from_worktree(
+                sha, title, exported_relpaths, exported_dest_paths, nav_structure = _export_from_worktree(
                     branch=branch,
                     branch_key=branch_key,
                     ref=last_good_sha,
@@ -309,7 +315,7 @@ def build_branch(spec: BranchSpec | str, update_manifest: bool = True, fetch: bo
                 if update_manifest:
                     _update_manifest_entry(
                         manifest, branch, branch_key, title, exported_relpaths,
-                        last_good=last_good_sha, now=now
+                        nav_structure=nav_structure, last_good=last_good_sha, now=now
                     )
                     save_manifest(manifest)
             except Exception as e:
@@ -329,7 +335,7 @@ def build_branch(spec: BranchSpec | str, update_manifest: bool = True, fetch: bo
     else:
         try:
             head_sha = run_git(["rev-parse", head_ref])
-            sha, title, exported_relpaths, exported_dest_paths = _export_from_worktree(
+            sha, title, exported_relpaths, exported_dest_paths, nav_structure = _export_from_worktree(
                 branch=branch,
                 branch_key=branch_key,
                 ref=head_ref,
@@ -339,13 +345,13 @@ def build_branch(spec: BranchSpec | str, update_manifest: bool = True, fetch: bo
             if update_manifest:
                 _update_manifest_entry(
                     manifest, branch, branch_key, title, exported_relpaths,
-                    last_good=sha, now=now
+                    nav_structure=nav_structure, last_good=sha, now=now
                 )
                 save_manifest(manifest)
         except Exception as e:
             logger.warning(f"[{branch}] HEAD build failed: {e}", exc_info=True)
             if last_good_sha and _branch_exists(last_good_sha):
-                sha, title, exported_relpaths, exported_dest_paths = _export_from_worktree(
+                sha, title, exported_relpaths, exported_dest_paths, nav_structure = _export_from_worktree(
                     branch=branch,
                     branch_key=branch_key,
                     ref=last_good_sha,
@@ -358,7 +364,7 @@ def build_branch(spec: BranchSpec | str, update_manifest: bool = True, fetch: bo
                 if update_manifest:
                     _update_manifest_entry(
                         manifest, branch, branch_key, title, exported_relpaths,
-                        last_good=last_good_sha, now=now
+                        nav_structure=nav_structure, last_good=last_good_sha, now=now
                     )
                     save_manifest(manifest)
             else:

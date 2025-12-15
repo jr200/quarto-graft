@@ -112,6 +112,27 @@ def flatten_quarto_contents(entries: Any) -> list[str]:
     return files
 
 
+def extract_nav_structure(cfg: dict[str, Any]) -> Any:
+    """
+    Extract the navigation structure (sidebar or chapters) from a graft's _quarto.yaml.
+    Returns the raw contents/chapters structure to be preserved in the manifest.
+    """
+    website = cfg.get("website") or {}
+    sidebar = website.get("sidebar") or {}
+    sidebar_contents = sidebar.get("contents")
+
+    if sidebar_contents:
+        return sidebar_contents
+
+    book = cfg.get("book") or {}
+    book_chapters = book.get("chapters")
+
+    if book_chapters:
+        return book_chapters
+
+    return None
+
+
 def collect_exported_relpaths(docs_dir: Path, cfg: dict[str, Any]) -> list[str]:
     """
     Determine which *source documents* to export from this branch's docs/,
@@ -342,9 +363,38 @@ def apply_manifest() -> None:
 
     # Build auto-generated items grouped by collar
     def build_collar_items(item_type: str) -> dict[str, list[Any]]:
-        """Build items grouped by collar. item_type is 'part' (book) or 'section' (website)."""
+        """
+        Build items grouped by collar, preserving the original structure from each graft.
+        Rewrites all file paths to prepend grafts__/{branch_key}/.
+        """
         collar_items: dict[str, list[Any]] = {}
         content_key = "chapters" if item_type == "part" else "contents"
+
+        def rewrite_paths(node: Any, branch_key: str) -> Any:
+            """Recursively rewrite file paths in a structure to prepend grafts__/{branch_key}/."""
+            if isinstance(node, str):
+                # It's a file path - prepend the graft path
+                return f"grafts__/{branch_key}/{node}"
+            elif isinstance(node, dict):
+                # Recursively process dict values
+                result = {}
+                for key, value in node.items():
+                    if key in (content_key, "chapters", "contents"):
+                        # Recursively process contents/chapters
+                        result[key] = rewrite_paths(value, branch_key)
+                    elif key in ("file", "href"):
+                        # These are file references
+                        result[key] = f"grafts__/{branch_key}/{value}"
+                    else:
+                        # Keep other keys as-is
+                        result[key] = value
+                return result
+            elif isinstance(node, list):
+                # Recursively process list items
+                return [rewrite_paths(item, branch_key) for item in node]
+            else:
+                # Return as-is for other types
+                return node
 
         for spec in branches:
             branch = spec["branch"]
@@ -354,14 +404,20 @@ def apply_manifest() -> None:
                 continue
             title = entry.get("title") or spec["name"]
             branch_key = entry.get("branch_key") or branch_to_key(spec["name"])
-            exported: list[str] = entry.get("exported") or []
-            if not exported:
+            structure = entry.get("structure")
+
+            # If no structure is preserved, skip this graft
+            if not structure:
+                logger.warning(f"No structure found for graft '{branch}' - skipping")
                 continue
 
-            paths = [f"grafts__/{branch_key}/{rel}" for rel in exported]
+            # Rewrite all paths in the structure
+            rewritten_structure = rewrite_paths(structure, branch_key)
+
+            # Wrap in a section/part with the graft title
             item = {
                 item_type: title,
-                content_key: paths,
+                content_key: rewritten_structure if isinstance(rewritten_structure, list) else [rewritten_structure],
                 YAML_AUTOGEN_MARKER: branch,
             }
 
