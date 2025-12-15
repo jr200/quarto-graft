@@ -96,9 +96,14 @@ def flatten_quarto_contents(entries: Any) -> list[str]:
             elif "href" in node and isinstance(node["href"], str):
                 files.append(node["href"])
             for key in ("contents", "chapters"):
-                if key in node and isinstance(node[key], list):
-                    for child in node[key]:
-                        walk(child)
+                if key in node:
+                    val = node[key]
+                    # Handle both list and string values for contents/chapters
+                    if isinstance(val, list):
+                        for child in val:
+                            walk(child)
+                    elif isinstance(val, str):
+                        files.append(val)
 
     if isinstance(entries, list):
         for e in entries:
