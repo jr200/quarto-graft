@@ -43,18 +43,22 @@ def _project_slug(package_name: str) -> str:
 
 
 SHORTCODE_PATTERN = re.compile(r"{{\s*[<%].*?[>%]\s*}}")
+GITHUB_ACTIONS_PATTERN = re.compile(r"\$\{\{.*?\}\}", re.DOTALL)
 
 
 def _escape_quarto_shortcodes(text: str) -> str:
     """
-    Convert Quarto shortcodes ({{< ... >}} / {{% ... %}}) into literal strings so
-    Jinja will not attempt to parse them as template expressions.
+    Convert Quarto shortcodes ({{< ... >}} / {{% ... %}}) and GitHub Actions expressions (${{ ... }})
+    into literal strings so Jinja will not attempt to parse them as template expressions.
     """
     def _repl(match: re.Match[str]) -> str:
         literal = match.group(0).replace("\\", "\\\\").replace("'", "\\'")
         return f"{{{{ '{literal}' }}}}"
 
-    return SHORTCODE_PATTERN.sub(_repl, text)
+    # Escape both Quarto shortcodes and GitHub Actions expressions
+    text = SHORTCODE_PATTERN.sub(_repl, text)
+    text = GITHUB_ACTIONS_PATTERN.sub(_repl, text)
+    return text
 
 
 def _render_template_tree(template_dir: Path, dest_dir: Path, context: dict[str, str]) -> None:
