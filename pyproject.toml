@@ -1,6 +1,6 @@
 [project]
 name = "quarto-graft"
-version = "0.0.20"
+version = "0.0.21"
 description = "Quarto GitHub Pages branch graft tool"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -9,10 +9,10 @@ dependencies = [
   "packaging>=25.0",
   "pygit2>=1.19.0",
   "quarto-cli>=1.8.26",
-  "questionary>=2.0.0",
+  "questionary>=2.1.1",
   "ruamel-yaml>=0.18.16",
-  "ruff>=0.14.8",
-  "typer>=0.20.0",
+  "ruff>=0.14.10",
+  "typer>=0.20.1",
 ]
 
 [dependency-groups]

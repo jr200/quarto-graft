@@ -42,6 +42,15 @@ app.add_typer(graft_app, name="graft")
 console = Console()
 
 
+def _display_trunk_instructions(instructions: str, title: str = "TRUNK OWNER INSTRUCTIONS") -> None:
+    """Display trunk instructions with formatted borders."""
+    console.print("\n[yellow]═══════════════════════════════════════════════════════════════[/yellow]")
+    console.print(f"[yellow bold]{title}[/yellow bold]")
+    console.print("[yellow]═══════════════════════════════════════════════════════════════[/yellow]\n")
+    console.print(instructions)
+    console.print("\n[yellow]═══════════════════════════════════════════════════════════════[/yellow]")
+
+
 def require_trunk() -> None:
     """
     Check if the current directory is a quarto-graft trunk.
@@ -415,7 +424,7 @@ def trunk_init(
         else:
             with_addons = []
 
-    docs_dir = init_trunk(
+    docs_dir, addon_instructions = init_trunk(
         name=name,
         template=template_path,
         overwrite=overwrite,
@@ -425,6 +434,10 @@ def trunk_init(
     console.print(f"[dim]Site name:[/dim] {name}")
     if with_addons:
         console.print(f"  with addons: {', '.join(with_addons)}")
+
+    # Display addon instructions if present
+    for addon_name, instructions in addon_instructions:
+        _display_trunk_instructions(instructions, title=f"TRUNK OWNER INSTRUCTIONS - {addon_name.upper()} ADDON")
 
 
 @trunk_app.command("build")
@@ -580,11 +593,7 @@ def graft_create(
 
     # Display trunk instructions if present
     if trunk_instructions:
-        console.print("\n[yellow]═══════════════════════════════════════════════════════════════[/yellow]")
-        console.print("[yellow bold]TRUNK OWNER INSTRUCTIONS[/yellow bold]")
-        console.print("[yellow]═══════════════════════════════════════════════════════════════[/yellow]\n")
-        console.print(trunk_instructions)
-        console.print("\n[yellow]═══════════════════════════════════════════════════════════════[/yellow]")
+        _display_trunk_instructions(trunk_instructions)
 
 
 @graft_app.command("build")

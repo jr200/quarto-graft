@@ -655,7 +655,7 @@ def init_trunk(
     template: str | Path,
     overwrite: bool = False,
     with_addons: list[str] | None = None
-) -> Path:
+) -> tuple[Path, list[tuple[str, str]]]:
     """
     Initialize the trunk (docs/) from a template.
 
@@ -666,7 +666,7 @@ def init_trunk(
         with_addons: Optional list of addons to include from trunk-templates/with-addons/
 
     Returns:
-        Path to the initialized docs directory
+        Tuple of (Path to the initialized docs directory, List of (addon_name, instructions_content) tuples)
     """
     template_dir = template
     template_name = template.name
@@ -704,6 +704,9 @@ def init_trunk(
     _render_template_tree(template_dir, MAIN_DOCS, context)
     logger.info(f"[trunk-init] Trunk initialized from template '{template_name}' at {MAIN_DOCS}")
 
+    # Collect addon instructions
+    addon_instructions: list[tuple[str, str]] = []
+
     # Apply additional "with" templates
     if with_addons:
         from .constants import TRUNK_ADDONS_DIR
@@ -714,8 +717,21 @@ def init_trunk(
                 logger.warning(f"[trunk-init] addon '{with_name}' not found, skipping")
                 continue
 
+            # Check for TRUNK_INSTRUCTIONS.md in the addon template before rendering
+            trunk_instructions_path = with_template_dir / "TRUNK_INSTRUCTIONS.md"
+            if trunk_instructions_path.exists():
+                instructions_content = trunk_instructions_path.read_text(encoding="utf-8")
+                addon_instructions.append((with_name, instructions_content))
+                logger.info(f"[trunk-init] Found TRUNK_INSTRUCTIONS.md in addon '{with_name}'")
+
             logger.info(f"[trunk-init] Applying addon: {with_name}")
             # Render addon with same context
             _render_template_tree(with_template_dir, MAIN_DOCS, context)
 
-    return MAIN_DOCS
+            # Remove TRUNK_INSTRUCTIONS.md from rendered output if it exists
+            rendered_instructions_path = MAIN_DOCS / "TRUNK_INSTRUCTIONS.md"
+            if rendered_instructions_path.exists():
+                rendered_instructions_path.unlink()
+                logger.info(f"[trunk-init] Removed TRUNK_INSTRUCTIONS.md from rendered addon '{with_name}'")
+
+    return MAIN_DOCS, addon_instructions

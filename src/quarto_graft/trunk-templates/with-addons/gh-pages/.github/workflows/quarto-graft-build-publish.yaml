@@ -12,6 +12,10 @@ on:
         description: "Git ref (branch/tag/SHA) to build from"
         required: false
         default: "master"
+      docs:
+        description: "Path of _quarto.yaml"
+        required: false
+        default: "."
 
 permissions:
     contents: write
@@ -44,13 +48,13 @@ jobs:
       - name: Render Quarto site
         uses: quarto-dev/quarto-actions/render@v2.2.0
         with:
-          path: docs
+          path: ${{ github.event.inputs.docs }}
           to: html
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2.2.0
         with:
-          path: docs
+          path: ${{ github.event.inputs.docs }}
           target: gh-pages
           render: false
         env:
