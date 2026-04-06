@@ -1114,9 +1114,27 @@ class TestFixSearchIndex:
         site_dir.mkdir()
         assert fix_search_index(site_dir, ["demo"]) == 0
 
-    def test_returns_zero_when_no_cached_grafts(self, tmp_path):
+    def test_returns_zero_when_no_graft_keys(self, tmp_path):
         site_dir = self._setup_site(tmp_path)
         assert fix_search_index(site_dir, []) == 0
+
+    def test_indexes_newly_rendered_graft_pages(self, tmp_path):
+        """Pages rendered by Quarto but missing from search.json should be added."""
+        # Simulate Quarto's search.json that only has trunk pages (no graft pages)
+        search_data = [
+            {"objectID": "index.html", "href": "index.html", "title": "Home", "section": "", "text": "Welcome"},
+        ]
+        site_dir = self._setup_site(
+            tmp_path,
+            search_data=search_data,
+            cached_pages={"demo": [("new-page.html", _make_cached_page_html(title="New Page"))]},
+        )
+        added = fix_search_index(site_dir, ["demo"])
+        assert added > 0
+
+        result = json.loads((site_dir / "search.json").read_text())
+        graft_titles = {e["title"] for e in result if "demo" in e.get("href", "")}
+        assert "New Page" in graft_titles
 
     def test_skips_html_fragments(self, tmp_path):
         """HTML files without <main> should be skipped."""

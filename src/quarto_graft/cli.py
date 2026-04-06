@@ -778,15 +778,19 @@ def trunk_cache_update(
         console.print("[dim]Run 'quarto-graft trunk build' first.[/dim]")
         raise typer.Exit(code=1)
 
-    # Identify grafts with cached pages (from manifest) for nav post-processing.
+    # Identify grafts for post-processing.
+    # - all_graft_keys: every graft with a manifest entry (for search index)
+    # - cached_graft_keys: only grafts with cached pages (for nav fixing)
     manifest = load_manifest()
     branch_specs = read_branches_list()
+    all_graft_keys: list[str] = []
     cached_graft_keys: list[str] = []
     for spec in branch_specs:
         entry = manifest.get(spec["branch"])
         if not entry:
             continue
         bk = entry.get("branch_key") or branch_to_key(spec["name"])
+        all_graft_keys.append(bk)
         if entry.get("cached_pages"):
             cached_graft_keys.append(bk)
 
@@ -807,12 +811,17 @@ def trunk_cache_update(
             if prop_count:
                 console.print(f"[green]✓[/green] Propagated navigation to {prop_count} cached file(s)")
 
-    # Merge cached pages into search index
-    if cached_graft_keys:
-        with console.status("Updating search index for cached pages..."):
-            search_count = fix_search_index(site_path, cached_graft_keys)
+    # Merge graft pages into search index.  Quarto's own search.json only
+    # contains pages it rendered; cached pages (served as pre-rendered HTML)
+    # are absent.  We also index *all* graft directories — not just cached
+    # ones — because Quarto may not reliably index pages under dist/ when
+    # resource patterns are present.  The dedup check inside fix_search_index
+    # ensures pages already in the index are not duplicated.
+    if all_graft_keys:
+        with console.status("Updating search index for graft pages..."):
+            search_count = fix_search_index(site_path, all_graft_keys)
         if search_count:
-            console.print(f"[green]✓[/green] Added {search_count} search entry/entries for cached page(s)")
+            console.print(f"[green]✓[/green] Added {search_count} search entry/entries for graft page(s)")
 
 
 @cache_app.command("clear")

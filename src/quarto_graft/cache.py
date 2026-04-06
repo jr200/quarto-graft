@@ -768,17 +768,22 @@ def _parse_search_content(html: str) -> tuple[str, list[tuple[str, str]]]:
 
 def fix_search_index(
     site_dir: Path,
-    cached_graft_keys: list[str],
+    graft_keys: list[str],
 ) -> int:
-    """Merge cached pages into Quarto's ``search.json``.
+    """Ensure all graft pages are present in Quarto's ``search.json``.
 
     Quarto's search index only contains pages it rendered.  Pre-rendered
-    cached pages are absent.  This function parses cached HTML files,
-    extracts title/section/text, and appends entries to ``search.json``.
+    cached pages are absent, and pages under ``dist/`` may also be
+    excluded when resource patterns are active.  This function scans the
+    rendered HTML files for each graft, extracts title/section/text, and
+    appends any missing entries to ``search.json``.
+
+    Entries already present in the index (by href) are skipped, so it is
+    safe to call this for *all* grafts — not only those with cached pages.
 
     Args:
         site_dir: The ``_site/`` output directory after ``quarto render``.
-        cached_graft_keys: Branch keys whose cached pages need indexing.
+        graft_keys: Branch keys whose pages should be ensured in the index.
 
     Returns:
         Number of search entries added.
@@ -798,7 +803,7 @@ def fix_search_index(
     existing_hrefs = {entry.get("href") for entry in search_data if isinstance(entry, dict)}
 
     added = 0
-    for branch_key in cached_graft_keys:
+    for branch_key in graft_keys:
         graft_dir = site_dir / GRAFTS_BUILD_RELPATH / branch_key
         if not graft_dir.exists():
             continue
@@ -841,7 +846,7 @@ def fix_search_index(
             json.dumps(search_data, ensure_ascii=False),
             encoding="utf-8",
         )
-        logger.info("[cache] Added %d search entries for cached pages", added)
+        logger.info("[cache] Added %d search entries for graft pages", added)
 
     return added
 
