@@ -1,5 +1,113 @@
 [
   {
+    "objectID": "api-reference.html",
+    "href": "api-reference.html",
+    "title": "CLI Reference",
+    "section": "",
+    "text": "Complete reference for the quarto-graft command-line tool.\n\n\npip install quarto-graft\n\n\n\nquarto-graft [COMMAND] [SUBCOMMAND] [OPTIONS]\nRunning quarto-graft with no arguments launches an interactive menu where you can select any command using arrow keys.\nGlobal Options:\n\n--log-level, -L TEXT - Set logging level (DEBUG, INFO, WARNING, ERROR). Can also be set via QBB_LOG_LEVEL env var.\n--help - Show help message\n\n\n\n\n\n\n\nInitialize trunk in the current directory from a template.\nquarto-graft trunk init [NAME] [OPTIONS]\nArguments:\n\nNAME - Name of the site/project (e.g., “My Documentation”). Optional – will prompt if not provided.\n\nOptions:\n\n--template, -t TEXT - Template name or path (launches interactive selector if omitted)\n--overwrite/--no-overwrite - Overwrite existing files if they exist (prompts if omitted)\n--with TEXT - Include addon from trunk-templates/with-addons/ (can be used multiple times)\n--help - Show help message\n\nExamples:\n# Interactive mode (prompts for name, template, and addons)\nquarto-graft trunk init\n\n# Provide site name\nquarto-graft trunk init \"My Documentation\"\n\n# Use a specific template\nquarto-graft trunk init \"My Docs\" --template default\n\n# Include addons (e.g., GitHub Pages setup)\nquarto-graft trunk init \"My Docs\" --with gh-pages\n\nNote: This command works in your current directory and does NOT create a subdirectory. Run it from your git repository root.\n\n\n\n\n\nBuild all graft branches and update trunk navigation.\nquarto-graft trunk build [OPTIONS]\nOptions:\n\n--jobs, -j INTEGER - Number of parallel build workers (default: 1)\n--only TEXT - Only build these grafts by name (repeatable)\n--skip TEXT - Skip these grafts by name (repeatable)\n--changed - Only rebuild grafts with new commits since last build\n--no-cache - Bypass render cache and export all pages as .qmd\n--no-update-manifest - Do not update grafts.lock\n--help - Show help message\n\nExamples:\n# Build all grafts\nquarto-graft trunk build\n\n# Build with 4 parallel workers\nquarto-graft trunk build --jobs 4\n\n# Only build specific grafts\nquarto-graft trunk build --only alice --only bob\n\n# Skip specific grafts\nquarto-graft trunk build --skip broken-graft\n\n# Only rebuild grafts with new commits\nquarto-graft trunk build --changed\n\n# Force full rebuild (bypass cache)\nquarto-graft trunk build --no-cache\nWhat it does:\n\nFetches latest commits from all graft branches\nFor each graft, checks the per-page render cache for unchanged content\nRenders each graft in isolation (or uses last-good fallback if broken)\nCopies outputs to grafts__/&lt;graft-name&gt;/\nUpdates grafts.lock manifest\nUpdates trunk _quarto.yaml navigation\n\n\n\n\n\nUpdate _quarto.yaml from grafts.lock without rebuilding.\nquarto-graft trunk lock\nUseful for recovering from an interrupted build or after manual config changes.\n\n\n\n\nCreate a GitHub release with auto-incremented patch version.\nquarto-graft trunk release [OPTIONS]\nOptions:\n\n--edit-release, -e - Open release notes in $EDITOR before publishing (like git commit)\n--trigger - Trigger the build workflow after release (default: off)\n--workflow TEXT - GitHub Actions workflow file to trigger (default: quarto-graft-build-publish.yaml)\n--yes, -y - Skip confirmation prompt\n--help - Show help message\n\nExamples:\n# Create a release (no workflow trigger)\nquarto-graft trunk release\n\n# Edit release notes before publishing\nquarto-graft trunk release --edit-release\n\n# Create a release and trigger the build workflow\nquarto-graft trunk release --trigger\n\n# Skip confirmation\nquarto-graft trunk release --yes\nGenerates release notes from main branch PRs and per-graft commit logs. Uses a two-tag system (released/&lt;key&gt;, releasing/&lt;key&gt;) for safe rollback. When --edit-release is used, the auto-generated notes are opened in your terminal editor ($VISUAL, $EDITOR, or vi) for review and customisation — saving an empty file aborts the release.\n\n\n\n\nList available trunk templates.\nquarto-graft trunk list\nShows all discoverable trunk templates from built-in and custom sources.\n\n\n\n\n\nThe render cache stores pre-rendered HTML on an orphan _cache branch for incremental builds. Pages whose source hasn’t changed are served directly from cache, skipping re-rendering.\n\n\nCapture newly rendered pages into the cache.\nquarto-graft trunk cache update [OPTIONS]\nOptions:\n\n--site-dir, -s TEXT - Path to the Quarto _site/ output directory (default: _site)\n--help - Show help message\n\nExamples:\n# After building and rendering\nquarto-graft trunk build\nquarto render\nquarto-graft trunk cache update\n\n# Custom site directory\nquarto-graft trunk cache update --site-dir docs/_site\nRun this after quarto render to store rendered HTML on the _cache branch. Also fixes navigation in cached pages.\n\n\n\n\nClear the render cache.\nquarto-graft trunk cache clear [OPTIONS]\nOptions:\n\n--graft, -g TEXT - Only clear cache for a specific graft (by name)\n--no-remote - Do not delete the remote _cache branch\n--help - Show help message\n\nExamples:\n# Clear entire cache (local + remote)\nquarto-graft trunk cache clear\n\n# Clear cache for one graft only\nquarto-graft trunk cache clear --graft my-tutorial\n\n# Clear local cache only\nquarto-graft trunk cache clear --no-remote\n\n\n\n\nShow per-page cache status.\nquarto-graft trunk cache status\nDisplays a table with content hash, cache timestamp, and file count for each cached page.\n\n\n\n\n\n\n\nCreate a new graft branch from a template.\nquarto-graft graft create [NAME] [OPTIONS]\nArguments:\n\nNAME - Name of the graft (optional, will prompt if not provided)\n\nOptions:\n\n--template, -t TEXT - Graft template name or path (launches interactive selector if omitted)\n--collar, -c TEXT - Attachment point (collar) in trunk\n--branch-name TEXT - Custom git branch name (default: graft/{NAME})\n--push/--no-push - Push to remote (default: --push)\n--help - Show help message\n\nExamples:\n# Interactive mode (prompts for all options)\nquarto-graft graft create\n\n# Specify name and collar\nquarto-graft graft create my-tutorial --collar tutorials\n\n# Use specific template and collar\nquarto-graft graft create analysis --template py-jupyter --collar research\n\n# Custom branch name, don't push\nquarto-graft graft create draft --collar notes --branch-name graft/my-draft --no-push\nInteractive Prompts:\n\nGraft name (if not provided)\nTemplate selection (shows available templates from all sources)\nCollar selection (shows available collars from _quarto.yaml)\nBranch name confirmation\n\n\n\n\n\nBuild a single graft branch.\nquarto-graft graft build [OPTIONS]\nOptions:\n\n--branch, -b TEXT - Branch name to build (launches interactive selector if omitted)\n--no-update-manifest - Do not update grafts.lock\n--help - Show help message\n\nExamples:\n# Interactive branch selection\nquarto-graft graft build\n\n# Build specific branch\nquarto-graft graft build --branch graft/my-tutorial\n\n\n\n\nList all graft branches with their status.\nquarto-graft graft list\nOutput columns:\n\nBranch - Git branch name\nIn Git - Whether the local branch exists\nIn grafts.yaml - Whether configured in grafts.yaml\nIn grafts.lock - Whether present in the build manifest\nPre-rendered - Whether the graft has pre-rendered content\n\n\n\n\n\nRemove a graft branch locally, remotely, and from config.\nquarto-graft graft destroy [BRANCH] [OPTIONS]\nArguments:\n\nBRANCH - Git branch name to destroy (optional, will prompt if not provided)\n\nOptions:\n\n--keep-remote - Do not delete the remote branch on origin\n--help - Show help message\n\nExamples:\n# Interactive selection\nquarto-graft graft destroy\n\n# Destroy specific graft\nquarto-graft graft destroy graft/old-tutorial\n\n# Keep remote branch\nquarto-graft graft destroy graft/old-tutorial --keep-remote\n\n\n\n\n\n\nWarning\n\n\n\nThis is destructive. After destroying a graft, rebuild the trunk to update navigation: quarto-graft trunk build\n\n\n\n\n\n\nPre-render graft content for faster trunk builds.\nquarto-graft graft archive [PROJECT_DIR]\nArguments:\n\nPROJECT_DIR - Path to graft project directory (default: current directory)\n\nRun this from your graft branch. It runs quarto render and stores the output in _prerendered/ for the trunk to use directly, skipping rendering during trunk builds.\nAfter archiving:\n# Commit the pre-rendered content\ngit add _prerendered/ .graft-prerender.json\ngit commit -m \"Pre-render graft\"\ngit push\n\n\n\n\nRemove pre-rendered content from a graft.\nquarto-graft graft restore [PROJECT_DIR]\nArguments:\n\nPROJECT_DIR - Path to graft project directory (default: current directory)\n\nRemoves the _prerendered/ directory so trunk builds will render from source again.\n\n\n\n\n\n\n\nShow build status of all grafts.\nquarto-graft status [OPTIONS]\nOptions:\n\n--no-fetch - Skip fetching origin before checking status\n--help - Show help message\n\nOutput columns:\n\nGraft - Name from grafts.yaml\nCollar - Attachment point\nStatus - never built, broken, stale, current, or missing\nLast Built - Timestamp of last build\nHEAD - Current HEAD SHA (highlighted if different from built SHA)\nBuilt - Last successfully built SHA\n\n\n\n\n\nList all available collar attachment points from _quarto.yaml.\nquarto-graft collars list\n\n\n\n\nList available templates from all configured sources.\nquarto-graft templates list [OPTIONS]\nOptions:\n\n--type TEXT - Filter by type: trunk or graft\n\nExamples:\n# List all templates\nquarto-graft templates list\n\n# List only graft templates\nquarto-graft templates list --type graft\n\n\n\n\n\n\n\nMain configuration file listing all grafts and optional custom template sources:\nbranches:\n  - name: tutorial1\n    branch: graft/tutorial1\n    collar: main\n    local_path: tutorial1  # optional, defaults to name\n\n  - name: my-notes\n    branch: graft/personal-notes\n    collar: notes\n\n# Optional: custom template sources\ntemplate_sources:\n  - name: my-org\n    type: github\n    url: https://github.com/my-org/quarto-templates\nRequired fields per branch:\n\nname - Display name\nbranch - Git branch name\ncollar - Attachment point\n\n\n\n\nAuto-generated build manifest (don’t edit manually):\ngraft/tutorial1:\n  last_good: abc123def456...\n  last_checked: \"2025-01-15T10:30:00\"\n  title: \"My Tutorial\"\n  branch_key: graft-tutorial1\n  prerendered: false\n  cached_pages: []\n  structure:\n    sidebar:\n      contents:\n        - docs/index.qmd\n\n\n\n\n\n# 1. Build grafts and update navigation\nquarto-graft trunk build\n\n# 2. Render the full site with Quarto\nquarto render\n\n# 3. (Optional) Cache rendered pages for faster future builds\nquarto-graft trunk cache update\n\n# 4. Preview or publish\nquarto preview\n# or: quarto publish gh-pages",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "CLI Reference"
+    ]
+  },
+  {
+    "objectID": "api-reference.html#installation",
+    "href": "api-reference.html#installation",
+    "title": "CLI Reference",
+    "section": "",
+    "text": "pip install quarto-graft",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "CLI Reference"
+    ]
+  },
+  {
+    "objectID": "api-reference.html#command-structure",
+    "href": "api-reference.html#command-structure",
+    "title": "CLI Reference",
+    "section": "",
+    "text": "quarto-graft [COMMAND] [SUBCOMMAND] [OPTIONS]\nRunning quarto-graft with no arguments launches an interactive menu where you can select any command using arrow keys.\nGlobal Options:\n\n--log-level, -L TEXT - Set logging level (DEBUG, INFO, WARNING, ERROR). Can also be set via QBB_LOG_LEVEL env var.\n--help - Show help message",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "CLI Reference"
+    ]
+  },
+  {
+    "objectID": "api-reference.html#trunk-commands",
+    "href": "api-reference.html#trunk-commands",
+    "title": "CLI Reference",
+    "section": "",
+    "text": "Initialize trunk in the current directory from a template.\nquarto-graft trunk init [NAME] [OPTIONS]\nArguments:\n\nNAME - Name of the site/project (e.g., “My Documentation”). Optional – will prompt if not provided.\n\nOptions:\n\n--template, -t TEXT - Template name or path (launches interactive selector if omitted)\n--overwrite/--no-overwrite - Overwrite existing files if they exist (prompts if omitted)\n--with TEXT - Include addon from trunk-templates/with-addons/ (can be used multiple times)\n--help - Show help message\n\nExamples:\n# Interactive mode (prompts for name, template, and addons)\nquarto-graft trunk init\n\n# Provide site name\nquarto-graft trunk init \"My Documentation\"\n\n# Use a specific template\nquarto-graft trunk init \"My Docs\" --template default\n\n# Include addons (e.g., GitHub Pages setup)\nquarto-graft trunk init \"My Docs\" --with gh-pages\n\nNote: This command works in your current directory and does NOT create a subdirectory. Run it from your git repository root.\n\n\n\n\n\nBuild all graft branches and update trunk navigation.\nquarto-graft trunk build [OPTIONS]\nOptions:\n\n--jobs, -j INTEGER - Number of parallel build workers (default: 1)\n--only TEXT - Only build these grafts by name (repeatable)\n--skip TEXT - Skip these grafts by name (repeatable)\n--changed - Only rebuild grafts with new commits since last build\n--no-cache - Bypass render cache and export all pages as .qmd\n--no-update-manifest - Do not update grafts.lock\n--help - Show help message\n\nExamples:\n# Build all grafts\nquarto-graft trunk build\n\n# Build with 4 parallel workers\nquarto-graft trunk build --jobs 4\n\n# Only build specific grafts\nquarto-graft trunk build --only alice --only bob\n\n# Skip specific grafts\nquarto-graft trunk build --skip broken-graft\n\n# Only rebuild grafts with new commits\nquarto-graft trunk build --changed\n\n# Force full rebuild (bypass cache)\nquarto-graft trunk build --no-cache\nWhat it does:\n\nFetches latest commits from all graft branches\nFor each graft, checks the per-page render cache for unchanged content\nRenders each graft in isolation (or uses last-good fallback if broken)\nCopies outputs to grafts__/&lt;graft-name&gt;/\nUpdates grafts.lock manifest\nUpdates trunk _quarto.yaml navigation\n\n\n\n\n\nUpdate _quarto.yaml from grafts.lock without rebuilding.\nquarto-graft trunk lock\nUseful for recovering from an interrupted build or after manual config changes.\n\n\n\n\nCreate a GitHub release with auto-incremented patch version.\nquarto-graft trunk release [OPTIONS]\nOptions:\n\n--edit-release, -e - Open release notes in $EDITOR before publishing (like git commit)\n--trigger - Trigger the build workflow after release (default: off)\n--workflow TEXT - GitHub Actions workflow file to trigger (default: quarto-graft-build-publish.yaml)\n--yes, -y - Skip confirmation prompt\n--help - Show help message\n\nExamples:\n# Create a release (no workflow trigger)\nquarto-graft trunk release\n\n# Edit release notes before publishing\nquarto-graft trunk release --edit-release\n\n# Create a release and trigger the build workflow\nquarto-graft trunk release --trigger\n\n# Skip confirmation\nquarto-graft trunk release --yes\nGenerates release notes from main branch PRs and per-graft commit logs. Uses a two-tag system (released/&lt;key&gt;, releasing/&lt;key&gt;) for safe rollback. When --edit-release is used, the auto-generated notes are opened in your terminal editor ($VISUAL, $EDITOR, or vi) for review and customisation — saving an empty file aborts the release.\n\n\n\n\nList available trunk templates.\nquarto-graft trunk list\nShows all discoverable trunk templates from built-in and custom sources.",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "CLI Reference"
+    ]
+  },
+  {
+    "objectID": "api-reference.html#trunk-cache-commands",
+    "href": "api-reference.html#trunk-cache-commands",
+    "title": "CLI Reference",
+    "section": "",
+    "text": "The render cache stores pre-rendered HTML on an orphan _cache branch for incremental builds. Pages whose source hasn’t changed are served directly from cache, skipping re-rendering.\n\n\nCapture newly rendered pages into the cache.\nquarto-graft trunk cache update [OPTIONS]\nOptions:\n\n--site-dir, -s TEXT - Path to the Quarto _site/ output directory (default: _site)\n--help - Show help message\n\nExamples:\n# After building and rendering\nquarto-graft trunk build\nquarto render\nquarto-graft trunk cache update\n\n# Custom site directory\nquarto-graft trunk cache update --site-dir docs/_site\nRun this after quarto render to store rendered HTML on the _cache branch. Also fixes navigation in cached pages.\n\n\n\n\nClear the render cache.\nquarto-graft trunk cache clear [OPTIONS]\nOptions:\n\n--graft, -g TEXT - Only clear cache for a specific graft (by name)\n--no-remote - Do not delete the remote _cache branch\n--help - Show help message\n\nExamples:\n# Clear entire cache (local + remote)\nquarto-graft trunk cache clear\n\n# Clear cache for one graft only\nquarto-graft trunk cache clear --graft my-tutorial\n\n# Clear local cache only\nquarto-graft trunk cache clear --no-remote\n\n\n\n\nShow per-page cache status.\nquarto-graft trunk cache status\nDisplays a table with content hash, cache timestamp, and file count for each cached page.",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "CLI Reference"
+    ]
+  },
+  {
+    "objectID": "api-reference.html#graft-commands",
+    "href": "api-reference.html#graft-commands",
+    "title": "CLI Reference",
+    "section": "",
+    "text": "Create a new graft branch from a template.\nquarto-graft graft create [NAME] [OPTIONS]\nArguments:\n\nNAME - Name of the graft (optional, will prompt if not provided)\n\nOptions:\n\n--template, -t TEXT - Graft template name or path (launches interactive selector if omitted)\n--collar, -c TEXT - Attachment point (collar) in trunk\n--branch-name TEXT - Custom git branch name (default: graft/{NAME})\n--push/--no-push - Push to remote (default: --push)\n--help - Show help message\n\nExamples:\n# Interactive mode (prompts for all options)\nquarto-graft graft create\n\n# Specify name and collar\nquarto-graft graft create my-tutorial --collar tutorials\n\n# Use specific template and collar\nquarto-graft graft create analysis --template py-jupyter --collar research\n\n# Custom branch name, don't push\nquarto-graft graft create draft --collar notes --branch-name graft/my-draft --no-push\nInteractive Prompts:\n\nGraft name (if not provided)\nTemplate selection (shows available templates from all sources)\nCollar selection (shows available collars from _quarto.yaml)\nBranch name confirmation\n\n\n\n\n\nBuild a single graft branch.\nquarto-graft graft build [OPTIONS]\nOptions:\n\n--branch, -b TEXT - Branch name to build (launches interactive selector if omitted)\n--no-update-manifest - Do not update grafts.lock\n--help - Show help message\n\nExamples:\n# Interactive branch selection\nquarto-graft graft build\n\n# Build specific branch\nquarto-graft graft build --branch graft/my-tutorial\n\n\n\n\nList all graft branches with their status.\nquarto-graft graft list\nOutput columns:\n\nBranch - Git branch name\nIn Git - Whether the local branch exists\nIn grafts.yaml - Whether configured in grafts.yaml\nIn grafts.lock - Whether present in the build manifest\nPre-rendered - Whether the graft has pre-rendered content\n\n\n\n\n\nRemove a graft branch locally, remotely, and from config.\nquarto-graft graft destroy [BRANCH] [OPTIONS]\nArguments:\n\nBRANCH - Git branch name to destroy (optional, will prompt if not provided)\n\nOptions:\n\n--keep-remote - Do not delete the remote branch on origin\n--help - Show help message\n\nExamples:\n# Interactive selection\nquarto-graft graft destroy\n\n# Destroy specific graft\nquarto-graft graft destroy graft/old-tutorial\n\n# Keep remote branch\nquarto-graft graft destroy graft/old-tutorial --keep-remote\n\n\n\n\n\n\nWarning\n\n\n\nThis is destructive. After destroying a graft, rebuild the trunk to update navigation: quarto-graft trunk build\n\n\n\n\n\n\nPre-render graft content for faster trunk builds.\nquarto-graft graft archive [PROJECT_DIR]\nArguments:\n\nPROJECT_DIR - Path to graft project directory (default: current directory)\n\nRun this from your graft branch. It runs quarto render and stores the output in _prerendered/ for the trunk to use directly, skipping rendering during trunk builds.\nAfter archiving:\n# Commit the pre-rendered content\ngit add _prerendered/ .graft-prerender.json\ngit commit -m \"Pre-render graft\"\ngit push\n\n\n\n\nRemove pre-rendered content from a graft.\nquarto-graft graft restore [PROJECT_DIR]\nArguments:\n\nPROJECT_DIR - Path to graft project directory (default: current directory)\n\nRemoves the _prerendered/ directory so trunk builds will render from source again.",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "CLI Reference"
+    ]
+  },
+  {
+    "objectID": "api-reference.html#utility-commands",
+    "href": "api-reference.html#utility-commands",
+    "title": "CLI Reference",
+    "section": "",
+    "text": "Show build status of all grafts.\nquarto-graft status [OPTIONS]\nOptions:\n\n--no-fetch - Skip fetching origin before checking status\n--help - Show help message\n\nOutput columns:\n\nGraft - Name from grafts.yaml\nCollar - Attachment point\nStatus - never built, broken, stale, current, or missing\nLast Built - Timestamp of last build\nHEAD - Current HEAD SHA (highlighted if different from built SHA)\nBuilt - Last successfully built SHA\n\n\n\n\n\nList all available collar attachment points from _quarto.yaml.\nquarto-graft collars list\n\n\n\n\nList available templates from all configured sources.\nquarto-graft templates list [OPTIONS]\nOptions:\n\n--type TEXT - Filter by type: trunk or graft\n\nExamples:\n# List all templates\nquarto-graft templates list\n\n# List only graft templates\nquarto-graft templates list --type graft",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "CLI Reference"
+    ]
+  },
+  {
+    "objectID": "api-reference.html#configuration-files",
+    "href": "api-reference.html#configuration-files",
+    "title": "CLI Reference",
+    "section": "",
+    "text": "Main configuration file listing all grafts and optional custom template sources:\nbranches:\n  - name: tutorial1\n    branch: graft/tutorial1\n    collar: main\n    local_path: tutorial1  # optional, defaults to name\n\n  - name: my-notes\n    branch: graft/personal-notes\n    collar: notes\n\n# Optional: custom template sources\ntemplate_sources:\n  - name: my-org\n    type: github\n    url: https://github.com/my-org/quarto-templates\nRequired fields per branch:\n\nname - Display name\nbranch - Git branch name\ncollar - Attachment point\n\n\n\n\nAuto-generated build manifest (don’t edit manually):\ngraft/tutorial1:\n  last_good: abc123def456...\n  last_checked: \"2025-01-15T10:30:00\"\n  title: \"My Tutorial\"\n  branch_key: graft-tutorial1\n  prerendered: false\n  cached_pages: []\n  structure:\n    sidebar:\n      contents:\n        - docs/index.qmd",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "CLI Reference"
+    ]
+  },
+  {
+    "objectID": "api-reference.html#typical-build-workflow",
+    "href": "api-reference.html#typical-build-workflow",
+    "title": "CLI Reference",
+    "section": "",
+    "text": "# 1. Build grafts and update navigation\nquarto-graft trunk build\n\n# 2. Render the full site with Quarto\nquarto render\n\n# 3. (Optional) Cache rendered pages for faster future builds\nquarto-graft trunk cache update\n\n# 4. Preview or publish\nquarto preview\n# or: quarto publish gh-pages",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "CLI Reference"
+    ]
+  },
+  {
     "objectID": "contributing.html",
     "href": "contributing.html",
     "title": "Contributing",
@@ -57,6 +165,136 @@
       "Overview",
       "quarto-graft",
       "Contributing"
+    ]
+  },
+  {
+    "objectID": "setup-trunk.html",
+    "href": "setup-trunk.html",
+    "title": "Trunk Setup",
+    "section": "",
+    "text": "The trunk is your main branch that defines the overall Quarto site structure.\n\n\nuv init --lib\nuv add quarto-graft\n\n\n\nInitialize a trunk in your current directory:\n# Interactive mode (will prompt for site name and template)\nquarto-graft trunk init\n\n# Or provide all options\nquarto-graft trunk init \"My Documentation\" --template default\nThis creates files in your current directory:\n.\n├── _quarto.yaml          # Site config with collar markers\n├── grafts.yaml           # Graft configuration\n├── grafts.lock           # Build manifest (auto-generated)\n├── .gitignore\n├── dist/                 # Build output and worktree cache (gitignored)\n└── docs/                 # Website content\n    ├── index.qmd\n    ├── favicon.svg\n    └── grafts__/         # Auto-generated graft content\n\nNote: The command works in your current directory and does NOT create a subdirectory. Make sure you’re in your git repository root before running it.\n\n\n\n\nThe trunk template defines your site’s structure. Key file: _quarto.yaml\nproject:\n  type: website\n  output-dir: _site\n\nwebsite:\n  title: \"My Project\"\n  sidebar:\n    contents:\n      - docs/index.qmd\n      - section: My Grafts\n        contents:\n          - _GRAFT_COLLAR: main      # Collar attachment point\n      - section: Notes\n        contents:\n          - _GRAFT_COLLAR: notes     # Another collar\nCollars (_GRAFT_COLLAR) are attachment points where grafts connect. When you create a graft, you specify which collar it attaches to.\n\n\n\nquarto-graft trunk build    # Build all grafts\nquarto preview              # Preview the site\nOn first build, no grafts exist yet, so collars will be empty.\n\n\n\n\n\nYou can create custom trunk templates for your organization:\n# Use a custom template\nquarto-graft trunk init \"My Docs\" --template /path/to/template\n\n# Template structure\nmy-trunk-template/\n├── _quarto.yaml          # Jinja2 template\n├── docs/\n│   └── index.qmd         # Jinja2 template\n└── grafts.yaml           # Jinja2 template\nTemplates use Jinja2 variables: - { project_name } - Project name - { project_slug } - URL-safe slug - Custom variables you define\n\n\n\nEdit _quarto.yaml to add/remove collars:\nwebsite:\n  sidebar:\n    contents:\n      - section: Articles\n        contents:\n          - _GRAFT_COLLAR: articles\n      - section: Tutorials\n        contents:\n          - _GRAFT_COLLAR: tutorials\n      - section: Reference\n        contents:\n          - _GRAFT_COLLAR: reference\nGrafts will attach to these named sections.\n\n\n\n\n\nInitialize git and push to GitHub:\ngit init\ngit add .\ngit commit -m \"Initial trunk\"\ngit remote add origin &lt;your-repo-url&gt;\ngit push -u origin main\nCreate gh-pages branch:\ngit checkout --orphan gh-pages\ngit rm -rf .\ngit commit --allow-empty -m \"Initial gh-pages\"\ngit push -u origin gh-pages\ngit checkout main\nConfigure GitHub Pages:\n\nSettings → Pages → Source: gh-pages branch\nSettings → Actions → Permissions: Enable read/write\n\nBuild and publish:\nquarto-graft trunk build\nquarto render\nquarto publish gh-pages\n\n\n\n\n\nGrafts attach to collars: Each graft specifies a collar in grafts.yaml\nBuild process: quarto-graft trunk build renders each graft in isolation\nAuto-navigation: Built content is injected after the matching collar marker\nAtomic updates: The trunk’s _quarto.yaml is updated automatically\n\n\n\n\nThe render cache stores pre-rendered HTML on an orphan _cache branch. Pages whose source hasn’t changed are served directly from cache, dramatically speeding up incremental builds.\n# Typical workflow with caching\nquarto-graft trunk build     # Build grafts (uses cache for unchanged pages)\nquarto render                # Render the site\nquarto-graft trunk cache update  # Store newly rendered pages in cache\n\n# Inspect cache contents\nquarto-graft trunk cache status\n\n# Clear cache when needed\nquarto-graft trunk cache clear\n\n\n\nUse the status dashboard to see the state of all grafts at a glance:\nquarto-graft status\nThis shows each graft’s build status (current, stale, broken, never built), last build time, and whether HEAD matches the last built commit.",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "Getting Started",
+      "Trunk Setup"
+    ]
+  },
+  {
+    "objectID": "setup-trunk.html#installation",
+    "href": "setup-trunk.html#installation",
+    "title": "Trunk Setup",
+    "section": "",
+    "text": "uv init --lib\nuv add quarto-graft",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "Getting Started",
+      "Trunk Setup"
+    ]
+  },
+  {
+    "objectID": "setup-trunk.html#create-a-new-trunk",
+    "href": "setup-trunk.html#create-a-new-trunk",
+    "title": "Trunk Setup",
+    "section": "",
+    "text": "Initialize a trunk in your current directory:\n# Interactive mode (will prompt for site name and template)\nquarto-graft trunk init\n\n# Or provide all options\nquarto-graft trunk init \"My Documentation\" --template default\nThis creates files in your current directory:\n.\n├── _quarto.yaml          # Site config with collar markers\n├── grafts.yaml           # Graft configuration\n├── grafts.lock           # Build manifest (auto-generated)\n├── .gitignore\n├── dist/                 # Build output and worktree cache (gitignored)\n└── docs/                 # Website content\n    ├── index.qmd\n    ├── favicon.svg\n    └── grafts__/         # Auto-generated graft content\n\nNote: The command works in your current directory and does NOT create a subdirectory. Make sure you’re in your git repository root before running it.",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "Getting Started",
+      "Trunk Setup"
+    ]
+  },
+  {
+    "objectID": "setup-trunk.html#understanding-the-trunk-template",
+    "href": "setup-trunk.html#understanding-the-trunk-template",
+    "title": "Trunk Setup",
+    "section": "",
+    "text": "The trunk template defines your site’s structure. Key file: _quarto.yaml\nproject:\n  type: website\n  output-dir: _site\n\nwebsite:\n  title: \"My Project\"\n  sidebar:\n    contents:\n      - docs/index.qmd\n      - section: My Grafts\n        contents:\n          - _GRAFT_COLLAR: main      # Collar attachment point\n      - section: Notes\n        contents:\n          - _GRAFT_COLLAR: notes     # Another collar\nCollars (_GRAFT_COLLAR) are attachment points where grafts connect. When you create a graft, you specify which collar it attaches to.",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "Getting Started",
+      "Trunk Setup"
+    ]
+  },
+  {
+    "objectID": "setup-trunk.html#first-build",
+    "href": "setup-trunk.html#first-build",
+    "title": "Trunk Setup",
+    "section": "",
+    "text": "quarto-graft trunk build    # Build all grafts\nquarto preview              # Preview the site\nOn first build, no grafts exist yet, so collars will be empty.",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "Getting Started",
+      "Trunk Setup"
+    ]
+  },
+  {
+    "objectID": "setup-trunk.html#customizing-your-trunk",
+    "href": "setup-trunk.html#customizing-your-trunk",
+    "title": "Trunk Setup",
+    "section": "",
+    "text": "You can create custom trunk templates for your organization:\n# Use a custom template\nquarto-graft trunk init \"My Docs\" --template /path/to/template\n\n# Template structure\nmy-trunk-template/\n├── _quarto.yaml          # Jinja2 template\n├── docs/\n│   └── index.qmd         # Jinja2 template\n└── grafts.yaml           # Jinja2 template\nTemplates use Jinja2 variables: - { project_name } - Project name - { project_slug } - URL-safe slug - Custom variables you define\n\n\n\nEdit _quarto.yaml to add/remove collars:\nwebsite:\n  sidebar:\n    contents:\n      - section: Articles\n        contents:\n          - _GRAFT_COLLAR: articles\n      - section: Tutorials\n        contents:\n          - _GRAFT_COLLAR: tutorials\n      - section: Reference\n        contents:\n          - _GRAFT_COLLAR: reference\nGrafts will attach to these named sections.",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "Getting Started",
+      "Trunk Setup"
+    ]
+  },
+  {
+    "objectID": "setup-trunk.html#publishing-to-github-pages",
+    "href": "setup-trunk.html#publishing-to-github-pages",
+    "title": "Trunk Setup",
+    "section": "",
+    "text": "Initialize git and push to GitHub:\ngit init\ngit add .\ngit commit -m \"Initial trunk\"\ngit remote add origin &lt;your-repo-url&gt;\ngit push -u origin main\nCreate gh-pages branch:\ngit checkout --orphan gh-pages\ngit rm -rf .\ngit commit --allow-empty -m \"Initial gh-pages\"\ngit push -u origin gh-pages\ngit checkout main\nConfigure GitHub Pages:\n\nSettings → Pages → Source: gh-pages branch\nSettings → Actions → Permissions: Enable read/write\n\nBuild and publish:\nquarto-graft trunk build\nquarto render\nquarto publish gh-pages",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "Getting Started",
+      "Trunk Setup"
+    ]
+  },
+  {
+    "objectID": "setup-trunk.html#how-it-works",
+    "href": "setup-trunk.html#how-it-works",
+    "title": "Trunk Setup",
+    "section": "",
+    "text": "Grafts attach to collars: Each graft specifies a collar in grafts.yaml\nBuild process: quarto-graft trunk build renders each graft in isolation\nAuto-navigation: Built content is injected after the matching collar marker\nAtomic updates: The trunk’s _quarto.yaml is updated automatically",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "Getting Started",
+      "Trunk Setup"
+    ]
+  },
+  {
+    "objectID": "setup-trunk.html#render-cache",
+    "href": "setup-trunk.html#render-cache",
+    "title": "Trunk Setup",
+    "section": "",
+    "text": "The render cache stores pre-rendered HTML on an orphan _cache branch. Pages whose source hasn’t changed are served directly from cache, dramatically speeding up incremental builds.\n# Typical workflow with caching\nquarto-graft trunk build     # Build grafts (uses cache for unchanged pages)\nquarto render                # Render the site\nquarto-graft trunk cache update  # Store newly rendered pages in cache\n\n# Inspect cache contents\nquarto-graft trunk cache status\n\n# Clear cache when needed\nquarto-graft trunk cache clear",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "Getting Started",
+      "Trunk Setup"
+    ]
+  },
+  {
+    "objectID": "setup-trunk.html#monitoring-build-status",
+    "href": "setup-trunk.html#monitoring-build-status",
+    "title": "Trunk Setup",
+    "section": "",
+    "text": "Use the status dashboard to see the state of all grafts at a glance:\nquarto-graft status\nThis shows each graft’s build status (current, stale, broken, never built), last build time, and whether HEAD matches the last built commit.",
+    "crumbs": [
+      "Overview",
+      "quarto-graft",
+      "Getting Started",
+      "Trunk Setup"
     ]
   },
   {
@@ -210,136 +448,6 @@
       "Overview",
       "quarto-graft",
       "Playbook"
-    ]
-  },
-  {
-    "objectID": "setup-trunk.html",
-    "href": "setup-trunk.html",
-    "title": "Trunk Setup",
-    "section": "",
-    "text": "The trunk is your main branch that defines the overall Quarto site structure.\n\n\nuv init --lib\nuv add quarto-graft\n\n\n\nInitialize a trunk in your current directory:\n# Interactive mode (will prompt for site name and template)\nquarto-graft trunk init\n\n# Or provide all options\nquarto-graft trunk init \"My Documentation\" --template default\nThis creates files in your current directory:\n.\n├── _quarto.yaml          # Site config with collar markers\n├── grafts.yaml           # Graft configuration\n├── grafts.lock           # Build manifest (auto-generated)\n├── .gitignore\n├── dist/                 # Build output and worktree cache (gitignored)\n└── docs/                 # Website content\n    ├── index.qmd\n    ├── favicon.svg\n    └── grafts__/         # Auto-generated graft content\n\nNote: The command works in your current directory and does NOT create a subdirectory. Make sure you’re in your git repository root before running it.\n\n\n\n\nThe trunk template defines your site’s structure. Key file: _quarto.yaml\nproject:\n  type: website\n  output-dir: _site\n\nwebsite:\n  title: \"My Project\"\n  sidebar:\n    contents:\n      - docs/index.qmd\n      - section: My Grafts\n        contents:\n          - _GRAFT_COLLAR: main      # Collar attachment point\n      - section: Notes\n        contents:\n          - _GRAFT_COLLAR: notes     # Another collar\nCollars (_GRAFT_COLLAR) are attachment points where grafts connect. When you create a graft, you specify which collar it attaches to.\n\n\n\nquarto-graft trunk build    # Build all grafts\nquarto preview              # Preview the site\nOn first build, no grafts exist yet, so collars will be empty.\n\n\n\n\n\nYou can create custom trunk templates for your organization:\n# Use a custom template\nquarto-graft trunk init \"My Docs\" --template /path/to/template\n\n# Template structure\nmy-trunk-template/\n├── _quarto.yaml          # Jinja2 template\n├── docs/\n│   └── index.qmd         # Jinja2 template\n└── grafts.yaml           # Jinja2 template\nTemplates use Jinja2 variables: - { project_name } - Project name - { project_slug } - URL-safe slug - Custom variables you define\n\n\n\nEdit _quarto.yaml to add/remove collars:\nwebsite:\n  sidebar:\n    contents:\n      - section: Articles\n        contents:\n          - _GRAFT_COLLAR: articles\n      - section: Tutorials\n        contents:\n          - _GRAFT_COLLAR: tutorials\n      - section: Reference\n        contents:\n          - _GRAFT_COLLAR: reference\nGrafts will attach to these named sections.\n\n\n\n\n\nInitialize git and push to GitHub:\ngit init\ngit add .\ngit commit -m \"Initial trunk\"\ngit remote add origin &lt;your-repo-url&gt;\ngit push -u origin main\nCreate gh-pages branch:\ngit checkout --orphan gh-pages\ngit rm -rf .\ngit commit --allow-empty -m \"Initial gh-pages\"\ngit push -u origin gh-pages\ngit checkout main\nConfigure GitHub Pages:\n\nSettings → Pages → Source: gh-pages branch\nSettings → Actions → Permissions: Enable read/write\n\nBuild and publish:\nquarto-graft trunk build\nquarto render\nquarto publish gh-pages\n\n\n\n\n\nGrafts attach to collars: Each graft specifies a collar in grafts.yaml\nBuild process: quarto-graft trunk build renders each graft in isolation\nAuto-navigation: Built content is injected after the matching collar marker\nAtomic updates: The trunk’s _quarto.yaml is updated automatically\n\n\n\n\nThe render cache stores pre-rendered HTML on an orphan _cache branch. Pages whose source hasn’t changed are served directly from cache, dramatically speeding up incremental builds.\n# Typical workflow with caching\nquarto-graft trunk build     # Build grafts (uses cache for unchanged pages)\nquarto render                # Render the site\nquarto-graft trunk cache update  # Store newly rendered pages in cache\n\n# Inspect cache contents\nquarto-graft trunk cache status\n\n# Clear cache when needed\nquarto-graft trunk cache clear\n\n\n\nUse the status dashboard to see the state of all grafts at a glance:\nquarto-graft status\nThis shows each graft’s build status (current, stale, broken, never built), last build time, and whether HEAD matches the last built commit.",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Getting Started",
-      "Trunk Setup"
-    ]
-  },
-  {
-    "objectID": "setup-trunk.html#installation",
-    "href": "setup-trunk.html#installation",
-    "title": "Trunk Setup",
-    "section": "",
-    "text": "uv init --lib\nuv add quarto-graft",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Getting Started",
-      "Trunk Setup"
-    ]
-  },
-  {
-    "objectID": "setup-trunk.html#create-a-new-trunk",
-    "href": "setup-trunk.html#create-a-new-trunk",
-    "title": "Trunk Setup",
-    "section": "",
-    "text": "Initialize a trunk in your current directory:\n# Interactive mode (will prompt for site name and template)\nquarto-graft trunk init\n\n# Or provide all options\nquarto-graft trunk init \"My Documentation\" --template default\nThis creates files in your current directory:\n.\n├── _quarto.yaml          # Site config with collar markers\n├── grafts.yaml           # Graft configuration\n├── grafts.lock           # Build manifest (auto-generated)\n├── .gitignore\n├── dist/                 # Build output and worktree cache (gitignored)\n└── docs/                 # Website content\n    ├── index.qmd\n    ├── favicon.svg\n    └── grafts__/         # Auto-generated graft content\n\nNote: The command works in your current directory and does NOT create a subdirectory. Make sure you’re in your git repository root before running it.",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Getting Started",
-      "Trunk Setup"
-    ]
-  },
-  {
-    "objectID": "setup-trunk.html#understanding-the-trunk-template",
-    "href": "setup-trunk.html#understanding-the-trunk-template",
-    "title": "Trunk Setup",
-    "section": "",
-    "text": "The trunk template defines your site’s structure. Key file: _quarto.yaml\nproject:\n  type: website\n  output-dir: _site\n\nwebsite:\n  title: \"My Project\"\n  sidebar:\n    contents:\n      - docs/index.qmd\n      - section: My Grafts\n        contents:\n          - _GRAFT_COLLAR: main      # Collar attachment point\n      - section: Notes\n        contents:\n          - _GRAFT_COLLAR: notes     # Another collar\nCollars (_GRAFT_COLLAR) are attachment points where grafts connect. When you create a graft, you specify which collar it attaches to.",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Getting Started",
-      "Trunk Setup"
-    ]
-  },
-  {
-    "objectID": "setup-trunk.html#first-build",
-    "href": "setup-trunk.html#first-build",
-    "title": "Trunk Setup",
-    "section": "",
-    "text": "quarto-graft trunk build    # Build all grafts\nquarto preview              # Preview the site\nOn first build, no grafts exist yet, so collars will be empty.",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Getting Started",
-      "Trunk Setup"
-    ]
-  },
-  {
-    "objectID": "setup-trunk.html#customizing-your-trunk",
-    "href": "setup-trunk.html#customizing-your-trunk",
-    "title": "Trunk Setup",
-    "section": "",
-    "text": "You can create custom trunk templates for your organization:\n# Use a custom template\nquarto-graft trunk init \"My Docs\" --template /path/to/template\n\n# Template structure\nmy-trunk-template/\n├── _quarto.yaml          # Jinja2 template\n├── docs/\n│   └── index.qmd         # Jinja2 template\n└── grafts.yaml           # Jinja2 template\nTemplates use Jinja2 variables: - { project_name } - Project name - { project_slug } - URL-safe slug - Custom variables you define\n\n\n\nEdit _quarto.yaml to add/remove collars:\nwebsite:\n  sidebar:\n    contents:\n      - section: Articles\n        contents:\n          - _GRAFT_COLLAR: articles\n      - section: Tutorials\n        contents:\n          - _GRAFT_COLLAR: tutorials\n      - section: Reference\n        contents:\n          - _GRAFT_COLLAR: reference\nGrafts will attach to these named sections.",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Getting Started",
-      "Trunk Setup"
-    ]
-  },
-  {
-    "objectID": "setup-trunk.html#publishing-to-github-pages",
-    "href": "setup-trunk.html#publishing-to-github-pages",
-    "title": "Trunk Setup",
-    "section": "",
-    "text": "Initialize git and push to GitHub:\ngit init\ngit add .\ngit commit -m \"Initial trunk\"\ngit remote add origin &lt;your-repo-url&gt;\ngit push -u origin main\nCreate gh-pages branch:\ngit checkout --orphan gh-pages\ngit rm -rf .\ngit commit --allow-empty -m \"Initial gh-pages\"\ngit push -u origin gh-pages\ngit checkout main\nConfigure GitHub Pages:\n\nSettings → Pages → Source: gh-pages branch\nSettings → Actions → Permissions: Enable read/write\n\nBuild and publish:\nquarto-graft trunk build\nquarto render\nquarto publish gh-pages",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Getting Started",
-      "Trunk Setup"
-    ]
-  },
-  {
-    "objectID": "setup-trunk.html#how-it-works",
-    "href": "setup-trunk.html#how-it-works",
-    "title": "Trunk Setup",
-    "section": "",
-    "text": "Grafts attach to collars: Each graft specifies a collar in grafts.yaml\nBuild process: quarto-graft trunk build renders each graft in isolation\nAuto-navigation: Built content is injected after the matching collar marker\nAtomic updates: The trunk’s _quarto.yaml is updated automatically",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Getting Started",
-      "Trunk Setup"
-    ]
-  },
-  {
-    "objectID": "setup-trunk.html#render-cache",
-    "href": "setup-trunk.html#render-cache",
-    "title": "Trunk Setup",
-    "section": "",
-    "text": "The render cache stores pre-rendered HTML on an orphan _cache branch. Pages whose source hasn’t changed are served directly from cache, dramatically speeding up incremental builds.\n# Typical workflow with caching\nquarto-graft trunk build     # Build grafts (uses cache for unchanged pages)\nquarto render                # Render the site\nquarto-graft trunk cache update  # Store newly rendered pages in cache\n\n# Inspect cache contents\nquarto-graft trunk cache status\n\n# Clear cache when needed\nquarto-graft trunk cache clear",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Getting Started",
-      "Trunk Setup"
-    ]
-  },
-  {
-    "objectID": "setup-trunk.html#monitoring-build-status",
-    "href": "setup-trunk.html#monitoring-build-status",
-    "title": "Trunk Setup",
-    "section": "",
-    "text": "Use the status dashboard to see the state of all grafts at a glance:\nquarto-graft status\nThis shows each graft’s build status (current, stale, broken, never built), last build time, and whether HEAD matches the last built commit.",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "Getting Started",
-      "Trunk Setup"
     ]
   },
   {
@@ -501,114 +609,6 @@
     "crumbs": [
       "Overview",
       "quarto-graft"
-    ]
-  },
-  {
-    "objectID": "api-reference.html",
-    "href": "api-reference.html",
-    "title": "CLI Reference",
-    "section": "",
-    "text": "Complete reference for the quarto-graft command-line tool.\n\n\npip install quarto-graft\n\n\n\nquarto-graft [COMMAND] [SUBCOMMAND] [OPTIONS]\nRunning quarto-graft with no arguments launches an interactive menu where you can select any command using arrow keys.\nGlobal Options:\n\n--log-level, -L TEXT - Set logging level (DEBUG, INFO, WARNING, ERROR). Can also be set via QBB_LOG_LEVEL env var.\n--help - Show help message\n\n\n\n\n\n\n\nInitialize trunk in the current directory from a template.\nquarto-graft trunk init [NAME] [OPTIONS]\nArguments:\n\nNAME - Name of the site/project (e.g., “My Documentation”). Optional – will prompt if not provided.\n\nOptions:\n\n--template, -t TEXT - Template name or path (launches interactive selector if omitted)\n--overwrite/--no-overwrite - Overwrite existing files if they exist (prompts if omitted)\n--with TEXT - Include addon from trunk-templates/with-addons/ (can be used multiple times)\n--help - Show help message\n\nExamples:\n# Interactive mode (prompts for name, template, and addons)\nquarto-graft trunk init\n\n# Provide site name\nquarto-graft trunk init \"My Documentation\"\n\n# Use a specific template\nquarto-graft trunk init \"My Docs\" --template default\n\n# Include addons (e.g., GitHub Pages setup)\nquarto-graft trunk init \"My Docs\" --with gh-pages\n\nNote: This command works in your current directory and does NOT create a subdirectory. Run it from your git repository root.\n\n\n\n\n\nBuild all graft branches and update trunk navigation.\nquarto-graft trunk build [OPTIONS]\nOptions:\n\n--jobs, -j INTEGER - Number of parallel build workers (default: 1)\n--only TEXT - Only build these grafts by name (repeatable)\n--skip TEXT - Skip these grafts by name (repeatable)\n--changed - Only rebuild grafts with new commits since last build\n--no-cache - Bypass render cache and export all pages as .qmd\n--no-update-manifest - Do not update grafts.lock\n--help - Show help message\n\nExamples:\n# Build all grafts\nquarto-graft trunk build\n\n# Build with 4 parallel workers\nquarto-graft trunk build --jobs 4\n\n# Only build specific grafts\nquarto-graft trunk build --only alice --only bob\n\n# Skip specific grafts\nquarto-graft trunk build --skip broken-graft\n\n# Only rebuild grafts with new commits\nquarto-graft trunk build --changed\n\n# Force full rebuild (bypass cache)\nquarto-graft trunk build --no-cache\nWhat it does:\n\nFetches latest commits from all graft branches\nFor each graft, checks the per-page render cache for unchanged content\nRenders each graft in isolation (or uses last-good fallback if broken)\nCopies outputs to grafts__/&lt;graft-name&gt;/\nUpdates grafts.lock manifest\nUpdates trunk _quarto.yaml navigation\n\n\n\n\n\nUpdate _quarto.yaml from grafts.lock without rebuilding.\nquarto-graft trunk lock\nUseful for recovering from an interrupted build or after manual config changes.\n\n\n\n\nCreate a GitHub release with auto-incremented patch version.\nquarto-graft trunk release [OPTIONS]\nOptions:\n\n--edit-release, -e - Open release notes in $EDITOR before publishing (like git commit)\n--trigger - Trigger the build workflow after release (default: off)\n--workflow TEXT - GitHub Actions workflow file to trigger (default: quarto-graft-build-publish.yaml)\n--yes, -y - Skip confirmation prompt\n--help - Show help message\n\nExamples:\n# Create a release (no workflow trigger)\nquarto-graft trunk release\n\n# Edit release notes before publishing\nquarto-graft trunk release --edit-release\n\n# Create a release and trigger the build workflow\nquarto-graft trunk release --trigger\n\n# Skip confirmation\nquarto-graft trunk release --yes\nGenerates release notes from main branch PRs and per-graft commit logs. Uses a two-tag system (released/&lt;key&gt;, releasing/&lt;key&gt;) for safe rollback. When --edit-release is used, the auto-generated notes are opened in your terminal editor ($VISUAL, $EDITOR, or vi) for review and customisation — saving an empty file aborts the release.\n\n\n\n\nList available trunk templates.\nquarto-graft trunk list\nShows all discoverable trunk templates from built-in and custom sources.\n\n\n\n\n\nThe render cache stores pre-rendered HTML on an orphan _cache branch for incremental builds. Pages whose source hasn’t changed are served directly from cache, skipping re-rendering.\n\n\nCapture newly rendered pages into the cache.\nquarto-graft trunk cache update [OPTIONS]\nOptions:\n\n--site-dir, -s TEXT - Path to the Quarto _site/ output directory (default: _site)\n--help - Show help message\n\nExamples:\n# After building and rendering\nquarto-graft trunk build\nquarto render\nquarto-graft trunk cache update\n\n# Custom site directory\nquarto-graft trunk cache update --site-dir docs/_site\nRun this after quarto render to store rendered HTML on the _cache branch. Also fixes navigation in cached pages.\n\n\n\n\nClear the render cache.\nquarto-graft trunk cache clear [OPTIONS]\nOptions:\n\n--graft, -g TEXT - Only clear cache for a specific graft (by name)\n--no-remote - Do not delete the remote _cache branch\n--help - Show help message\n\nExamples:\n# Clear entire cache (local + remote)\nquarto-graft trunk cache clear\n\n# Clear cache for one graft only\nquarto-graft trunk cache clear --graft my-tutorial\n\n# Clear local cache only\nquarto-graft trunk cache clear --no-remote\n\n\n\n\nShow per-page cache status.\nquarto-graft trunk cache status\nDisplays a table with content hash, cache timestamp, and file count for each cached page.\n\n\n\n\n\n\n\nCreate a new graft branch from a template.\nquarto-graft graft create [NAME] [OPTIONS]\nArguments:\n\nNAME - Name of the graft (optional, will prompt if not provided)\n\nOptions:\n\n--template, -t TEXT - Graft template name or path (launches interactive selector if omitted)\n--collar, -c TEXT - Attachment point (collar) in trunk\n--branch-name TEXT - Custom git branch name (default: graft/{NAME})\n--push/--no-push - Push to remote (default: --push)\n--help - Show help message\n\nExamples:\n# Interactive mode (prompts for all options)\nquarto-graft graft create\n\n# Specify name and collar\nquarto-graft graft create my-tutorial --collar tutorials\n\n# Use specific template and collar\nquarto-graft graft create analysis --template py-jupyter --collar research\n\n# Custom branch name, don't push\nquarto-graft graft create draft --collar notes --branch-name graft/my-draft --no-push\nInteractive Prompts:\n\nGraft name (if not provided)\nTemplate selection (shows available templates from all sources)\nCollar selection (shows available collars from _quarto.yaml)\nBranch name confirmation\n\n\n\n\n\nBuild a single graft branch.\nquarto-graft graft build [OPTIONS]\nOptions:\n\n--branch, -b TEXT - Branch name to build (launches interactive selector if omitted)\n--no-update-manifest - Do not update grafts.lock\n--help - Show help message\n\nExamples:\n# Interactive branch selection\nquarto-graft graft build\n\n# Build specific branch\nquarto-graft graft build --branch graft/my-tutorial\n\n\n\n\nList all graft branches with their status.\nquarto-graft graft list\nOutput columns:\n\nBranch - Git branch name\nIn Git - Whether the local branch exists\nIn grafts.yaml - Whether configured in grafts.yaml\nIn grafts.lock - Whether present in the build manifest\nPre-rendered - Whether the graft has pre-rendered content\n\n\n\n\n\nRemove a graft branch locally, remotely, and from config.\nquarto-graft graft destroy [BRANCH] [OPTIONS]\nArguments:\n\nBRANCH - Git branch name to destroy (optional, will prompt if not provided)\n\nOptions:\n\n--keep-remote - Do not delete the remote branch on origin\n--help - Show help message\n\nExamples:\n# Interactive selection\nquarto-graft graft destroy\n\n# Destroy specific graft\nquarto-graft graft destroy graft/old-tutorial\n\n# Keep remote branch\nquarto-graft graft destroy graft/old-tutorial --keep-remote\n\n\n\n\n\n\nWarning\n\n\n\nThis is destructive. After destroying a graft, rebuild the trunk to update navigation: quarto-graft trunk build\n\n\n\n\n\n\nPre-render graft content for faster trunk builds.\nquarto-graft graft archive [PROJECT_DIR]\nArguments:\n\nPROJECT_DIR - Path to graft project directory (default: current directory)\n\nRun this from your graft branch. It runs quarto render and stores the output in _prerendered/ for the trunk to use directly, skipping rendering during trunk builds.\nAfter archiving:\n# Commit the pre-rendered content\ngit add _prerendered/ .graft-prerender.json\ngit commit -m \"Pre-render graft\"\ngit push\n\n\n\n\nRemove pre-rendered content from a graft.\nquarto-graft graft restore [PROJECT_DIR]\nArguments:\n\nPROJECT_DIR - Path to graft project directory (default: current directory)\n\nRemoves the _prerendered/ directory so trunk builds will render from source again.\n\n\n\n\n\n\n\nShow build status of all grafts.\nquarto-graft status [OPTIONS]\nOptions:\n\n--no-fetch - Skip fetching origin before checking status\n--help - Show help message\n\nOutput columns:\n\nGraft - Name from grafts.yaml\nCollar - Attachment point\nStatus - never built, broken, stale, current, or missing\nLast Built - Timestamp of last build\nHEAD - Current HEAD SHA (highlighted if different from built SHA)\nBuilt - Last successfully built SHA\n\n\n\n\n\nList all available collar attachment points from _quarto.yaml.\nquarto-graft collars list\n\n\n\n\nList available templates from all configured sources.\nquarto-graft templates list [OPTIONS]\nOptions:\n\n--type TEXT - Filter by type: trunk or graft\n\nExamples:\n# List all templates\nquarto-graft templates list\n\n# List only graft templates\nquarto-graft templates list --type graft\n\n\n\n\n\n\n\nMain configuration file listing all grafts and optional custom template sources:\nbranches:\n  - name: tutorial1\n    branch: graft/tutorial1\n    collar: main\n    local_path: tutorial1  # optional, defaults to name\n\n  - name: my-notes\n    branch: graft/personal-notes\n    collar: notes\n\n# Optional: custom template sources\ntemplate_sources:\n  - name: my-org\n    type: github\n    url: https://github.com/my-org/quarto-templates\nRequired fields per branch:\n\nname - Display name\nbranch - Git branch name\ncollar - Attachment point\n\n\n\n\nAuto-generated build manifest (don’t edit manually):\ngraft/tutorial1:\n  last_good: abc123def456...\n  last_checked: \"2025-01-15T10:30:00\"\n  title: \"My Tutorial\"\n  branch_key: graft-tutorial1\n  prerendered: false\n  cached_pages: []\n  structure:\n    sidebar:\n      contents:\n        - docs/index.qmd\n\n\n\n\n\n# 1. Build grafts and update navigation\nquarto-graft trunk build\n\n# 2. Render the full site with Quarto\nquarto render\n\n# 3. (Optional) Cache rendered pages for faster future builds\nquarto-graft trunk cache update\n\n# 4. Preview or publish\nquarto preview\n# or: quarto publish gh-pages",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "CLI Reference"
-    ]
-  },
-  {
-    "objectID": "api-reference.html#installation",
-    "href": "api-reference.html#installation",
-    "title": "CLI Reference",
-    "section": "",
-    "text": "pip install quarto-graft",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "CLI Reference"
-    ]
-  },
-  {
-    "objectID": "api-reference.html#command-structure",
-    "href": "api-reference.html#command-structure",
-    "title": "CLI Reference",
-    "section": "",
-    "text": "quarto-graft [COMMAND] [SUBCOMMAND] [OPTIONS]\nRunning quarto-graft with no arguments launches an interactive menu where you can select any command using arrow keys.\nGlobal Options:\n\n--log-level, -L TEXT - Set logging level (DEBUG, INFO, WARNING, ERROR). Can also be set via QBB_LOG_LEVEL env var.\n--help - Show help message",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "CLI Reference"
-    ]
-  },
-  {
-    "objectID": "api-reference.html#trunk-commands",
-    "href": "api-reference.html#trunk-commands",
-    "title": "CLI Reference",
-    "section": "",
-    "text": "Initialize trunk in the current directory from a template.\nquarto-graft trunk init [NAME] [OPTIONS]\nArguments:\n\nNAME - Name of the site/project (e.g., “My Documentation”). Optional – will prompt if not provided.\n\nOptions:\n\n--template, -t TEXT - Template name or path (launches interactive selector if omitted)\n--overwrite/--no-overwrite - Overwrite existing files if they exist (prompts if omitted)\n--with TEXT - Include addon from trunk-templates/with-addons/ (can be used multiple times)\n--help - Show help message\n\nExamples:\n# Interactive mode (prompts for name, template, and addons)\nquarto-graft trunk init\n\n# Provide site name\nquarto-graft trunk init \"My Documentation\"\n\n# Use a specific template\nquarto-graft trunk init \"My Docs\" --template default\n\n# Include addons (e.g., GitHub Pages setup)\nquarto-graft trunk init \"My Docs\" --with gh-pages\n\nNote: This command works in your current directory and does NOT create a subdirectory. Run it from your git repository root.\n\n\n\n\n\nBuild all graft branches and update trunk navigation.\nquarto-graft trunk build [OPTIONS]\nOptions:\n\n--jobs, -j INTEGER - Number of parallel build workers (default: 1)\n--only TEXT - Only build these grafts by name (repeatable)\n--skip TEXT - Skip these grafts by name (repeatable)\n--changed - Only rebuild grafts with new commits since last build\n--no-cache - Bypass render cache and export all pages as .qmd\n--no-update-manifest - Do not update grafts.lock\n--help - Show help message\n\nExamples:\n# Build all grafts\nquarto-graft trunk build\n\n# Build with 4 parallel workers\nquarto-graft trunk build --jobs 4\n\n# Only build specific grafts\nquarto-graft trunk build --only alice --only bob\n\n# Skip specific grafts\nquarto-graft trunk build --skip broken-graft\n\n# Only rebuild grafts with new commits\nquarto-graft trunk build --changed\n\n# Force full rebuild (bypass cache)\nquarto-graft trunk build --no-cache\nWhat it does:\n\nFetches latest commits from all graft branches\nFor each graft, checks the per-page render cache for unchanged content\nRenders each graft in isolation (or uses last-good fallback if broken)\nCopies outputs to grafts__/&lt;graft-name&gt;/\nUpdates grafts.lock manifest\nUpdates trunk _quarto.yaml navigation\n\n\n\n\n\nUpdate _quarto.yaml from grafts.lock without rebuilding.\nquarto-graft trunk lock\nUseful for recovering from an interrupted build or after manual config changes.\n\n\n\n\nCreate a GitHub release with auto-incremented patch version.\nquarto-graft trunk release [OPTIONS]\nOptions:\n\n--edit-release, -e - Open release notes in $EDITOR before publishing (like git commit)\n--trigger - Trigger the build workflow after release (default: off)\n--workflow TEXT - GitHub Actions workflow file to trigger (default: quarto-graft-build-publish.yaml)\n--yes, -y - Skip confirmation prompt\n--help - Show help message\n\nExamples:\n# Create a release (no workflow trigger)\nquarto-graft trunk release\n\n# Edit release notes before publishing\nquarto-graft trunk release --edit-release\n\n# Create a release and trigger the build workflow\nquarto-graft trunk release --trigger\n\n# Skip confirmation\nquarto-graft trunk release --yes\nGenerates release notes from main branch PRs and per-graft commit logs. Uses a two-tag system (released/&lt;key&gt;, releasing/&lt;key&gt;) for safe rollback. When --edit-release is used, the auto-generated notes are opened in your terminal editor ($VISUAL, $EDITOR, or vi) for review and customisation — saving an empty file aborts the release.\n\n\n\n\nList available trunk templates.\nquarto-graft trunk list\nShows all discoverable trunk templates from built-in and custom sources.",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "CLI Reference"
-    ]
-  },
-  {
-    "objectID": "api-reference.html#trunk-cache-commands",
-    "href": "api-reference.html#trunk-cache-commands",
-    "title": "CLI Reference",
-    "section": "",
-    "text": "The render cache stores pre-rendered HTML on an orphan _cache branch for incremental builds. Pages whose source hasn’t changed are served directly from cache, skipping re-rendering.\n\n\nCapture newly rendered pages into the cache.\nquarto-graft trunk cache update [OPTIONS]\nOptions:\n\n--site-dir, -s TEXT - Path to the Quarto _site/ output directory (default: _site)\n--help - Show help message\n\nExamples:\n# After building and rendering\nquarto-graft trunk build\nquarto render\nquarto-graft trunk cache update\n\n# Custom site directory\nquarto-graft trunk cache update --site-dir docs/_site\nRun this after quarto render to store rendered HTML on the _cache branch. Also fixes navigation in cached pages.\n\n\n\n\nClear the render cache.\nquarto-graft trunk cache clear [OPTIONS]\nOptions:\n\n--graft, -g TEXT - Only clear cache for a specific graft (by name)\n--no-remote - Do not delete the remote _cache branch\n--help - Show help message\n\nExamples:\n# Clear entire cache (local + remote)\nquarto-graft trunk cache clear\n\n# Clear cache for one graft only\nquarto-graft trunk cache clear --graft my-tutorial\n\n# Clear local cache only\nquarto-graft trunk cache clear --no-remote\n\n\n\n\nShow per-page cache status.\nquarto-graft trunk cache status\nDisplays a table with content hash, cache timestamp, and file count for each cached page.",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "CLI Reference"
-    ]
-  },
-  {
-    "objectID": "api-reference.html#graft-commands",
-    "href": "api-reference.html#graft-commands",
-    "title": "CLI Reference",
-    "section": "",
-    "text": "Create a new graft branch from a template.\nquarto-graft graft create [NAME] [OPTIONS]\nArguments:\n\nNAME - Name of the graft (optional, will prompt if not provided)\n\nOptions:\n\n--template, -t TEXT - Graft template name or path (launches interactive selector if omitted)\n--collar, -c TEXT - Attachment point (collar) in trunk\n--branch-name TEXT - Custom git branch name (default: graft/{NAME})\n--push/--no-push - Push to remote (default: --push)\n--help - Show help message\n\nExamples:\n# Interactive mode (prompts for all options)\nquarto-graft graft create\n\n# Specify name and collar\nquarto-graft graft create my-tutorial --collar tutorials\n\n# Use specific template and collar\nquarto-graft graft create analysis --template py-jupyter --collar research\n\n# Custom branch name, don't push\nquarto-graft graft create draft --collar notes --branch-name graft/my-draft --no-push\nInteractive Prompts:\n\nGraft name (if not provided)\nTemplate selection (shows available templates from all sources)\nCollar selection (shows available collars from _quarto.yaml)\nBranch name confirmation\n\n\n\n\n\nBuild a single graft branch.\nquarto-graft graft build [OPTIONS]\nOptions:\n\n--branch, -b TEXT - Branch name to build (launches interactive selector if omitted)\n--no-update-manifest - Do not update grafts.lock\n--help - Show help message\n\nExamples:\n# Interactive branch selection\nquarto-graft graft build\n\n# Build specific branch\nquarto-graft graft build --branch graft/my-tutorial\n\n\n\n\nList all graft branches with their status.\nquarto-graft graft list\nOutput columns:\n\nBranch - Git branch name\nIn Git - Whether the local branch exists\nIn grafts.yaml - Whether configured in grafts.yaml\nIn grafts.lock - Whether present in the build manifest\nPre-rendered - Whether the graft has pre-rendered content\n\n\n\n\n\nRemove a graft branch locally, remotely, and from config.\nquarto-graft graft destroy [BRANCH] [OPTIONS]\nArguments:\n\nBRANCH - Git branch name to destroy (optional, will prompt if not provided)\n\nOptions:\n\n--keep-remote - Do not delete the remote branch on origin\n--help - Show help message\n\nExamples:\n# Interactive selection\nquarto-graft graft destroy\n\n# Destroy specific graft\nquarto-graft graft destroy graft/old-tutorial\n\n# Keep remote branch\nquarto-graft graft destroy graft/old-tutorial --keep-remote\n\n\n\n\n\n\nWarning\n\n\n\nThis is destructive. After destroying a graft, rebuild the trunk to update navigation: quarto-graft trunk build\n\n\n\n\n\n\nPre-render graft content for faster trunk builds.\nquarto-graft graft archive [PROJECT_DIR]\nArguments:\n\nPROJECT_DIR - Path to graft project directory (default: current directory)\n\nRun this from your graft branch. It runs quarto render and stores the output in _prerendered/ for the trunk to use directly, skipping rendering during trunk builds.\nAfter archiving:\n# Commit the pre-rendered content\ngit add _prerendered/ .graft-prerender.json\ngit commit -m \"Pre-render graft\"\ngit push\n\n\n\n\nRemove pre-rendered content from a graft.\nquarto-graft graft restore [PROJECT_DIR]\nArguments:\n\nPROJECT_DIR - Path to graft project directory (default: current directory)\n\nRemoves the _prerendered/ directory so trunk builds will render from source again.",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "CLI Reference"
-    ]
-  },
-  {
-    "objectID": "api-reference.html#utility-commands",
-    "href": "api-reference.html#utility-commands",
-    "title": "CLI Reference",
-    "section": "",
-    "text": "Show build status of all grafts.\nquarto-graft status [OPTIONS]\nOptions:\n\n--no-fetch - Skip fetching origin before checking status\n--help - Show help message\n\nOutput columns:\n\nGraft - Name from grafts.yaml\nCollar - Attachment point\nStatus - never built, broken, stale, current, or missing\nLast Built - Timestamp of last build\nHEAD - Current HEAD SHA (highlighted if different from built SHA)\nBuilt - Last successfully built SHA\n\n\n\n\n\nList all available collar attachment points from _quarto.yaml.\nquarto-graft collars list\n\n\n\n\nList available templates from all configured sources.\nquarto-graft templates list [OPTIONS]\nOptions:\n\n--type TEXT - Filter by type: trunk or graft\n\nExamples:\n# List all templates\nquarto-graft templates list\n\n# List only graft templates\nquarto-graft templates list --type graft",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "CLI Reference"
-    ]
-  },
-  {
-    "objectID": "api-reference.html#configuration-files",
-    "href": "api-reference.html#configuration-files",
-    "title": "CLI Reference",
-    "section": "",
-    "text": "Main configuration file listing all grafts and optional custom template sources:\nbranches:\n  - name: tutorial1\n    branch: graft/tutorial1\n    collar: main\n    local_path: tutorial1  # optional, defaults to name\n\n  - name: my-notes\n    branch: graft/personal-notes\n    collar: notes\n\n# Optional: custom template sources\ntemplate_sources:\n  - name: my-org\n    type: github\n    url: https://github.com/my-org/quarto-templates\nRequired fields per branch:\n\nname - Display name\nbranch - Git branch name\ncollar - Attachment point\n\n\n\n\nAuto-generated build manifest (don’t edit manually):\ngraft/tutorial1:\n  last_good: abc123def456...\n  last_checked: \"2025-01-15T10:30:00\"\n  title: \"My Tutorial\"\n  branch_key: graft-tutorial1\n  prerendered: false\n  cached_pages: []\n  structure:\n    sidebar:\n      contents:\n        - docs/index.qmd",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "CLI Reference"
-    ]
-  },
-  {
-    "objectID": "api-reference.html#typical-build-workflow",
-    "href": "api-reference.html#typical-build-workflow",
-    "title": "CLI Reference",
-    "section": "",
-    "text": "# 1. Build grafts and update navigation\nquarto-graft trunk build\n\n# 2. Render the full site with Quarto\nquarto render\n\n# 3. (Optional) Cache rendered pages for faster future builds\nquarto-graft trunk cache update\n\n# 4. Preview or publish\nquarto preview\n# or: quarto publish gh-pages",
-    "crumbs": [
-      "Overview",
-      "quarto-graft",
-      "CLI Reference"
     ]
   }
 ]
