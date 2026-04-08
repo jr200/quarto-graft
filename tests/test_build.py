@@ -12,6 +12,7 @@ from quarto_graft.build import (
     _update_manifest_entry,
     create_broken_stub,
     inject_failure_header,
+    inject_graft_source_metadata,
     resolve_head_sha,
 )
 from quarto_graft.constants import GRAFTS_BUILD_RELPATH
@@ -72,6 +73,149 @@ class TestInjectFailureHeader:
         text = qmd.read_text(encoding="utf-8")
         assert "`abc`" in text
         assert "`def`" in text
+
+
+# ---------------------------------------------------------------------------
+# inject_graft_source_metadata
+# ---------------------------------------------------------------------------
+
+
+class TestInjectGraftSourceMetadata:
+    def test_injects_into_existing_frontmatter(self, tmp_path):
+        qmd = tmp_path / "page.qmd"
+        qmd.write_text("---\ntitle: Hello\n---\nBody\n", encoding="utf-8")
+
+        inject_graft_source_metadata(qmd, "graft/demo", "docs/index.qmd")
+        text = qmd.read_text(encoding="utf-8")
+
+        assert '_graft-branch: "graft/demo"' in text
+        assert '_graft-source-path: "docs/index.qmd"' in text
+        assert text.startswith("---\n")
+        assert "Body" in text
+
+    def test_creates_frontmatter_when_missing(self, tmp_path):
+        qmd = tmp_path / "page.qmd"
+        qmd.write_text("Just body text\n", encoding="utf-8")
+
+        inject_graft_source_metadata(qmd, "graft/notes", "notes.qmd")
+        text = qmd.read_text(encoding="utf-8")
+
+        assert text.startswith("---\n")
+        assert '_graft-branch: "graft/notes"' in text
+        assert '_graft-source-path: "notes.qmd"' in text
+        assert "Just body text" in text
+
+    def test_preserves_existing_metadata(self, tmp_path):
+        qmd = tmp_path / "page.qmd"
+        qmd.write_text("---\ntitle: My Page\nauthor: me\n---\nContent\n", encoding="utf-8")
+
+        inject_graft_source_metadata(qmd, "graft/x", "docs/page.qmd")
+        text = qmd.read_text(encoding="utf-8")
+
+        assert "title: My Page" in text
+        assert "author: me" in text
+        assert '_graft-branch: "graft/x"' in text
+
+    def test_metadata_inserted_before_closing_delimiter(self, tmp_path):
+        """Graft metadata must sit inside the frontmatter block, not after it."""
+        qmd = tmp_path / "page.qmd"
+        qmd.write_text("---\ntitle: T\n---\nBody\n", encoding="utf-8")
+
+        inject_graft_source_metadata(qmd, "graft/a", "x.qmd")
+        text = qmd.read_text(encoding="utf-8")
+
+        lines = text.split("\n")
+        opening = lines.index("---")
+        closing = lines.index("---", opening + 1)
+        between = "\n".join(lines[opening + 1 : closing])
+        assert "_graft-branch" in between
+        assert "_graft-source-path" in between
+
+    def test_body_not_duplicated(self, tmp_path):
+        qmd = tmp_path / "page.qmd"
+        qmd.write_text("---\ntitle: T\n---\nOne line body\n", encoding="utf-8")
+
+        inject_graft_source_metadata(qmd, "graft/b", "p.qmd")
+        text = qmd.read_text(encoding="utf-8")
+
+        assert text.count("One line body") == 1
+
+    def test_empty_file(self, tmp_path):
+        qmd = tmp_path / "page.qmd"
+        qmd.write_text("", encoding="utf-8")
+
+        inject_graft_source_metadata(qmd, "graft/e", "docs/e.qmd")
+        text = qmd.read_text(encoding="utf-8")
+
+        assert text.startswith("---\n")
+        assert '_graft-branch: "graft/e"' in text
+
+    def test_nested_source_path(self, tmp_path):
+        """Source paths with sub-directories are preserved as-is."""
+        qmd = tmp_path / "page.qmd"
+        qmd.write_text("---\ntitle: Deep\n---\n", encoding="utf-8")
+
+        inject_graft_source_metadata(qmd, "graft/deep", "sub/dir/page.qmd")
+        text = qmd.read_text(encoding="utf-8")
+
+        assert '_graft-source-path: "sub/dir/page.qmd"' in text
+
+    def test_branch_with_special_chars_quoted(self, tmp_path):
+        """Branch names are YAML-quoted so special chars are safe."""
+        qmd = tmp_path / "page.qmd"
+        qmd.write_text("---\ntitle: T\n---\n", encoding="utf-8")
+
+        inject_graft_source_metadata(qmd, "graft/my-feature_v2", "index.qmd")
+        text = qmd.read_text(encoding="utf-8")
+
+        assert '_graft-branch: "graft/my-feature_v2"' in text
+
+    def test_valid_yaml_after_injection(self, tmp_path):
+        """The resulting frontmatter must be parseable YAML."""
+        yaml_utils = __import__("quarto_graft.yaml_utils", fromlist=["get_yaml_loader"])
+        loader = yaml_utils.get_yaml_loader()
+
+        qmd = tmp_path / "page.qmd"
+        qmd.write_text("---\ntitle: Hello\nauthor: me\n---\nBody\n", encoding="utf-8")
+
+        inject_graft_source_metadata(qmd, "graft/demo", "docs/index.qmd")
+        text = qmd.read_text(encoding="utf-8")
+
+        # Extract frontmatter between --- delimiters
+        parts = text.split("---", 2)
+        fm = loader.load(parts[1])
+
+        assert fm["_graft-branch"] == "graft/demo"
+        assert fm["_graft-source-path"] == "docs/index.qmd"
+        assert fm["title"] == "Hello"
+        assert fm["author"] == "me"
+
+    def test_idempotent_double_injection(self, tmp_path):
+        """Running injection twice should add the metadata twice (no dedup),
+        but the file should remain parseable."""
+        qmd = tmp_path / "page.qmd"
+        qmd.write_text("---\ntitle: T\n---\nBody\n", encoding="utf-8")
+
+        inject_graft_source_metadata(qmd, "graft/a", "a.qmd")
+        inject_graft_source_metadata(qmd, "graft/b", "b.qmd")
+        text = qmd.read_text(encoding="utf-8")
+
+        # Both injections present (last one wins in YAML)
+        assert '_graft-branch: "graft/a"' in text
+        assert '_graft-branch: "graft/b"' in text
+
+    def test_works_with_inject_failure_header(self, tmp_path):
+        """Graft metadata + failure header should coexist without corruption."""
+        qmd = tmp_path / "page.qmd"
+        qmd.write_text("---\ntitle: T\n---\nBody\n", encoding="utf-8")
+
+        inject_graft_source_metadata(qmd, "graft/c", "docs/c.qmd")
+        inject_failure_header(qmd, "graft/c", "abc1234567", "def7654321")
+
+        text = qmd.read_text(encoding="utf-8")
+        assert '_graft-branch: "graft/c"' in text
+        assert "::: callout-warning" in text
+        assert "Body" in text
 
 
 # ---------------------------------------------------------------------------

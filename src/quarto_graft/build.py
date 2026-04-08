@@ -101,6 +101,31 @@ You are seeing content from the last known good commit **`{last_good_short}`**.
     qmd.write_text(header + text, encoding="utf-8")
 
 
+def inject_graft_source_metadata(dest: Path, branch: str, source_rel: str) -> None:
+    """Inject ``_graft-branch`` and ``_graft-source-path`` into a .qmd file's
+    YAML frontmatter so that the Lua filter can fix the "View Source" link.
+    """
+    text = dest.read_text(encoding="utf-8")
+    lines = text.split("\n")
+
+    meta_lines = [
+        f'_graft-branch: "{branch}"',
+        f'_graft-source-path: "{source_rel}"',
+    ]
+
+    if lines and lines[0].strip() == "---":
+        # Find the closing ---
+        for i in range(1, len(lines)):
+            if lines[i].strip() == "---":
+                for j, ml in enumerate(meta_lines):
+                    lines.insert(i + j, ml)
+                break
+    else:
+        lines = ["---"] + meta_lines + ["---"] + lines
+
+    dest.write_text("\n".join(lines), encoding="utf-8")
+
+
 def create_broken_stub(
     branch_key: str,
     branch: str,
@@ -264,6 +289,8 @@ def _export_from_worktree(
 
                     dest = dest_dir / dest_rel
                     _convert_source_to_qmd(src, dest)
+
+                    inject_graft_source_metadata(dest, branch, src_rel)
 
                     if inject_warning and warn_last_good_sha:
                         inject_failure_header(dest, branch, warn_head_sha, warn_last_good_sha)
